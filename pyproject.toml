@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "intelliesg"
+version = "0.1.0"
+description = ""
+authors = ["Bogdan Fometescu <75015831+BogdanMFometescu@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.1"
+python-dotenv = "^1.0.0"
+psycopg2-binary = "^2.9.9"
+
+
+[tool.poetry.group.dev.dependencies]
+setuptools = "^69.0.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
