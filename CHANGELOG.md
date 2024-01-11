@@ -3,9 +3,17 @@
 - Changelog for the intelliesg app
 
 
+
+[11.01.2024]
+
+Version 0.0.3
+-
+-created draft classes for envdata/models.py  
+
+
 [10.01.2024]
 
-Version 0.1.1
+Version 0.0.2
 -
 - created poetry environment
 - created django project : intelliesg
@@ -16,7 +24,7 @@ Version 0.1.1
 - finished configuring settings.py 
 
 
-Version 0.1.0
+Version 0.0.1
 -
 - initial commit
 
