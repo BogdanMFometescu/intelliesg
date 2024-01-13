@@ -3,6 +3,16 @@
 - Changelog for the intelliesg app
 
 
+[13.01.2024]
+
+Version 0.0.4
+-
+- refactored classes from envdata/model.py
+- created envdata/constants.py
+- created envdata/forms.py
+
+
+
 
 [11.01.2024]
 
