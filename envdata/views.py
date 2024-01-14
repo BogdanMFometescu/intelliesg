@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 from envdata.forms import EmissionForm, FuelEmissionForm
 from envdata.models import Emission, FuelEmission
@@ -26,6 +26,7 @@ def create_emission(request):
         form = EmissionForm(request.POST or None)
         if form.is_valid():
             form.save()
+            return redirect('emissions')
     context = {'form': form}
     return render(request, 'envdata/form-emission.html', context)
 

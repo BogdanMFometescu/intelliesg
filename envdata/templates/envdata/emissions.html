@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+<p>HELLO</p>
+
+<a href="{% url 'create_emission' %}">Create</a>
+<br>
+{% for emission in emissions %}
+    {{ emission.emission_scope }}
+    {{ emission.emission_type }}
+{% endfor %}
+
 
 </body>
 </html>
