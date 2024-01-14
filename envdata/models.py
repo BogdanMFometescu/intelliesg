@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 import uuid
 from envdata.constants import *
 
@@ -11,18 +12,19 @@ class Emission(models.Model):
     created = models.DateField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
-
-class ScopeOneEmission(models.Model):
-    emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
-    calculation_method = models.CharField(max_length=255, blank=False, null=False, choices=CALCULATION_METHOD)
-    created = models.DateField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    @staticmethod
+    def total_co2_emissions():
+        total_co2 = 0
+        total_co2 += FuelEmission.objects.aggregate(Sum('co2e_for_fuel_emission'))['co2e_for_fuel_emission__sum'] or 0
+        total_co2 += Sf6Emission.objects.aggregate(Sum('co2e_for_sf6_emission'))['co2e_for_sf6_emission__sum'] or 0
+        total_co2 += EnergyAcquisition.objects.aggregate('co2e_for_energy_emission')[
+                         'co2e_for_energy_emission__sum'] or 0
+        return total_co2
 
 
 # SCOPE 1 emissions
 class FuelEmission(models.Model):
     emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
-    emission_scope = models.ForeignKey(ScopeOneEmission, on_delete=models.CASCADE)
     fuel_type = models.CharField(max_length=255, blank=False, null=False, choices=FUEL_TYPE)
     fuel_source = models.CharField(max_length=255, blank=False, null=False)
     fuel_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0.00)
@@ -34,20 +36,28 @@ class FuelEmission(models.Model):
     created = models.DateField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
+    @property
+    def co2e_for_fuel_emission(self):
+        total_co2 = self.fuel_quantity * self.emission_factor
+        return total_co2
+
 
 class Sf6Emission(models.Model):
     emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
-    emission_scope = models.ForeignKey(ScopeOneEmission, on_delete=models.CASCADE)
     equipment_type = models.CharField(max_length=255, blank=False, null=False)
     equipment_producer = models.CharField(max_length=255, blank=False, null=False)
     sf6_quantity = models.FloatField(max_length=10, blank=False, null=False)
     created = models.DateField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
+    @property
+    def co2e_for_sf6_emission(self):
+        total_co2 = self.sf6_quantity * 1
+        return total_co2
+
 
 class RefrigerantEmission(models.Model):
     emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
-    emission_scope = models.ForeignKey(ScopeOneEmission, on_delete=models.CASCADE)
     equipment_type = models.CharField(max_length=255, blank=False, null=False)
     refrigerant_type = models.CharField(max_length=255, blank=False, null=False)
     refrigerant_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0.00)
@@ -56,16 +66,10 @@ class RefrigerantEmission(models.Model):
 
 
 # SCOPE 2 emissions
-class ScopeTwoEmission(models.Model):
-    emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
-    total_co2_scope_two = models.FloatField(blank=False, null=False)
-    created = models.DateField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
 
 class EnergyAcquisition(models.Model):
     emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
-    emission_scope = models.ForeignKey(ScopeOneEmission, on_delete=models.CASCADE)
     location = models.CharField(max_length=255, blank=False, null=False)
     supplier_name = models.CharField(max_length=255, blank=False, null=False)
     measure_unit = models.CharField(max_length=20, blank=False, null=False)
@@ -74,34 +78,7 @@ class EnergyAcquisition(models.Model):
     created = models.DateField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
-
-# SCOPE 3 emissions
-
-class ScopeThreeEmission(models.Model):
-    emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
-    created = models.DateField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
-
-# @property
-# def co2e_for_fuel_emission(self):
-#     pass
-#
-#
-# @property
-# def co2_for_sf6_emission(self):
-#     pass
-#
-#
-# @property
-# def co2_for_energy_emission(self):
-#     pass
-#
-#
-# @property
-# def scope_one_emissions_total(self):
-#     pass
-#
-#
-# @property
-# def scope_two_emissions_total(self):
-#     pass
+    @property
+    def co2e_for_energy_emission(self):
+        total_co2 = self.emission_factor * 1
+        return total_co2

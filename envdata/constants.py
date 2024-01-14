@@ -42,8 +42,3 @@ POLLUTION_NORM = [('Euro 1', 'Euro 1'),
                   ('Euro 5', 'Euro 5'),
                   ('Euro 6', 'Euro 6')]
 
-TEST_DICT = {
-    'fuel_type': {'diesel': [('Diesel passenger cars', 'Diesel passenger cars')],
-                  'gasoline': [('Gasoline cars', 'Gasoline cars')]}
-
-}

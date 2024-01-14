@@ -2,6 +2,22 @@
 
 - Changelog for the intelliesg app
 
+[14.01.2024]
+
+Version 0.0.5
+-
+- added methods for CRUD in envdata/views.py for Sf6Emissions,RefrigerantsEmissions,EnergyAcquisition
+- added modelform for Sf6Emissions,RefrigerantsEmissions,EnergyAcquisition in envdata/forms.py
+- added html templates for Sf6Emissions,RefrigerantsEmissions,EnergyAcquisition
+- updated envdata/urls.py with Sf6Emissions,RefrigerantsEmissions,EnergyAcquisition paths
+- created new app :socialdata
+- added requests package
+- created forms.py for emissions and fuel emissions
+- created url paths for emissions and fuel emissions
+- filled in the form-emissions.html
+
+
+
 
 [13.01.2024]
 
