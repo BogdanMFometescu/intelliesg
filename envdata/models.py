@@ -21,6 +21,9 @@ class Emission(models.Model):
                          'co2e_for_energy_emission__sum'] or 0
         return total_co2
 
+    def __str__(self):
+        return f'{self.emission_type}'
+
 
 # SCOPE 1 emissions
 class FuelEmission(models.Model):
@@ -40,6 +43,9 @@ class FuelEmission(models.Model):
     def co2e_for_fuel_emission(self):
         total_co2 = self.fuel_quantity * self.emission_factor
         return total_co2
+
+    def __str__(self):
+        return f'{self.fuel_type}'
 
 
 class Sf6Emission(models.Model):
@@ -64,6 +70,9 @@ class RefrigerantEmission(models.Model):
     created = models.DateField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
+    def __str__(self):
+        return f'{self.refrigerant_type}'
+
 
 # SCOPE 2 emissions
 
@@ -82,3 +91,17 @@ class EnergyAcquisition(models.Model):
     def co2e_for_energy_emission(self):
         total_co2 = self.emission_factor * 1
         return total_co2
+
+    def __str__(self):
+        return f'{self.supplier_name}'
+
+
+class DistanceCalculation(models.Model):
+    origin = models.CharField(max_length=255, blank=False, null=False)
+    destination = models.CharField(max_length=255, blank=False, null=False)
+    distance = models.FloatField(blank=False, null=False)
+    created = models.DateField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+
+    def __str__(self):
+        return f'{self.distance}'

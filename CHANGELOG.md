@@ -12,6 +12,7 @@ Version 0.0.5
 - updated envdata/urls.py with Sf6Emissions,RefrigerantsEmissions,EnergyAcquisition paths
 - created new app :socialdata
 - added requests package
+- created new model in envdata/models.py :DistanceCalculation
 - created forms.py for emissions and fuel emissions
 - created url paths for emissions and fuel emissions
 - filled in the form-emissions.html
