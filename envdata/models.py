@@ -100,8 +100,14 @@ class DistanceCalculation(models.Model):
     origin = models.CharField(max_length=255, blank=False, null=False)
     destination = models.CharField(max_length=255, blank=False, null=False)
     distance = models.FloatField(blank=False, null=False)
+    fuel_consumption = models.FloatField(blank=False, null=False, default=7.5)
     created = models.DateField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+
+    @property
+    def co2_for_distance_calculation(self):
+        total_co2 = ((self.distance * self.fuel_consumption) / 100) * 10.8
+        return total_co2
 
     def __str__(self):
         return f'{self.distance}'
