@@ -2,6 +2,16 @@
 
 - Changelog for the intelliesg app
 
+
+[16.01.2024]
+
+Version 0.0.6
+-
+- added methods in envdata/views.py for DistanceCalculation model
+- added url paths for DistanceCalculation model
+- added forms, html templates for DistanceCalculation model
+
+
 [14.01.2024]
 
 Version 0.0.5

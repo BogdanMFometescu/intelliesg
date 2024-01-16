@@ -4,12 +4,13 @@ from envdata.forms import (EmissionForm,
                            FuelEmissionForm,
                            Sf6EmissionForm,
                            RefrigerantEmissionForm,
-                           EnergyAcquisitionForm)
+                           EnergyAcquisitionForm,
+                           DistanceCalculationForm)
 from envdata.models import (Emission,
                             FuelEmission,
                             Sf6Emission,
                             RefrigerantEmission,
-                            EnergyAcquisition)
+                            EnergyAcquisition, DistanceCalculation)
 
 from django.shortcuts import get_object_or_404
 
@@ -232,3 +233,47 @@ def delete_energy_acquisition(request, pk):
         deleted_energy_aq.delete()
     context = {'object': form}
     return render(request, 'envdata/delete-universal.html', context)
+
+
+def distances(request):
+    all_distances = DistanceCalculation.objects.all()
+    context = {'all_distances': all_distances}
+    return render(request, 'envdata/distances/distances.html', context)
+
+
+def distance(request, pk):
+    single_distance = get_object_or_404(DistanceCalculation, id=pk)
+    context = {'distance': single_distance}
+    return render(request, 'envdata/distances/distance.html', context)
+
+
+def create_distance(request):
+    form = DistanceCalculationForm()
+    if request.method == 'POST':
+        form = DistanceCalculationForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'envdata/distances/form-distance.html', context)
+
+
+def update_distance(request, pk):
+    updated_distance = get_object_or_404(DistanceCalculation, id=pk)
+    form = DistanceCalculationForm(instance=updated_distance)
+    if request.method == 'POST':
+        form = DistanceCalculationForm(request.POST or None, instance=updated_distance)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, 'envdata', context)
+
+
+def delete_distance(request, pk):
+    deleted_distance = get_object_or_404(DistanceCalculation, id=pk)
+    form = DistanceCalculationForm(instance=deleted_distance)
+    if request.method == 'POST':
+        deleted_distance.delete()
+    context = {'object': form}
+    return render(request, 'envdata/delete-universal.html', context)
+
+

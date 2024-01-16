@@ -1,0 +1,10 @@
+<form method="post" action="{% url 'calculate_distance' %}">
+    {% csrf_token %}
+    <label for="origin">Origin:</label>
+    <input type="text" id="origin" name="origin" required>
+
+    <label for="destination">Destination:</label>
+    <input type="text" id="destination" name="destination" required>
+
+    <input type="submit" value="Get Distance">
+</form>
