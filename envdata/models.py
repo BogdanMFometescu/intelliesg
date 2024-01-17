@@ -111,3 +111,25 @@ class DistanceCalculation(models.Model):
 
     def __str__(self):
         return f'{self.distance}'
+
+
+class WasteCalculation(models.Model):
+    waste_name = models.CharField(max_length=255, blank=False, null=False)
+    quantity_recycled = models.FloatField(blank=False, null=False)
+    quantity_disposed = models.FloatField(blank=False, null=False)
+    quantity_land_filled = models.FloatField(blank=False, null=False)
+    created = models.DateField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
+
+    def __str__(self):
+        return f'{self.waste_name}'
+
+    @property
+    def total_waste_quantity(self):
+        total_quantity = self.quantity_disposed + self.quantity_recycled + self.quantity_land_filled
+        return total_quantity
+
+    @property
+    def c02_for_waste_quantity(self):
+        total_co2 = self.total_waste_quantity * 1  # TODO search for the right formula
+        return total_co2

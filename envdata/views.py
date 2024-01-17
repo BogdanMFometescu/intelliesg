@@ -275,5 +275,3 @@ def delete_distance(request, pk):
         deleted_distance.delete()
     context = {'object': form}
     return render(request, 'envdata/delete-universal.html', context)
-
-

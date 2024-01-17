@@ -2,6 +2,13 @@
 
 - Changelog for the intelliesg app
 
+[17.01.2024]
+
+Version 0.0.7
+-
+- added new model in envdata/models.py for waste
+- created two methods for the waste model
+- added flake8 as dependency 
 
 [16.01.2024]
 

@@ -1,5 +1,10 @@
+import os
+
 import requests
 from django.shortcuts import render
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def calculate_distance(request):
@@ -14,16 +19,16 @@ def calculate_distance(request):
         if origin and destination:
             # Call Bing Maps API for distance
             distance = get_distance_from_bing_maps(origin, destination)
-            return render(request, 'result.html', {'distance': distance})
+            return render(request, 'envdata/distances/result.html', {'distance': distance})
         else:
-            return render(request, 'result.html', {'error': 'Geocoding failed'})
+            return render(request, 'envdata/distances/result.html', {'error': 'Geocoding failed'})
 
     else:
         return render(request, 'envdata/distances/form-distance.html')
 
 
 def geocode_location(location_name):
-    BING_MAPS_API_KEY = 'your_api_key'  # Replace with your Bing Maps API key
+    BING_MAPS_API_KEY = os.environ.get('BING_MAPS_API_KEY')
     url = f"http://dev.virtualearth.net/REST/v1/Locations?query={location_name}&key={BING_MAPS_API_KEY}"
     response = requests.get(url)
     data = response.json()
@@ -45,3 +50,4 @@ def get_distance_from_bing_maps(origin, destination):
     data = response.json()
     distance = data['resourceSets'][0]['resources'][0]['results'][0]['travelDistance']
     return distance
+
