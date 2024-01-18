@@ -1,10 +1,10 @@
 from django.urls import path
 from envdata import views
 
-urlpatterns = [path('', views.emissions, name='emissions'),
-               path('emission/<uuid:pk>/', views.emission, name='emission'),
-               path('create-emission/', views.create_emission, name='create_emission'),
-               path('update-emission/<uuid:pk>/', views.update_emission, name='update_emission'),
+urlpatterns = [path('', views.EmissionListView.as_view(), name='emissions'),
+               path('emission/<uuid:pk>/', views.EmissionDetailView.as_view(), name='emission'),
+               path('create-emission/', views.EmissionCreateView.as_view(), name='create_emission'),
+               path('update-emission/<uuid:pk>/', views.EmissionUpdateView.as_view(), name='update_emission'),
                path('delete-emission/<uuid:pk>/', views.delete_emission, name='delete_emission'),
 
                path('fuel-emissions/', views.fuel_emissions, name='fuel_emissions'),

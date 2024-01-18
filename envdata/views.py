@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from envdata.forms import (EmissionForm,
                            FuelEmissionForm,
@@ -12,52 +12,48 @@ from envdata.models import (Emission,
                             RefrigerantEmission,
                             EnergyAcquisition, DistanceCalculation)
 
+from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
-# EMISSIONS
-def emissions(request):
-    all_emissions = Emission.objects.all()
-    context = {'emissions': all_emissions}
-    return render(request, 'envdata/emissions.html', context)
+class EmissionListView(ListView):
+    model = Emission
+    template_name = 'envdata/emissions.html'
+    context_object_name = 'emissions'
 
 
-def emission(request, pk):
-    single_emission = get_object_or_404(Emission, id=pk)
-    context = {'emission': single_emission}
-    return render(request, 'envdata/single-emission.html', context)
+class EmissionDetailView(DetailView):
+    model = Emission
+    template_name = 'envdata/single-emission.html'
+    context_object_name = 'emission'
 
 
-def create_emission(request):
-    form = EmissionForm()
-    if request.method == 'POST':
-        form = EmissionForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-            return redirect('emissions')
-    context = {'form': form}
-    return render(request, 'envdata/form-emission.html', context)
+class EmissionCreateView(CreateView):
+    model = Emission
+    form_class = EmissionForm
+    template_name = 'envdata/form-emission.html'
+    success_url = reverse_lazy('emission-list')
 
 
-def update_emission(request, pk):
-    updated_emission = get_object_or_404(Emission, id=pk)
-    form = EmissionForm(instance=updated_emission)
-    if request.method == 'POST':
-        form = EmissionForm(request.POST or None, instance=updated_emission)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata/form-emission.html', context)
+class EmissionUpdateView(UpdateView):
+    model = Emission
+    form_class = EmissionForm
+    template_name = 'envdata/form-emission.html'
+    success_url = reverse_lazy('emission-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['update_mode'] = True
+        return context
 
 
-def delete_emission(request, pk):
-    deleted_emission = get_object_or_404(Emission, id=pk)
-    form = FuelEmissionForm(instance=deleted_emission)
-    if request.method == 'POST':
-        deleted_emission.delete()
-    context = {'object': form}
-
-    return render(request, 'envdata/delete-universal.html', context)
+class EmissionDeleteView(DeleteView):
+    model = Emission
+    template_name = 'envdata/delete-universal.html'
+    success_url = reverse_lazy('emission-list')
 
 
 # SCOPE 1 FUEL EMISSIONS

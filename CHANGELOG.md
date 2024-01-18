@@ -4,6 +4,16 @@
 
 [17.01.2024]
 
+Version 0.0.8
+-
+- switching from FBV to CBV
+
+
+
+
+
+[17.01.2024]
+
 Version 0.0.7
 -
 - added new model in envdata/models.py for waste
