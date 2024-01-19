@@ -2,7 +2,7 @@ from envdata.models import (Emission,
                             FuelEmission,
                             Sf6Emission,
                             RefrigerantEmission,
-                            EnergyAcquisition, DistanceCalculation)
+                            EnergyAcquisition, Travel)
 
 from django.forms import ModelForm
 
@@ -39,7 +39,7 @@ class EnergyAcquisitionForm(ModelForm):
         fields = '__all__'
 
 
-class DistanceCalculationForm(ModelForm):
+class TravelForm(ModelForm):
     class Meta:
-        model = DistanceCalculation
+        model = Travel
         fields = '__all__'

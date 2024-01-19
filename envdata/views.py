@@ -1,22 +1,20 @@
-from django.shortcuts import render
-
 from envdata.forms import (EmissionForm,
                            FuelEmissionForm,
                            Sf6EmissionForm,
                            RefrigerantEmissionForm,
                            EnergyAcquisitionForm,
-                           DistanceCalculationForm)
+                           TravelForm)
 from envdata.models import (Emission,
                             FuelEmission,
                             Sf6Emission,
                             RefrigerantEmission,
-                            EnergyAcquisition, DistanceCalculation)
+                            EnergyAcquisition, Travel)
 
 from django.urls import reverse_lazy
-from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from envdata.mixins import UpdateModeMixin
 
 
 class EmissionListView(ListView):
@@ -35,239 +33,195 @@ class EmissionCreateView(CreateView):
     model = Emission
     form_class = EmissionForm
     template_name = 'envdata/form-emission.html'
-    success_url = reverse_lazy('emission-list')
+    success_url = reverse_lazy('emissions')
+
+    def form_valid(self, form):
+        return super(EmissionCreateView, self).form_valid(form)
 
 
-class EmissionUpdateView(UpdateView):
+class EmissionUpdateView(UpdateModeMixin, UpdateView):
     model = Emission
     form_class = EmissionForm
     template_name = 'envdata/form-emission.html'
-    success_url = reverse_lazy('emission-list')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['update_mode'] = True
-        return context
+    success_url = reverse_lazy('emissions')
 
 
 class EmissionDeleteView(DeleteView):
     model = Emission
     template_name = 'envdata/delete-universal.html'
-    success_url = reverse_lazy('emission-list')
+    success_url = reverse_lazy('emissions')
 
 
-# SCOPE 1 FUEL EMISSIONS
-def fuel_emissions(request):
-    all_fuel_emissions = FuelEmission.objects.all()
-    context = {'fuel_emissions': all_fuel_emissions}
-    return render(request, 'envdata/scope_one_emission/fuel/fuel-emissions.html', context)
+class FuelListView(ListView):
+    model = FuelEmission
+    template_name = 'envdata/scope_one_emission/fuel/fuel-emissions.html'
+    context_object_name = 'fuel_emissions'
 
 
-def fuel_emission(request, pk):
-    single_fuel_emission = get_object_or_404(FuelEmission, id=pk)
-    context = {'fuel_emission': single_fuel_emission}
-    return render(request, 'envdata/scope_one_emission/fuel/single-fuel-emission.html', context)
+class FuelDetailView(DetailView):
+    model = FuelEmission
+    template_name = 'envdata/scope_one_emission/fuel/single-fuel-emission.html'
+    context_object_name = 'fuel_emission'
 
 
-def create_fuel_emission(request):
-    form = FuelEmissionForm()
-    if request.method == 'POST':
-        form = FuelEmissionForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata/scope_one_emission/fuel/form-fuel-emission.html', context)
+class FuelCreateView(CreateView):
+    model = FuelEmission
+    form_class = FuelEmissionForm
+    template_name = 'envdata/scope_one_emission/fuel/form-fuel-emission.html'
+    success_url = reverse_lazy('fuel_emissions')
+
+    def form_valid(self, form):
+        return super(FuelCreateView, self).form_valid(form)
 
 
-def update_fuel_emission(request, pk):
-    updated_fuel_emission = get_object_or_404(FuelEmission, id=pk)
-    form = FuelEmissionForm(instance=updated_fuel_emission)
-    if request.method == 'POST':
-        form = FuelEmissionForm(request.POST or None, instance=updated_fuel_emission)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata/scope_one_emission/fuel/form-fuel-emission.html', context)
+class FuelUpdateView(UpdateModeMixin, UpdateView):
+    model = FuelEmission
+    form_class = FuelEmissionForm
+    template_name = 'envdata/scope_one_emission/fuel/form-fuel-emission.html'
+    success_url = reverse_lazy('fuel_emissions')
 
 
-def delete_fuel_emission(request, pk):
-    deleted_fuel_emission = get_object_or_404(FuelEmission, id=pk)
-    form = FuelEmissionForm(instance=deleted_fuel_emission)
-    if request.method == 'POST':
-        deleted_fuel_emission.delete()
-    context = {'form': form}
-    return render(request, 'envdata/delete-universal.html', context)
+class FuelDeleteView(DeleteView):
+    model = FuelEmission
+    template_name = 'envdata/delete-universal.html'
+    success_url = reverse_lazy('fuel_emissions')
 
 
-# SCOPE 1 SG6 EMISSIONS
-
-def sf6_emissions(request):
-    all_sf6_emissions = Sf6Emission.objects.all()
-    context = {'all_sf6_emissions': all_sf6_emissions}
-    return render(request, 'envdata/scope_one_emission/sf6/sf6-emissions.html', context)
+class Sf6EmissionListView(ListView):
+    model = Sf6Emission
+    template_name = 'envdata/scope_one_emission/sf6/sf6-emissions.html'
+    context_object_name = 'sf6_emissions'
 
 
-def sf6_emission(request, pk):
-    single_sf6_emission = get_object_or_404(Sf6Emission, id=pk)
-    context = {'single_sf6_emission': single_sf6_emission}
-    return render(request, 'envdata/scope_one_emission/sf6/sf6-emission.html', context)
+class Sf6EmissionDetailView(DetailView):
+    model = Sf6Emission
+    template_name = 'envdata/scope_one_emission/sf6/sf6-emission.html'
+    context_object_name = 'sf6_emission'
 
 
-def create_sf6_emission(request):
-    form = Sf6EmissionForm()
-    if request.method == 'POST':
-        form = Sf6EmissionForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata/scope_one_emission/sf6/form-sf6-emission.html', context)
+class Sf6EmissionCreateView(CreateView):
+    model = Sf6Emission
+    form_class = Sf6EmissionForm
+    template_name = 'envdata/scope_one_emission/sf6/form-sf6-emission.html'
+    success_url = reverse_lazy('sf6_emissions')
+
+    def form_valid(self, form):
+        return super(Sf6EmissionCreateView, self).form_valid(form)
 
 
-def update_sf6_emission(request, pk):
-    updated_sf6_emission = get_object_or_404(Sf6Emission, id=pk)
-    form = Sf6EmissionForm(instance=updated_sf6_emission)
-    if request.method == 'POST':
-        form = Sf6EmissionForm(request.POST or None, instance=updated_sf6_emission)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata/scope_one_emission/sf6/form-sf6-emission.html', context)
+class Sf6EmissionUpdateView(UpdateModeMixin, UpdateView):
+    model = Sf6Emission
+    form_class = Sf6EmissionForm
+    template_name = 'envdata/scope_one_emission/sf6/form-sf6-emission.html'
+    success_url = reverse_lazy('sf6_emissions')
 
 
-def delete_sf6_emission(request, pk):
-    deleted_sf6_emission = get_object_or_404(Sf6Emission, id=pk)
-    form = Sf6EmissionForm(instance=deleted_sf6_emission)
-    if request.method == 'POST':
-        deleted_sf6_emission.delete()
-    context = {'object': form}
-    return render(request, 'envdata/delete-universal.html', context)
+class Sf6EmissionDeleteView(DeleteView):
+    model = Sf6Emission
+    template_name = 'envdata/delete-universal.html'
+    success_url = reverse_lazy('sf6_emissions')
 
 
-# SCOPE 1 REFRIGERANTS EMISSIONS
-
-def refrigerants_emissions(request):
-    refrigerants = RefrigerantEmission.objects.all()
-    context = {'refrigerants': refrigerants}
-    return render(request, 'envdata/scope_one_emission/refrigerant/refrigerant-emissions.html', context)
+class RefrigerantsEmissionsView(ListView):
+    model = RefrigerantEmission
+    template_name = 'envdata/scope_one_emission/refrigerant/refrigerant-emissions.html'
+    context_object_name = 'refrigerants_emissions'
 
 
-def refrigerants_emission(request, pk):
-    refrigerant = get_object_or_404(RefrigerantEmission, id=pk)
-    context = {'refrigerant': refrigerant}
-    return render(request, 'envdata/scope_one_emission/refrigerant/refrigerant-emission.html', context)
+class RefrigerantsEmissionsDetailView(DetailView):
+    model = RefrigerantEmission
+    template_name = 'envdata/scope_one_emission/refrigerant/refrigerant-emissions.html'
+    context_object_name = 'refrigerant_emission'
 
 
-def create_refrigerants_emission(request):
-    form = RefrigerantEmissionForm()
-    if request.method == 'POST':
-        form = RefrigerantEmissionForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata/scope_one_emission/refrigerant/form-refrigerant-emission.html', context)
+class RefrigerantsEmissionsCreateView(CreateView):
+    model = RefrigerantEmission
+    form_class = RefrigerantEmissionForm
+    template_name = 'envdata/scope_one_emission/refrigerant/form-refrigerant-emission.html'
+    success_url = reverse_lazy('refrigerants_emissions')
+
+    def form_valid(self, form):
+        return super(RefrigerantsEmissionsCreateView).form_valid(form)
 
 
-def update_refrigerants_emission(request, pk):
-    updated_refrigerant = get_object_or_404(RefrigerantEmission, id=pk)
-    form = RefrigerantEmissionForm(instance=updated_refrigerant)
-    if request.method == 'POST':
-        form = RefrigerantEmissionForm(request.POST or None, instance=updated_refrigerant)
-        if form.is_valid():
-            form.save()
-
-    context = {'form': form}
-    return render(request, 'envdata/scope_one_emission/refrigerant/form-refrigerant-emission.html', context)
+class RefrigerantsEmissionsUpdateView(UpdateModeMixin, UpdateView):
+    model = RefrigerantEmission
+    form_class = RefrigerantEmissionForm
+    template_name = 'envdata/scope_one_emission/refrigerant/form-refrigerant-emission.html'
+    success_url = reverse_lazy('refrigerant_emissions')
 
 
-def delete_refrigerants_emission(request, pk):
-    deleted_refrigerant = get_object_or_404(RefrigerantEmission, id=pk)
-    form = RefrigerantEmissionForm(instance=deleted_refrigerant)
-    if request.method == 'POST':
-        deleted_refrigerant.delete()
-    context = {'object': form}
-    return render(request, 'envdata/delete-universal.html', context)
+class RefrigerantsEmissionsDeleteView(DeleteView):
+    model = RefrigerantEmission
+    template_name = 'envdata/delete-universal.html'
+    success_url = reverse_lazy('refrigerant_emissions')
 
 
-# SCOPE 2 - ACQUISITIONS
-def energy_acquisitions(request):
-    acquisitions = EnergyAcquisition.objects.all()
-    context = {'acquisitions': acquisitions}
-    return render(request, 'envdata/scope_two_emission/energy_aq/energy-acquisitions-emission.html', context)
+class EnergyAcquisitionListView(ListView):
+    model = EnergyAcquisition
+    template_name = 'envdata/scope_two_emission/energy_aq/energy-acquisitions-emission.html'
+    context_object_name = 'energy_acquisitions'
 
 
-def energy_acquisition(request, pk):
-    acquisition = get_object_or_404(EnergyAcquisition, id=pk)
-    context = {'acquisition': acquisition}
-    return render(request, 'envdata/scope_two_emission/energy_aq/single-energy-acquisition-emission.html', context)
+class EnergyAcquisitionDetailView(DetailView):
+    model = EnergyAcquisition
+    template_name = 'envdata/scope_two_emission/energy_aq/single-energy-acquisition-emission.html'
+    context_object_name = 'energy_acquisition'
 
 
-def create_energy_acquisition(request):
-    form = EnergyAcquisitionForm()
-    if request.method == 'POST':
-        form = EnergyAcquisitionForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata/scope_two_emission/energy_aq/form-energy-acquisition-emission.html', context)
+class EnergyAcquisitionCreateView(CreateView):
+    model = EnergyAcquisition
+    form_class = EnergyAcquisitionForm
+    template_name = 'envdata/scope_two_emission/energy_aq/form-energy-acquisition-emission.html'
+    success_url = reverse_lazy('energy_acquisitions')
+
+    def form_valid(self, form):
+        return super(EnergyAcquisitionCreateView).form_valid(form)
 
 
-def update_energy_acquisition(request, pk):
-    updated_energy_aq = get_object_or_404(EnergyAcquisition, id=pk)
-    form = EnergyAcquisitionForm(instance=updated_energy_aq)
-    if request.method == 'POST':
-        form = EnergyAcquisitionForm(request.POST or None, instance=updated_energy_aq)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata/scope_two_emission/energy_aq/form-energy-acquisition-emission.html', context)
+class EnergyAcquisitionUpdateView(UpdateModeMixin, UpdateView):
+    model = EnergyAcquisition
+    form_class = EnergyAcquisitionForm
+    template_name = 'envdata/scope_two_emission/energy_aq/form-energy-acquisition-emission.html'
+    success_url = reverse_lazy('energy_acquisitions')
 
 
-def delete_energy_acquisition(request, pk):
-    deleted_energy_aq = get_object_or_404(EnergyAcquisition, id=pk)
-    form = EnergyAcquisitionForm(instance=deleted_energy_aq)
-    if request.method == 'POST':
-        deleted_energy_aq.delete()
-    context = {'object': form}
-    return render(request, 'envdata/delete-universal.html', context)
+class EnergyAcquisitionDeleteView(DeleteView):
+    model = EnergyAcquisition
+    template_name = 'envdata/delete-universal.html'
+    success_url = reverse_lazy('energy_acquisitions')
 
 
-def distances(request):
-    all_distances = DistanceCalculation.objects.all()
-    context = {'all_distances': all_distances}
-    return render(request, 'envdata/distances/distances.html', context)
+class TravelEmissionsListView(ListView):
+    model = Travel
+    template_name = 'envdata/scope_one_emission/travel/travels.html'
+    context_object_name = 'travel_emissions'
 
 
-def distance(request, pk):
-    single_distance = get_object_or_404(DistanceCalculation, id=pk)
-    context = {'distance': single_distance}
-    return render(request, 'envdata/distances/distance.html', context)
+class TravelEmissionsDetailView(DetailView):
+    model = Travel
+    template_name = 'envdata/scope_one_emission/travel/single-travel.html'
+    context_object_name = 'travel_emission'
 
 
-def create_distance(request):
-    form = DistanceCalculationForm()
-    if request.method == 'POST':
-        form = DistanceCalculationForm(request.POST or None)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata/distances/form-distance.html', context)
+class TravelEmissionsCreateView(CreateView):
+    model = Travel
+    form_class = TravelForm
+    template_name = 'envdata/scope_one_emission/travel/form-travel.html'
+    success_url = reverse_lazy('travel_emissions')
+
+    def form_valid(self, form):
+        return super(TravelEmissionsCreateView).form_valid(form)
 
 
-def update_distance(request, pk):
-    updated_distance = get_object_or_404(DistanceCalculation, id=pk)
-    form = DistanceCalculationForm(instance=updated_distance)
-    if request.method == 'POST':
-        form = DistanceCalculationForm(request.POST or None, instance=updated_distance)
-        if form.is_valid():
-            form.save()
-    context = {'form': form}
-    return render(request, 'envdata', context)
+class TravelEmissionsUpdateView(UpdateModeMixin, UpdateView):
+    model = Travel
+    form_class = TravelForm
+    template_name = 'envdata/scope_one_emission/travel/form-travel.html'
+    success_url = reverse_lazy('travel_emissions')
 
 
-def delete_distance(request, pk):
-    deleted_distance = get_object_or_404(DistanceCalculation, id=pk)
-    form = DistanceCalculationForm(instance=deleted_distance)
-    if request.method == 'POST':
-        deleted_distance.delete()
-    context = {'object': form}
-    return render(request, 'envdata/delete-universal.html', context)
+class TravelDeleteView(DeleteView):
+    model = Travel
+    template_name = 'envdata/delete-universal.html'
+    success_url = reverse_lazy('travel_emissions')

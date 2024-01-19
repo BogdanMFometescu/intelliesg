@@ -1,19 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<p>HELLO</p>
+{% load static %}
+{% block content %}
 
-<a href="{% url 'create_emission' %}">Create</a>
-<br>
-{% for emission in emissions %}
-    {{ emission.emission_scope }}
-    {{ emission.emission_type }}
-{% endfor %}
+    <html lang="">
+    <head>
+        <title>Emissions List</title>
+    </head>
+    <body>
+    <h1>All Emissions</h1>
+    <a href="{% url 'create_emission' %}">Create New Emission</a>
+    <ul>
+        {% for emission in emissions %}
+            <li><a href="{% url 'emission' emission.id %}">{{ emission.emission_type }}</a></li>
+        {% empty %}
+            <p>No emissions available.</p>
+        {% endfor %}
+    </ul>
+    </body>
+    </html>
 
-
-</body>
-</html>
+{% endblock content %}

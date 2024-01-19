@@ -1,15 +1,19 @@
 
 {% load static %}
 {% block content %}
-    <p>This is the emission form </p>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
-          {{ field.label }}
-            {{ field|linebreaks}}
-        {% endfor %}
-        <input type="submit" value="Submit">
-    </form>
 
+<html lang="">
+<head>
+    <title>Create Emission</title>
+</head>
+<body>
+    <h1>Create New Emission</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
 
 {% endblock %}

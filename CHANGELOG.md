@@ -2,13 +2,19 @@
 
 - Changelog for the intelliesg app
 
-[17.01.2024]
+
+[19.01.2024]
+
+Version 0.0.9
+-
+- switching from FBV to CBV : views.py and urls.py finished.
+
+
+[18.01.2024]
 
 Version 0.0.8
 -
 - switching from FBV to CBV
-
-
 
 
 

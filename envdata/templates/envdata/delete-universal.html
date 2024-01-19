@@ -1,10 +1,19 @@
-<!DOCTYPE html>
+{% load static %}
+{% block content %}
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Delete Emission</title>
 </head>
 <body>
-
+    <h1>Delete Emission</h1>
+    <p>Are you sure you want to delete "{{ emission.name }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+    </form>
+    <a href="{% url 'emissions' %}">Cancel</a>
 </body>
 </html>
+
+{% endblock content %}

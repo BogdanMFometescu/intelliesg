@@ -96,7 +96,7 @@ class EnergyAcquisition(models.Model):
         return f'{self.supplier_name}'
 
 
-class DistanceCalculation(models.Model):
+class Travel(models.Model):
     origin = models.CharField(max_length=255, blank=False, null=False)
     destination = models.CharField(max_length=255, blank=False, null=False)
     distance = models.FloatField(blank=False, null=False)
