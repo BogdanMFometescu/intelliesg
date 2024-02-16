@@ -8,6 +8,7 @@
     <body>
     <h1>All Emissions</h1>
     <a href="{% url 'create_emission' %}">Create New Emission</a>
+    <a href="{% url 'create_fuel_emission' %}">Create Fuel Emission</a>
     <ul>
         {% for emission in emissions %}
             <li><a href="{% url 'emission' emission.id %}">{{ emission.emission_type }}</a></li>

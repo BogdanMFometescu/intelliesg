@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load static %}
+{% block content %}
 
-</body>
-</html>
+    <html lang="">
+    <head>
+        <title>Fuel Emission</title>
+    </head>
+    <body>
+    <h1>Fuel Emission</h1>
+    <a href="{% url 'create_fuel_emission' %}">Create Fuel Emission</a>
+    <ul>
+        {% for emission in fuel_emissions %}
+           {{ emission.emission_type }}
+            {{ emission.fuel_quantity }}
+        {% empty %}
+            <p>No emissions available.</p>
+        {% endfor %}
+    </ul>
+    </body>
+    </html>
+
+{% endblock content %}
