@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load static %}
+{% block content %}
 
-</body>
-</html>
+    <html lang="">
+    <head>
+        <title>Create Refrigerant Emission</title>
+    </head>
+    <body>
+    <h1>Create New Refrigerant Emission</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    </body>
+    </html>
+
+{% endblock %}
