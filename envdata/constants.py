@@ -3,7 +3,8 @@
 EMISSION_TYPE = [('Car fuels', 'Car fuels',),
                  ('SF6', 'SF6'),
                  ('Refrigerants', 'Refrigerants',),
-                 ('Energy Acquisition', 'Energy Acquisition')]
+                 ('Energy Acquisition', 'Energy Acquisition'),
+                 ('Travel', 'Travel')]
 
 EMISSION_SCOPE = [('Scope 1', 'Scope 1'),
                   ('Scope 2', 'Scope 2'),
@@ -41,4 +42,3 @@ POLLUTION_NORM = [('Euro 1', 'Euro 1'),
                   ('Euro 4', 'Euro 4'),
                   ('Euro 5', 'Euro 5'),
                   ('Euro 6', 'Euro 6')]
-

@@ -4,30 +4,32 @@ import uuid
 from envdata.constants import *
 
 
-# Create your models here.
-
-class Emission(models.Model):
-    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
-    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
+class Company(models.Model):
+    name = models.CharField(max_length=255, unique=True, blank=False, null=False)
+    address = models.CharField(max_length=255, blank=False, null=False)
+    city = models.CharField(max_length=255, blank=False, null=False)
+    country = models.CharField(max_length=255, blank=False, null=False)
+    phone = models.CharField(max_length=255, blank=False, null=False)
+    email = models.EmailField(max_length=255, blank=False, null=False)
     created = models.DateField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    updated = models.DateField(auto_now=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
 
-    @staticmethod
-    def total_co2_emissions():
+    @property
+    def total_co2_emissions(self):
         total_co2 = 0
-        total_co2 += FuelEmission.objects.aggregate(Sum('co2e_for_fuel_emission'))['co2e_for_fuel_emission__sum'] or 0
-        total_co2 += Sf6Emission.objects.aggregate(Sum('co2e_for_sf6_emission'))['co2e_for_sf6_emission__sum'] or 0
-        total_co2 += EnergyAcquisition.objects.aggregate('co2e_for_energy_emission')[
+        total_co2 += Fuel.objects.aggregate(Sum('co2e_for_fuel_emission'))['co2e_for_fuel_emission__sum'] or 0
+        total_co2 += Sf6.objects.aggregate(Sum('co2e_for_sf6_emission'))['co2e_for_sf6_emission__sum'] or 0
+        total_co2 += Energy.objects.aggregate('co2e_for_energy_emission')[
                          'co2e_for_energy_emission__sum'] or 0
         return total_co2
 
-    def __str__(self):
-        return f'{self.emission_type}'
-
 
 # SCOPE 1 emissions
-class FuelEmission(models.Model):
-    emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
+class Fuel(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
+    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     fuel_type = models.CharField(max_length=255, blank=False, null=False, choices=FUEL_TYPE)
     fuel_source = models.CharField(max_length=255, blank=False, null=False)
     fuel_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0.00)
@@ -37,6 +39,7 @@ class FuelEmission(models.Model):
     measure_unit = models.CharField(max_length=30, blank=False, null=False, default='L')
     emission_factor = models.IntegerField(blank=False, null=False, default=0, )
     created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
     @property
@@ -48,12 +51,15 @@ class FuelEmission(models.Model):
         return f'{self.fuel_type}'
 
 
-class Sf6Emission(models.Model):
-    emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
+class Sf6(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
+    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     equipment_type = models.CharField(max_length=255, blank=False, null=False)
     equipment_producer = models.CharField(max_length=255, blank=False, null=False)
     sf6_quantity = models.FloatField(max_length=10, blank=False, null=False)
     created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
     @property
@@ -62,12 +68,14 @@ class Sf6Emission(models.Model):
         return total_co2
 
 
-class RefrigerantEmission(models.Model):
-    emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
-    equipment_type = models.CharField(max_length=255, blank=False, null=False)
+class Refrigerant(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
+    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     refrigerant_type = models.CharField(max_length=255, blank=False, null=False)
     refrigerant_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0.00)
     created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
     def __str__(self):
@@ -77,14 +85,17 @@ class RefrigerantEmission(models.Model):
 # SCOPE 2 emissions
 
 
-class EnergyAcquisition(models.Model):
-    emission_type = models.ForeignKey(Emission, on_delete=models.CASCADE)
+class Energy(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
+    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     location = models.CharField(max_length=255, blank=False, null=False)
     supplier_name = models.CharField(max_length=255, blank=False, null=False)
     measure_unit = models.CharField(max_length=20, blank=False, null=False)
     emission_factor = models.IntegerField(blank=False, null=True, default=0, )
     calculation_method = models.CharField(max_length=255, blank=False, null=False)
     created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
     @property
@@ -97,11 +108,15 @@ class EnergyAcquisition(models.Model):
 
 
 class Travel(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
+    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     origin = models.CharField(max_length=255, blank=False, null=False)
     destination = models.CharField(max_length=255, blank=False, null=False)
     distance = models.FloatField(blank=False, null=False)
     fuel_consumption = models.FloatField(blank=False, null=False, default=7.5)
     created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
     @property
@@ -113,12 +128,16 @@ class Travel(models.Model):
         return f'{self.distance}'
 
 
-class WasteCalculation(models.Model):
+class Waste(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
+    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     waste_name = models.CharField(max_length=255, blank=False, null=False)
     quantity_recycled = models.FloatField(blank=False, null=False)
     quantity_disposed = models.FloatField(blank=False, null=False)
     quantity_land_filled = models.FloatField(blank=False, null=False)
     created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
 
     def __str__(self):

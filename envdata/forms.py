@@ -1,41 +1,39 @@
-from envdata.models import (Emission,
-                            FuelEmission,
-                            Sf6Emission,
-                            RefrigerantEmission,
-                            EnergyAcquisition, Travel)
+from envdata.models import (Company,
+                            Fuel,
+                            Sf6,
+                            Refrigerant,
+                            Energy, Travel)
 
 from django.forms import ModelForm
 
 
-class EmissionForm(ModelForm):
+class CompanyForm(ModelForm):
     class Meta:
-        model = Emission
-        fields = '__all__'
-        labels = {'emission_type': 'Emission Type',
-                  'emission_scope': 'Emission Scope'}
-
-
-class FuelEmissionForm(ModelForm):
-    class Meta:
-        model = FuelEmission
+        model = Company
         fields = '__all__'
 
 
-class Sf6EmissionForm(ModelForm):
+class FuelForm(ModelForm):
     class Meta:
-        model = Sf6Emission
+        model = Fuel
         fields = '__all__'
 
 
-class RefrigerantEmissionForm(ModelForm):
+class Sf6Form(ModelForm):
     class Meta:
-        model = RefrigerantEmission
+        model = Sf6
         fields = '__all__'
 
 
-class EnergyAcquisitionForm(ModelForm):
+class RefrigerantForm(ModelForm):
     class Meta:
-        model = EnergyAcquisition
+        model = Refrigerant
+        fields = '__all__'
+
+
+class EnergyForm(ModelForm):
+    class Meta:
+        model = Energy
         fields = '__all__'
 
 

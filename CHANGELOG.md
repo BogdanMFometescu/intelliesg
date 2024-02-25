@@ -3,6 +3,29 @@
 - Changelog for the intelliesg app
 
 
+
+[25.02.2024]
+
+Version 0.1.1
+-
+- refactored the models for envdata app
+- added bootstrap to the base.html
+- added new emission type to constants.py: travel 
+- small refactoring of the html templates
+- added new model : company in envdata app
+- updated urls in envdata app
+- created a views package to keep the code clean and maintainable
+- deletes emissions model 
+
+
+
+[24.02.2024]
+
+Version 0.1.0
+-
+-modified admin.py for envdata app 
+
+
 [19.01.2024]
 
 Version 0.0.9
