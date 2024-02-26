@@ -4,6 +4,16 @@
 
 
 
+[26.02.2024]
+
+Version 0.1.2
+-
+- finished the views for envdata app (added python package)
+- added html templates for each view
+- updated urls for envdata app
+
+
+
 [25.02.2024]
 
 Version 0.1.1
