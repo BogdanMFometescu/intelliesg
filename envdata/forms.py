@@ -2,7 +2,8 @@ from envdata.models import (Company,
                             Fuel,
                             Sf6,
                             Refrigerant,
-                            Energy, Travel)
+                            Energy,
+                            Travel, Waste)
 
 from django.forms import ModelForm
 
@@ -40,4 +41,10 @@ class EnergyForm(ModelForm):
 class TravelForm(ModelForm):
     class Meta:
         model = Travel
+        fields = '__all__'
+
+
+class WasteForm(ModelForm):
+    class Meta:
+        model = Waste
         fields = '__all__'
