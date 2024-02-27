@@ -24,6 +24,9 @@ class Company(models.Model):
                          'co2e_for_energy_emission__sum'] or 0
         return total_co2
 
+    def __str__(self):
+        return self.name
+
 
 # SCOPE 1 emissions
 class Fuel(models.Model):

@@ -3,6 +3,17 @@
 - Changelog for the intelliesg app
 
 
+[27.02.2024]
+
+Version 0.2.0
+-
+- added uikit
+- created html templates for navbar, base
+- refactored the forms from envdata app to display css formats
+- updated urls from envdata app
+
+
+
 
 [26.02.2024]
 

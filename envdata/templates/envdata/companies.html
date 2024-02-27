@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
-</body>
-</html>
+   <!-- Blog Card -->
+<div class="blog-card">
+    <div class="card shadow-soft border-light">
+        <img class="card-img-top" src="{% static 'uikit/img/blog/image-7.jpg' %}" alt="menu-image">
+        <div class="card-header">
+            <div class="post-meta d-block">
+                <span class="small text-gray"><i class="far fa-clock mr-2"></i>Last updated 3 mins ago</span>
+            </div>
+        </div>
+        <div class="card-body pt-0">
+            <a href="#">
+                <h4>Remote workers, here's how to dodge</h4>
+            </a>
+            <p class="card-text my-2">According to some historical records, some people out
+                there have boundless energy, loads of free time, and ambition...</p>
+        </div>
+        <div class="card-footer mx-4 px-0 pt-0">
+            <a class="btn btn-sm btn-secondary" href="{% url 'create_company' %}">
+                Add Company
+            </a>
+        </div>
+    </div>
+</div>
+<!-- End of Blog Card -->
+
+
+
+
+{% endblock content %}
