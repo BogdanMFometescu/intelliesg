@@ -2,12 +2,12 @@ from django.urls import path
 from envdata import views
 
 urlpatterns = [
-
-    path('', views.CompanyListView.as_view, name='companies_list'),
-    path('company/<uuid:pk>/', views.CompanyDetailView.as_view, name='company'),
-    path('create-company/', views.CompanyCreateView.as_view, name='create_company'),
-    path('update-company/<uuid:pk>/', views.CompanyUpdateView.as_view, name='update_company'),
-    path('delete-company/<uuid:pk>/', views.CompanyDeleteView.as_view, name='delete_company'),
+    path('',views.HomePageView.as_view(),name='home'),
+    path('companies', views.CompanyListView.as_view(), name='companies_list'),
+    path('company/<uuid:pk>/', views.CompanyDetailView.as_view(), name='company'),
+    path('create-company/', views.CompanyCreateView.as_view(), name='create_company'),
+    path('update-company/<uuid:pk>/', views.CompanyUpdateView.as_view(), name='update_company'),
+    path('delete-company/<uuid:pk>/', views.CompanyDeleteView.as_view(), name='delete_company'),
 
     path('fuel-emissions/', views.FuelListView.as_view(), name='fuel_emissions'),
     path('fuel-emission/<uuid:pk>/', views.FuelDetailView.as_view(), name='fuel_emission'),

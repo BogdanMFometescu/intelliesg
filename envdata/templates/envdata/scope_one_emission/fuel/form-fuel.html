@@ -1,18 +1,15 @@
+{% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
-
-    <html lang="">
-    <head>
-        <title>Create Fuel Emission</title>
-    </head>
-    <body>
-    <h1>Create New Fuel Emission</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
-    </body>
-    </html>
-
-{% endblock %}
+<form method="post" enctype="multipart/form-data" class="form-group" >
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field }}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock content %}
