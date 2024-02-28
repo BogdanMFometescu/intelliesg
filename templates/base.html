@@ -1,45 +1,80 @@
+<!--
+
+=========================================================
+* Pixel Free Bootstrap 5 UI Kit
+=========================================================
+
+* Product Page: https://themesberg.com/product/ui-kit/pixel-free-bootstrap-5-ui-kit
+* Copyright 2021 Themesberg (https://www.themesberg.com)
+
+* Coded by https://themesberg.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of
+ the Software.
+Contact us if you want to remove it.
+
+-->
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
 
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Start developing with a User Interface Kit with Bootstrap 4">
-    <meta name="author" content="Themesberg">
-    <title>Pixel - Bootstrap 4 UI Kit</title>
-    <!-- Favicon -->
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'uikit/img/favicon/apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'uikit/img/favicon/favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'uikit/img/favicon/favicon-16x16.png' %}">
-    <link rel="mask-icon" href="{% static 'uikit/img/favicon/safari-pinned-tab.svg ' %}">
-     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Bootstrap -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- Primary Meta Tags -->
+<title>IntelliESG</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="title" content="IntelliESG">
+<meta name="author" content="Themesberg">
+<meta name="description" content="Open source and free Bootstrap 5 UI Kit featuring 80 UI components, 5 example pages, and a Gulp and Sass workflow.">
+<link rel="canonical" href="https://themesberg.com/product/ui-kit/pixel-free-bootstrap-5-ui-kit">
 
-    <!-- Pixel CSS -->
-    <link type="text/css" href="{% static 'uikit/css/pixel.css' %}" rel="stylesheet">
+
+<!-- Favicon -->
+<link rel="apple-touch-icon" sizes="120x120" href="{% static 'uikit/assets/img/favicon/apple-touch-icon.png'%}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'uikit/assets/img/favicon/favicon-32x32.png'%}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'uikit/assets/img/favicon/favicon-16x16.png'%}">
+<link rel="manifest" href="{% static 'uikit/assets/img/favicon/site.webmanifest'%}">
+<link rel="mask-icon" href="{% static 'uikit/assets/img/favicon/safari-pinned-tab.svg'%}" color="#ffffff">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<!-- Fontawesome -->
+<link type="text/css" href="{% static 'uikit/vendor/@fortawesome/fontawesome-free/css/all.min.css'%}" rel="stylesheet">
+
+<!-- Pixel CSS -->
+<link type="text/css" href="{% static 'uikit/css/pixel.css'%}" rel="stylesheet">
+
 
 </head>
+
 
 
 <body>
 {% include 'navbar.html' %}
 
-<!-- Core -->
-<script src="{% static 'uikit/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'uikit/vendor/popper/popper.min.js' %}"></script>
-<script src="{% static 'uikit/vendor/bootstrap/bootstrap.min.js' %}"></script>
-<script src="{% static 'uikit/vendor/headroom/headroom.min.js' %}"></script>
+    <!-- Core -->
+<script src="{% static 'uikit/vendor/@popperjs/core/dist/umd/popper.min.js'%}"></script>
+<script src="{% static 'uikit/vendor/bootstrap/dist/js/bootstrap.min.js'%}"></script>
+<script src="{% static 'uikit/vendor/headroom.js/dist/headroom.min.js'%}"></script>
 
 <!-- Vendor JS -->
-<script src="{% static 'uikit/vendor/bootstrap-tagsinput/bootstrap-tagsinput.min.js' %}"></script>
-<script src="{% static 'uikit/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
-<script src="{% static 'uikit/vendor/smooth-scroll/smooth-scroll.polyfills.min.js' %}"></script>
-<!-- pixel JS -->
-<script src="{% static 'uikit/js/pixel.js' %}"></script>
+<script src="{% static 'uikit/vendor/onscreen/dist/on-screen.umd.min.js'%}"></script>
+<script src="{% static 'uikit/vendor/jarallax/dist/jarallax.min.js'%}"></script>
+<script src="{% static 'uikit/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js'%}"></script>
+<script src="{% static 'uikit/vendor/vivus/dist/vivus.min.js'%}"></script>
+<script src="{% static 'uikit/vendor/vanillajs-datepicker/dist/js/datepicker.min.js'%}"></script>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- Pixel JS -->
+<script src="{% static 'uikit/assets/js/pixel.js'%}"></script>
 
 {% block content %}
 
