@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 
 
 class HomePageView(TemplateView):
-    template_name = 'signin.html'
+    template_name = 'starter.html'
 
 
 class CompanyListView(ListView):

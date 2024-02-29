@@ -3,6 +3,16 @@
 - Changelog for the intelliesg app
 
 
+
+[29.02.2024]
+
+Version 0.2.1
+-
+- changed uikit
+- updated navbar and some html templates
+
+
+
 [27.02.2024]
 
 Version 0.2.0
