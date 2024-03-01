@@ -3,6 +3,12 @@
 - Changelog for the intelliesg app
 
 
+[01.03.2024]
+
+Version 0.2.2
+-
+- drafted the html templates for each emission type
+
 
 [29.02.2024]
 
