@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Sum,F
 import uuid
 from envdata.constants import *
 
@@ -18,10 +18,20 @@ class Company(models.Model):
     @property
     def total_co2_emissions(self):
         total_co2 = 0
-        total_co2 += Fuel.objects.aggregate(Sum('co2e_for_fuel_emission'))['co2e_for_fuel_emission__sum'] or 0
-        total_co2 += Sf6.objects.aggregate(Sum('co2e_for_sf6_emission'))['co2e_for_sf6_emission__sum'] or 0
-        total_co2 += Energy.objects.aggregate('co2e_for_energy_emission')[
-                         'co2e_for_energy_emission__sum'] or 0
+        # Assuming fuel_quantity and emission_factor are fields in the Fuel model.
+        fuels = Fuel.objects.all()
+        for fuel in fuels:
+            total_co2 += fuel.co2e_for_fuel_emission  # This calls the @property method for each fuel object
+
+        # Similar approach for Sf6 and Energy, if they have @property methods for CO2e calculation
+        sf6s = Sf6.objects.all()
+        for sf6 in sf6s:
+            total_co2 += sf6.co2e_for_sf6_emission  # Assuming this is a method or @property in Sf6 model
+
+        energies = Energy.objects.all()
+        for energy in energies:
+            total_co2 += energy.co2e_for_energy_emission  # Assuming this is a method or @property in Energy model
+
         return total_co2
 
     def __str__(self):
@@ -49,6 +59,14 @@ class Fuel(models.Model):
     def co2e_for_fuel_emission(self):
         total_co2 = self.fuel_quantity * self.emission_factor
         return total_co2
+
+    @classmethod
+    def total_co2e_for_company(cls, company_id):
+        return cls.objects.filter(company_id=company_id).annotate(
+            total_co2e_per_fuel=F('fuel_quantity') * F('emission_factor')
+        ).aggregate(
+            total_co2e=Sum('total_co2e_per_fuel')
+        )['total_co2e'] or 0
 
     def __str__(self):
         return f'{self.fuel_type}'
