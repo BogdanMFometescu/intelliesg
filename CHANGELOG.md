@@ -3,6 +3,13 @@
 - Changelog for the intelliesg app
 
 
+[02.03.2024]
+
+Version 0.2.3
+-
+- created the html for the envdata forms
+
+
 [01.03.2024]
 
 Version 0.2.2
