@@ -7,12 +7,12 @@
 </head>
 <body>
     <h1>Delete Emission</h1>
-    <p>Are you sure you want to delete "{{ emission.name }}"?</p>
+    <p>Are you sure you want to delete "{{ object}}"?</p>
     <form method="post">
         {% csrf_token %}
         <button type="submit">Confirm Delete</button>
     </form>
-    <a href="{% url 'emissions' %}">Cancel</a>
+    <a href="{% url 'fuel_emissions' %}">Cancel</a>
 </body>
 </html>
 

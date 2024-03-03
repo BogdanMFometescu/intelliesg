@@ -29,7 +29,7 @@ class CompanyCreateView(CreateView):
     success_url = reverse_lazy('companies_list')
 
     def form_valid(self, form):
-        return super(CompanyCreateView, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class CompanyUpdateView(UpdateModeMixin, UpdateView):

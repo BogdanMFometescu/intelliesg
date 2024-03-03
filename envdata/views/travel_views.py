@@ -10,33 +10,33 @@ from envdata.forms import TravelForm
 class TravelListView(ListView):
     model = Travel
     template_name = 'envdata/scope_one_emission/travel/travels.html'
-    context_object_name = 'travel_emissions'
+    context_object_name = 'travels'
 
 
 class TravelDetailView(DetailView):
     model = Travel
     template_name = 'envdata/scope_one_emission/travel/travel.html'
-    context_object_name = 'travel_emission'
+    context_object_name = 'travel'
 
 
 class TravelCreateView(CreateView):
     model = Travel
     form_class = TravelForm
     template_name = 'envdata/scope_one_emission/travel/form-travel.html'
-    success_url = reverse_lazy('travel_emissions')
+    success_url = reverse_lazy('travels')
 
     def form_valid(self, form):
-        return super(TravelCreateView).form_valid(form)
+        return super().form_valid(form)
 
 
 class TravelUpdateView(UpdateModeMixin, UpdateView):
     model = Travel
     form_class = TravelForm
     template_name = 'envdata/scope_one_emission/travel/form-travel.html'
-    success_url = reverse_lazy('travel_emissions')
+    success_url = reverse_lazy('travels')
 
 
 class TravelDeleteView(DeleteView):
     model = Travel
     template_name = 'envdata/delete-universal.html'
-    success_url = reverse_lazy('travel_emissions')
+    success_url = reverse_lazy('travels')

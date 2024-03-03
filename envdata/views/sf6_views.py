@@ -25,7 +25,7 @@ class Sf6CreateView(CreateView):
     success_url = reverse_lazy('sf6_emissions')
 
     def form_valid(self, form):
-        return super(Sf6CreateView, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class Sf6UpdateView(UpdateModeMixin, UpdateView):

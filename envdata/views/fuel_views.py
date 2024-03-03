@@ -26,7 +26,7 @@ class FuelCreateView(CreateView):
     success_url = reverse_lazy('fuel_emissions')
 
     def form_valid(self, form):
-        return super(FuelCreateView, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class FuelUpdateView(UpdateModeMixin, UpdateView):

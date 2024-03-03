@@ -32,8 +32,8 @@ urlpatterns = [
     path('delete-refrigerant-emission/<uuid:pk>/', views.RefrigerantDeleteView.as_view(),
          name='delete_refrigerant_emissions'),
 
-    path('energy-aq-emissions/', views.EnergyListView.as_view(), name='energy__aq_emissions'),
-    path('energy-aq-emission/<uuid:pk>/', views.EnergyDetailView.as_view(), name='energy_aq__emission'),
+    path('energy-aq-emissions/', views.EnergyListView.as_view(), name='energy_acquisitions'),
+    path('energy-aq-emission/<uuid:pk>/', views.EnergyDetailView.as_view(), name='energy_acquisition'),
     path('create-energy-ag-emissions/', views.EnergyCreateView.as_view(), name='create_energy_eq_emissions'),
     path('update-energy-emission/<uuid:pk>/', views.EnergyUpdateView.as_view(),
          name='update_energy_aq_emissions'),

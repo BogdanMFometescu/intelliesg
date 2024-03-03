@@ -23,10 +23,10 @@ class RefrigerantCreateView(CreateView):
     model = Refrigerant
     form_class = RefrigerantForm
     template_name = 'envdata/scope_one_emission/refrigerant/form-refrigerant.html'
-    success_url = reverse_lazy('refrigerants_emissions')
+    success_url = reverse_lazy('refrigerant_emissions')
 
     def form_valid(self, form):
-        return super(RefrigerantCreateView).form_valid(form)
+        return super().form_valid(form)
 
 
 class RefrigerantUpdateView(UpdateModeMixin, UpdateView):
