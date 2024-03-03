@@ -3,6 +3,15 @@
 - Changelog for the intelliesg app
 
 
+[03.03.2024]
+
+Version 0.2.4
+-
+- refactored the navbar
+- created methods in models for envdata to sum up values per company
+
+
+
 [02.03.2024]
 
 Version 0.2.3

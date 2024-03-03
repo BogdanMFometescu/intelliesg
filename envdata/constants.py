@@ -4,7 +4,8 @@ EMISSION_TYPE = [('Car fuels', 'Car fuels',),
                  ('SF6', 'SF6'),
                  ('Refrigerants', 'Refrigerants',),
                  ('Energy Acquisition', 'Energy Acquisition'),
-                 ('Travel', 'Travel')]
+                 ('Travel', 'Travel'),
+                 ('Waste', 'Waste')]
 
 EMISSION_SCOPE = [('Scope 1', 'Scope 1'),
                   ('Scope 2', 'Scope 2'),
@@ -34,7 +35,16 @@ VEHICLE_TYPE = [('Diesel passenger cars', 'Diesel passenger cars'),
                 ('Diesel agricultural equipment', 'Diesel agricultural equipment'),
                 ('Diesel ships and boats', 'Diesel ships and boats'),
                 ('Diesel medium-and-heavy-duty-Vehicles', 'Diesel-medium-and-heavy-Vehicles'),
-                ('Other diesel Non-Road Vehicles', 'Other diesel Non-Road Vehicles')]
+                ('Other diesel Non-Road Vehicles', 'Other diesel Non-Road Vehicles'),
+                ('Gasoline passenger cars', 'Gasoline passenger cars'),
+                ('Gasoline light-duty trucks', 'Gasoline light-duty'),
+                ('Gasoline medium-and-heavy-trucks', 'Gasoline medium-and-heavy-trucks'),
+                ('Gasoline agricultural equipment', 'Gasoline agricultural equipment'),
+                ('Gasoline ships and boats', 'Gasoline ships and boats'),
+                ('Gasoline medium-and-heavy-duty-Vehicles', 'Gasoline-medium-and-heavy-Vehicles'),
+                ('Other gasoline Non-Road Vehicles', 'Other gasoline Non-Road Vehicles'),
+
+                ]
 
 POLLUTION_NORM = [('Euro 1', 'Euro 1'),
                   ('Euro 2', 'Euro 2'),

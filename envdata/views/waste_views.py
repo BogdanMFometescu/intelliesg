@@ -26,7 +26,7 @@ class WasteCreateView(CreateView):
     success_url = reverse_lazy('wastes')
 
     def form_valid(self, form):
-        return super(CreateView).form_valid(form)
+        return super().form_valid(form)
 
 
 class WasteUpdateView(UpdateModeMixin, UpdateView):

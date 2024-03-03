@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Sum,F
+from django.db.models import Sum, F
 import uuid
 from envdata.constants import *
 
@@ -17,22 +17,15 @@ class Company(models.Model):
 
     @property
     def total_co2_emissions(self):
-        total_co2 = 0
-        # Assuming fuel_quantity and emission_factor are fields in the Fuel model.
-        fuels = Fuel.objects.all()
-        for fuel in fuels:
-            total_co2 += fuel.co2e_for_fuel_emission  # This calls the @property method for each fuel object
+        fuel_co2e = Fuel.fuel_co2e_per_company(self.id)
+        refrigerant_co2e = Refrigerant.refrigerant_co2e_per_company(self.id)
+        sf6_co2e = Sf6.sf6_co2e_per_company(self.id)
+        travel_co2e = Travel.travel_co2e_per_company(self.id)
+        energy_co2e = Energy.energy_co2e_per_company(self.id)
+        waste_co2e = Waste.waste_co2e_per_company(self.id)
 
-        # Similar approach for Sf6 and Energy, if they have @property methods for CO2e calculation
-        sf6s = Sf6.objects.all()
-        for sf6 in sf6s:
-            total_co2 += sf6.co2e_for_sf6_emission  # Assuming this is a method or @property in Sf6 model
-
-        energies = Energy.objects.all()
-        for energy in energies:
-            total_co2 += energy.co2e_for_energy_emission  # Assuming this is a method or @property in Energy model
-
-        return total_co2
+        total_co2e = sum([fuel_co2e, refrigerant_co2e, sf6_co2e, travel_co2e, energy_co2e, waste_co2e])
+        return total_co2e
 
     def __str__(self):
         return self.name
@@ -61,12 +54,10 @@ class Fuel(models.Model):
         return total_co2
 
     @classmethod
-    def total_co2e_for_company(cls, company_id):
-        return cls.objects.filter(company_id=company_id).annotate(
-            total_co2e_per_fuel=F('fuel_quantity') * F('emission_factor')
-        ).aggregate(
-            total_co2e=Sum('total_co2e_per_fuel')
-        )['total_co2e'] or 0
+    def fuel_co2e_per_company(cls, company_id):
+        fuel_co2e_per_company = cls.objects.filter(company_id=company_id).aggregate(total_co2=Sum(F('fuel_quantity') * F('emission_factor')))[
+                'total_co2'] or 0
+        return fuel_co2e_per_company
 
     def __str__(self):
         return f'{self.fuel_type}'
@@ -88,6 +79,12 @@ class Sf6(models.Model):
         total_co2 = self.sf6_quantity * 1
         return total_co2
 
+    @classmethod
+    def sf6_co2e_per_company(cls, company_id):
+        sf6_co2e_per_company = cls.objects.filter(company=company_id).aggregate(total_co2=Sum('sf6_quantity'))[
+                                   'total_co2'] or 0
+        return sf6_co2e_per_company
+
 
 class Refrigerant(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -98,6 +95,18 @@ class Refrigerant(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+
+    @property
+    def co2e_for_refrigerant(self):
+        total_co2 = self.refrigerant_quantity * 1
+        return total_co2
+
+    @classmethod
+    def refrigerant_co2e_per_company(cls, company_id):
+        refrigerant_co2e_per_company = \
+            cls.objects.filter(company=company_id).aggregate(total_co2=Sum('refrigerant_quantity'))[
+                'total_co2'] or 0
+        return refrigerant_co2e_per_company
 
     def __str__(self):
         return f'{self.refrigerant_type}'
@@ -113,6 +122,7 @@ class Energy(models.Model):
     location = models.CharField(max_length=255, blank=False, null=False)
     supplier_name = models.CharField(max_length=255, blank=False, null=False)
     measure_unit = models.CharField(max_length=20, blank=False, null=False)
+    energy_quantity = models.FloatField(max_length=20, blank=False, null=False, default=0.00)
     emission_factor = models.IntegerField(blank=False, null=True, default=0, )
     calculation_method = models.CharField(max_length=255, blank=False, null=False)
     created = models.DateField(auto_now_add=True)
@@ -121,8 +131,16 @@ class Energy(models.Model):
 
     @property
     def co2e_for_energy_emission(self):
-        total_co2 = self.emission_factor * 1
+        total_co2 = self.emission_factor * self.energy_quantity
         return total_co2
+
+    @classmethod
+    def energy_co2e_per_company(cls, company_id):
+        energy_co2e_per_company = \
+            cls.objects.filter(company_id=company_id).aggregate(
+                total_co2=Sum(F('energy_quantity') * F('emission_factor')))[
+                'total_co2'] or 0
+        return energy_co2e_per_company
 
     def __str__(self):
         return f'{self.supplier_name}'
@@ -145,6 +163,13 @@ class Travel(models.Model):
         total_co2 = ((self.distance * self.fuel_consumption) / 100) * 10.8
         return total_co2
 
+    @classmethod
+    def travel_co2e_per_company(cls, company_id):
+        travel_co2_per_company = cls.objects.filter(company_id=company_id).aggregate(
+            total_co2=Sum((F('fuel_consumption') * F('distance')) / 100) * 10.8)[
+                                     'total_co2'] or 0
+        return travel_co2_per_company
+
     def __str__(self):
         return f'{self.distance}'
 
@@ -161,15 +186,17 @@ class Waste(models.Model):
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
 
-    def __str__(self):
-        return f'{self.waste_name}'
-
     @property
     def total_waste_quantity(self):
-        total_quantity = self.quantity_disposed + self.quantity_recycled + self.quantity_land_filled
-        return total_quantity
-
-    @property
-    def c02_for_waste_quantity(self):
-        total_co2 = self.total_waste_quantity * 1  # TODO search for the right formula
+        total_co2 = (self.quantity_disposed + self.quantity_land_filled - self.quantity_recycled) * 1
         return total_co2
+
+    @classmethod
+    def waste_co2e_per_company(cls, company_id):
+        waste_co2e_per_company = \
+            cls.objects.filter(company_id=company_id).aggregate(total_co2=Sum('quantity_disposed'))[
+                'total_co2'] or 0
+        return waste_co2e_per_company
+
+    def __str__(self):
+        return f'{self.waste_name}'

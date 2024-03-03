@@ -106,14 +106,14 @@
                                 <td>{{ waste.quantity_recycled }}</td>
                                 <td>{{ waste.quantity_disposed }}</td>
                                 <td>{{ waste.quantity_land_filled }}</td>
-                                <td>{{ waste.c02_for_waste_quantity }}</td>
+                                <td>{{ waste.total_waste_quantity }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{% url 'update_fuel_emission' fuel.id %}" class="mr-3"
+                                        <a href="{% url 'update_waste' waste.id %}" class="mr-3"
                                            data-toggle="tooltip" data-placement="top" title="Edit item">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{% url 'delete_fuel_emission' fuel.id %}" class="text-danger"
+                                        <a href="{% url 'delete_waste' waste.id %}" class="text-danger"
                                            data-toggle="tooltip" data-placement="top" title="Delete item"
                                            onclick="return confirm('Are you sure you want to delete this item?');">
                                             <i class="fas fa-trash"></i>

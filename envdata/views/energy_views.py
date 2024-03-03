@@ -26,7 +26,7 @@ class EnergyCreateView(CreateView):
     success_url = reverse_lazy('energy_acquisitions')
 
     def form_valid(self, form):
-        return super(EnergyCreateView).form_valid(form)
+        return super().form_valid(form)
 
 
 class EnergyUpdateView(UpdateModeMixin, UpdateView):
