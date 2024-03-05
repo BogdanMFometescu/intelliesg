@@ -97,7 +97,7 @@
                                 <th scope="row">{{ forloop.counter }}</th>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        {{ company.name }}<span
+                                        <a href="{% url 'single_company' company.id %}">{{ company.name }}</a><span
                                             class="badge badge-primary ml-2">{{ company.created|date:'d-m-Y' }}</span>
                                     </div>
                                 </td>
