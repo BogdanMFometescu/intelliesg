@@ -27,6 +27,30 @@ class Company(models.Model):
         total_co2e = sum([fuel_co2e, refrigerant_co2e, sf6_co2e, travel_co2e, energy_co2e, waste_co2e])
         return total_co2e
 
+    @property
+    def fuel_co2e(self):
+        return Fuel.fuel_co2e_per_company(self.id)
+
+    @property
+    def refrigerant_co2e(self):
+        return Refrigerant.refrigerant_co2e_per_company(self.id)
+
+    @property
+    def sf6_co2e(self):
+        return Sf6.sf6_co2e_per_company(self.id)
+
+    @property
+    def travel_co2e(self):
+        return Travel.travel_co2e_per_company(self.id)
+
+    @property
+    def energy_co2e(self):
+        return Energy.energy_co2e_per_company(self.id)
+
+    @property
+    def waste_co2e(self):
+        return Waste.waste_co2e_per_company(self.id)
+
     def __str__(self):
         return self.name
 
@@ -55,7 +79,9 @@ class Fuel(models.Model):
 
     @classmethod
     def fuel_co2e_per_company(cls, company_id):
-        fuel_co2e_per_company = cls.objects.filter(company_id=company_id).aggregate(total_co2=Sum(F('fuel_quantity') * F('emission_factor')))[
+        fuel_co2e_per_company = \
+            cls.objects.filter(company_id=company_id).aggregate(
+                total_co2=Sum(F('fuel_quantity') * F('emission_factor')))[
                 'total_co2'] or 0
         return fuel_co2e_per_company
 

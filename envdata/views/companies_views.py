@@ -15,11 +15,16 @@ class CompanyListView(ListView):
     template_name = 'envdata/companies.html'
     context_object_name = 'companies_list'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        print(queryset)
+        return queryset
+
 
 class CompanyDetailView(DetailView):
     model = Company
-    template_name = 'envdata/company.html'
-    context_object_name = 'company'
+    template_name = 'envdata/single-company.html'
+    context_object_name = 'single_company'
 
 
 class CompanyCreateView(CreateView):
