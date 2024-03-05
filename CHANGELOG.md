@@ -2,6 +2,13 @@
 
 - Changelog for the intelliesg app
 
+[03.03.2024]
+
+Version 0.2.5
+-
+- refactored the navbar
+- updated companies html template
+
 
 [03.03.2024]
 
