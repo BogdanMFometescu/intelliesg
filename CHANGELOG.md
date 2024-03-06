@@ -2,6 +2,17 @@
 
 - Changelog for the intelliesg app
 
+[06.03.2024]
+
+Version 0.2.6
+-
+- added a target model in models.py
+- updated constants
+- added month and year fields in models.py
+
+
+
+
 [03.03.2024]
 
 Version 0.2.5

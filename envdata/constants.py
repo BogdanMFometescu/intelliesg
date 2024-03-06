@@ -52,3 +52,16 @@ POLLUTION_NORM = [('Euro 1', 'Euro 1'),
                   ('Euro 4', 'Euro 4'),
                   ('Euro 5', 'Euro 5'),
                   ('Euro 6', 'Euro 6')]
+
+MONTH = [('January', 'January'),
+         ('February', 'February'),
+         ('March', 'March'),
+         ('April', 'April'),
+         ('May', 'May'),
+         ('June', 'June'),
+         ('July', 'July'),
+         ('August', 'August'),
+         ('September', 'September'),
+         ('October', 'October'),
+         ('November', 'November'),
+         ('December', 'December')]

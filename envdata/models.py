@@ -58,6 +58,8 @@ class Company(models.Model):
 # SCOPE 1 emissions
 class Fuel(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    month = models.CharField(blank=False, null=False, choices=MONTH)
+    year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     fuel_type = models.CharField(max_length=255, blank=False, null=False, choices=FUEL_TYPE)
@@ -67,7 +69,7 @@ class Fuel(models.Model):
     activity_type = models.CharField(max_length=255, blank=False, null=False, choices=ACTIVITY_TYPE)
     vehicle_type = models.CharField(max_length=255, blank=False, null=False, choices=VEHICLE_TYPE)
     measure_unit = models.CharField(max_length=30, blank=False, null=False, default='L')
-    emission_factor = models.IntegerField(blank=False, null=False, default=0, )
+    emission_factor = models.FloatField(blank=False, null=False, default=0, )
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
@@ -91,6 +93,8 @@ class Fuel(models.Model):
 
 class Sf6(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    month = models.CharField(blank=False, null=False, choices=MONTH)
+    year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     equipment_type = models.CharField(max_length=255, blank=False, null=False)
@@ -114,6 +118,8 @@ class Sf6(models.Model):
 
 class Refrigerant(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    month = models.CharField(blank=False, null=False, choices=MONTH)
+    year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     refrigerant_type = models.CharField(max_length=255, blank=False, null=False)
@@ -143,13 +149,15 @@ class Refrigerant(models.Model):
 
 class Energy(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    month = models.CharField(blank=False, null=False, choices=MONTH)
+    year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     location = models.CharField(max_length=255, blank=False, null=False)
     supplier_name = models.CharField(max_length=255, blank=False, null=False)
     measure_unit = models.CharField(max_length=20, blank=False, null=False)
     energy_quantity = models.FloatField(max_length=20, blank=False, null=False, default=0.00)
-    emission_factor = models.IntegerField(blank=False, null=True, default=0, )
+    emission_factor = models.FloatField(blank=False, null=True, default=0, )
     calculation_method = models.CharField(max_length=255, blank=False, null=False)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
@@ -174,6 +182,8 @@ class Energy(models.Model):
 
 class Travel(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    month = models.CharField(blank=False, null=False, choices=MONTH)
+    year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     origin = models.CharField(max_length=255, blank=False, null=False)
@@ -187,7 +197,7 @@ class Travel(models.Model):
     @property
     def co2_for_distance_calculation(self):
         total_co2 = ((self.distance * self.fuel_consumption) / 100) * 10.8
-        return total_co2
+        return total_co2.__round__(2)
 
     @classmethod
     def travel_co2e_per_company(cls, company_id):
@@ -202,6 +212,8 @@ class Travel(models.Model):
 
 class Waste(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    month = models.CharField(blank=False, null=False, choices=MONTH)
+    year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     waste_name = models.CharField(max_length=255, blank=False, null=False)
@@ -226,3 +238,27 @@ class Waste(models.Model):
 
     def __str__(self):
         return f'{self.waste_name}'
+
+
+class Target(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    net_zero_year = models.IntegerField(null=True, blank=True,default=2050)
+    co2e_base_year = models.IntegerField(null=False, blank=False, default=0)
+    co2e_net_zero_target = models.IntegerField(null=False, blank=False, default=0)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
+
+    @classmethod
+    def get_net_zero_target(cls, company_id):
+        target = cls.objects.filter(company_id=company_id).first()
+        if target:
+            return target.co2e_net_zero_target
+        return 0
+
+    @classmethod
+    def get_year_target(cls, company_id):
+        pass
+
+    def __str__(self):
+        return f'{self.co2e_base_year} {self.co2e_net_zero_target}'

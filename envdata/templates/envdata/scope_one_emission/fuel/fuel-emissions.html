@@ -82,6 +82,8 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Company</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Month</th>
                             <th scope="col">Emission</th>
                             <th scope="col">Type</th>
                             <th scope="col">Source</th>
@@ -106,6 +108,8 @@
                                             class="badge badge-primary ml-2">{{ fuel.emission_scope }}</span>
                                     </div>
                                 </td>
+                                <td>{{ fuel.year }}</td>
+                                <td>{{ fuel.month }}</td>
                                 <td>{{ fuel.emission_type }}</td>
                                 <td>{{ fuel.fuel_type }}</td>
                                 <td>{{ fuel.fuel_source }}</td>
