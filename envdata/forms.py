@@ -3,7 +3,9 @@ from envdata.models import (Company,
                             Sf6,
                             Refrigerant,
                             Energy,
-                            Travel, Waste)
+                            Travel,
+                            Waste,
+                            Target)
 
 from django.forms import ModelForm
 
@@ -81,5 +83,16 @@ class WasteForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(WasteForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class TargetForm(ModelForm):
+    class Meta:
+        model = Target
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(TargetForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
