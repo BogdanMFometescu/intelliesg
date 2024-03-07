@@ -2,8 +2,8 @@ from django.urls import path
 from envdata import views
 
 urlpatterns = [
-    path('',views.HomePageView.as_view(),name='home'),
-    path('nav_forms',views.NavForms.as_view(),name='nav_forms'),
+    path('', views.HomePageView.as_view(), name='home'),
+    path('nav_forms', views.NavForms.as_view(), name='nav_forms'),
     path('companies', views.CompanyListView.as_view(), name='companies_list'),
     path('company/<uuid:pk>/', views.CompanyDetailView.as_view(), name='single_company'),
     path('create-company/', views.CompanyCreateView.as_view(), name='create_company'),
@@ -51,5 +51,11 @@ urlpatterns = [
     path('create-waste/', views.WasteCreateView.as_view(), name='create_waste'),
     path('update-waste/<uuid:pk>/', views.WasteUpdateView.as_view(), name='update_waste'),
     path('delete-waste/<uuid:pk>/', views.WasteDeleteView.as_view(), name='delete_waste'),
+
+    path('targets/', views.TargetListView.as_view(), name='targets'),
+    path('target/<uuid:pk>/', views.TargetDetailView.as_view(), name='target'),
+    path('create-target/', views.TargetCreateView.as_view(), name='create_target'),
+    path('update-target/<uuid:pk>/', views.TargetUpdateView.as_view(), name='update_target'),
+    path('delete-target/<uuid:pk>/', views.TargetDeleteView.as_view(), name='delete_target')
 
 ]

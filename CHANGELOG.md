@@ -2,6 +2,15 @@
 
 - Changelog for the intelliesg app
 
+
+[07.03.2024]
+
+Version 0.2.7
+-
+- created methods for co2e targets
+- created templates, views and forms for targets
+
+
 [06.03.2024]
 
 Version 0.2.6
@@ -9,7 +18,6 @@ Version 0.2.6
 - added a target model in models.py
 - updated constants
 - added month and year fields in models.py
-
 
 
 

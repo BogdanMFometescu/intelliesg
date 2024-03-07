@@ -51,6 +51,10 @@ class Company(models.Model):
     def waste_co2e(self):
         return Waste.waste_co2e_per_company(self.id)
 
+    @property
+    def co2e_net_zero_target(self):
+        return Target.get_co2_net_zero_target(self.id)
+
     def __str__(self):
         return self.name
 
@@ -242,23 +246,25 @@ class Waste(models.Model):
 
 class Target(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    net_zero_year = models.IntegerField(null=True, blank=True,default=2050)
+    base_year = models.IntegerField(null=True, blank=True, default=2019)
+    net_zero_year = models.IntegerField(null=True, blank=True, default=2050)
     co2e_base_year = models.IntegerField(null=False, blank=False, default=0)
-    co2e_net_zero_target = models.IntegerField(null=False, blank=False, default=0)
+    reduction_percentage = models.FloatField(null=False, blank=False, default=1)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
 
     @classmethod
-    def get_net_zero_target(cls, company_id):
+    def get_co2_net_zero_target(cls, company_id):
         target = cls.objects.filter(company_id=company_id).first()
-        if target:
-            return target.co2e_net_zero_target
+        if target is not None:
+            net_zero_target = (target.co2e_base_year * target.reduction_percentage) / 100
+            return target.co2e_base_year - net_zero_target
         return 0
 
     @classmethod
-    def get_year_target(cls, company_id):
+    def get_co2_yearly_target(cls, company_id):
         pass
 
     def __str__(self):
-        return f'{self.co2e_base_year} {self.co2e_net_zero_target}'
+        return f'{self.co2e_base_year}'
