@@ -3,6 +3,15 @@
 - Changelog for the intelliesg app
 
 
+[08.03.2024]
+
+Version 0.2.8
+-
+- created new methods for targets
+- updated targets html template
+
+
+
 [07.03.2024]
 
 Version 0.2.7

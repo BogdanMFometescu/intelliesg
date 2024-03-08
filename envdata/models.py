@@ -55,6 +55,10 @@ class Company(models.Model):
     def co2e_net_zero_target(self):
         return Target.get_co2_net_zero_target(self.id)
 
+    @property
+    def co2e_per_year_target(self):
+        return Target.get_co2_yearly_target(self.id)
+
     def __str__(self):
         return self.name
 
@@ -248,6 +252,7 @@ class Target(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     base_year = models.IntegerField(null=True, blank=True, default=2019)
     net_zero_year = models.IntegerField(null=True, blank=True, default=2050)
+    intermediate_year = models.IntegerField(null=True, blank=True, default=2020)
     co2e_base_year = models.IntegerField(null=False, blank=False, default=0)
     reduction_percentage = models.FloatField(null=False, blank=False, default=1)
     created = models.DateField(auto_now_add=True)
@@ -264,7 +269,16 @@ class Target(models.Model):
 
     @classmethod
     def get_co2_yearly_target(cls, company_id):
-        pass
+        intermediate_target = cls.objects.filter(company_id=company_id).first()
+        if intermediate_target is not None:
+            intermediate_year = (intermediate_target.co2e_base_year * intermediate_target.reduction_percentage) / 100
+            return intermediate_target.co2e_base_year - intermediate_year
+        return 0
+
+    @property
+    def co2e_year_target(self):
+        target = (self.co2e_base_year * self.reduction_percentage) / 100
+        return self.co2e_base_year - target
 
     def __str__(self):
         return f'{self.co2e_base_year}'

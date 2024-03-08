@@ -88,7 +88,7 @@
                             <th scope="col">Phone</th>
                             <th scope="col">Email</th>
                             <th scope="col">CO2e</th>
-                            <th scope="col">Target Net Zero</th>
+                            <th scope="col">Net Zero Target</th>
 
                         </tr>
                         </thead>
@@ -98,8 +98,7 @@
                                 <th scope="row">{{ forloop.counter }}</th>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="{% url 'single_company' company.id %}">{{ company.name }}</a><span
-                                            class="badge badge-primary ml-2">{{ company.created|date:'d-m-Y' }}</span>
+                                        <a href="{% url 'single_company' company.id %}">{{ company.name }}</a>
                                     </div>
                                 </td>
                                 <td>{{ company.city }}</td>
