@@ -29,7 +29,10 @@
                     </div>
                     <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                         <li class="nav-item">
-                            <a href="{% url 'companies_list' %}" class="nav-link">Companies</a>
+                                {% if company.id %}
+                                <a href="{% url 'fuel_graph' company.id %}">View Emissions Graph</a>
+                                {% endif %}
+
                         </li>
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" id="overviewdDropdown" aria-expanded="false"
@@ -114,7 +117,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                 <div class="row">
+                                <div class="row">
                                     <div class="col-6">
                                         <h6 class="d-block mb-3 text-primary">GHG Targets</h6>
                                         <ul class="list-style-none mb-4">
@@ -129,7 +132,6 @@
                                         </ul>
                                     </div>
                                 </div>
-
 
 
                             </div>

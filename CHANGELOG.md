@@ -3,6 +3,16 @@
 - Changelog for the intelliesg app
 
 
+
+[10.03.2024]
+
+Version 0.2.9
+-
+- fixed the net_zero_target function
+- started implementing charts using charts.js
+
+
+
 [08.03.2024]
 
 Version 0.2.8
