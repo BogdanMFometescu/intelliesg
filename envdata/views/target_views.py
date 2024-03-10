@@ -10,6 +10,9 @@ class TargetListView(ListView):
     template_name = 'envdata/targets/targets.html'
     context_object_name = 'targets'
 
+    def get_queryset(self):
+        return Target.objects.all().order_by('base_year', 'intermediate_year', 'net_zero_year')
+
 
 class TargetDetailView(DetailView):
     model = Target

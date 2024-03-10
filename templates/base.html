@@ -18,85 +18,90 @@ Contact us if you want to remove it.
 -->
 
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
 
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!-- Primary Meta Tags -->
-<title>IntelliESG</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="title" content="IntelliESG">
-<meta name="author" content="Themesberg">
-<meta name="description" content="Open source and free Bootstrap 5 UI Kit featuring 80 UI components, 5 example pages, and a Gulp and Sass workflow.">
-<link rel="canonical" href="https://themesberg.com/product/ui-kit/pixel-free-bootstrap-5-ui-kit">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!-- Primary Meta Tags -->
+    <title>IntelliESG</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="title" content="IntelliESG">
+    <meta name="author" content="Themesberg">
+    <meta name="description"
+          content="Open source and free Bootstrap 5 UI Kit featuring 80 UI components, 5 example pages, and a Gulp and Sass workflow.">
+    <link rel="canonical" href="https://themesberg.com/product/ui-kit/pixel-free-bootstrap-5-ui-kit">
 
 
-<!-- Favicon -->
-<link rel="apple-touch-icon" sizes="120x120" href="{% static 'uikit/assets/img/favicon/apple-touch-icon.png'%}">
-<link rel="icon" type="image/png" sizes="32x32" href="{% static 'uikit/assets/img/favicon/favicon-32x32.png'%}">
-<link rel="icon" type="image/png" sizes="16x16" href="{% static 'uikit/assets/img/favicon/favicon-16x16.png'%}">
-<link rel="manifest" href="{% static 'uikit/assets/img/favicon/site.webmanifest'%}">
-<link rel="mask-icon" href="{% static 'uikit/assets/img/favicon/safari-pinned-tab.svg'%}" color="#ffffff">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'uikit/assets/img/favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'uikit/assets/img/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'uikit/assets/img/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'uikit/assets/img/favicon/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'uikit/assets/img/favicon/safari-pinned-tab.svg' %}" color="#ffffff">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
 
-<!-- Fontawesome -->
-<link type="text/css" href="{% static 'uikit/vendor/@fortawesome/fontawesome-free/css/all.min.css'%}" rel="stylesheet">
+    <!-- Fontawesome -->
+    <link type="text/css" href="{% static 'uikit/vendor/@fortawesome/fontawesome-free/css/all.min.css' %}"
+          rel="stylesheet">
 
-<!-- Pixel CSS -->
-<link type="text/css" href="{% static 'uikit/css/pixel.css'%}" rel="stylesheet">
+    <!-- Pixel CSS -->
+    <link type="text/css" href="{% static 'uikit/css/pixel.css' %}" rel="stylesheet">
 
 
 </head>
-
 
 
 <body>
 {% include 'navbar.html' %}
 
 
-    <!-- Core -->
-<script src="{% static 'uikit/vendor/@popperjs/core/dist/umd/popper.min.js'%}"></script>
-<script src="{% static 'uikit/vendor/bootstrap/dist/js/bootstrap.min.js'%}"></script>
-<script src="{% static 'uikit/vendor/headroom.js/dist/headroom.min.js'%}"></script>
+<!-- Core -->
+<script src="{% static 'uikit/vendor/@popperjs/core/dist/umd/popper.min.js' %}"></script>
+<script src="{% static 'uikit/vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'uikit/vendor/headroom.js/dist/headroom.min.js' %}"></script>
+
+<!-- Chart js -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <!-- Vendor JS -->
-<script src="{% static 'uikit/vendor/onscreen/dist/on-screen.umd.min.js'%}"></script>
-<script src="{% static 'uikit/vendor/jarallax/dist/jarallax.min.js'%}"></script>
-<script src="{% static 'uikit/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js'%}"></script>
-<script src="{% static 'uikit/vendor/vivus/dist/vivus.min.js'%}"></script>
-<script src="{% static 'uikit/vendor/vanillajs-datepicker/dist/js/datepicker.min.js'%}"></script>
+<script src="{% static 'uikit/vendor/onscreen/dist/on-screen.umd.min.js' %}"></script>
+<script src="{% static 'uikit/vendor/jarallax/dist/jarallax.min.js' %}"></script>
+<script src="{% static 'uikit/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js' %}"></script>
+<script src="{% static 'uikit/vendor/vivus/dist/vivus.min.js' %}"></script>
+<script src="{% static 'uikit/vendor/vanillajs-datepicker/dist/js/datepicker.min.js' %}"></script>
 
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 
 <!-- Pixel JS -->
-<script src="{% static 'uikit/assets/js/pixel.js'%}"></script>
+<script src="{% static 'uikit/assets/js/pixel.js' %}"></script>
 
 {% block content %}
 
 {% endblock %}
- <footer class="footer pt-6 pb-5 bg-dark text-white">
+<footer class="footer pt-6 pb-5 bg-dark text-white">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <img class="navbar-brand-dark mb-4" height="35" src="../../assets/img/brand/light.svg"
-                    alt="Logo light">
-                <p>Pixel is a free and open source Bootstrap 5 UI Kit that will help you prototype and build beautiful website pages and applications.</p>
+                     alt="Logo light">
+                <p>Pixel is a free and open source Bootstrap 5 UI Kit that will help you prototype and build beautiful
+                    website pages and applications.</p>
                 <ul class="social-buttons mb-5 mb-lg-0">
                     <li>
                         <a href="https://twitter.com/themesberg" aria-label="twitter social link"
-                            class="icon-white me-2">
+                           class="icon-white me-2">
                             <span class="fab fa-twitter"></span>
                         </a>
                     </li>
                     <li>
                         <a href="https://www.facebook.com/themesberg/" class="icon-white me-2"
-                            aria-label="facebook social link">
+                           aria-label="facebook social link">
                             <span class="fab fa-facebook"></span>
                         </a>
                     </li>
@@ -125,13 +130,13 @@ Contact us if you want to remove it.
                 <span class="h5">Other</span>
                 <ul class="footer-links mt-2">
                     <li><a href="https://themesberg.com/docs/bootstrap-5/pixel/getting-started/quick-start/"
-                            target="_blank">Docs</a></li>
+                           target="_blank">Docs</a></li>
                     <li><a href="https://themesberg.com/docs/pixel-bootstrap/getting-started/changelog"
-                            target="_blank">Changelog</a></li>
+                           target="_blank">Changelog</a></li>
                     <li><a target="_blank" href="https://themesberg.com/licensing">License</a>
                     </li>
                     <li><a target="_blank"
-                            href="https://github.com/themesberg/pixel-bootstrap-ui-kit/issues">Support</a></li>
+                           href="https://github.com/themesberg/pixel-bootstrap-ui-kit/issues">Support</a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-4 mb-5 mb-lg-0">
@@ -143,7 +148,7 @@ Contact us if you want to remove it.
                         <div class="col-12">
                             <label class="h6 fw-normal text-muted d-none" for="exampleInputEmail3">Email address</label>
                             <input type="email" class="form-control mb-2" placeholder="example@company.com" name="email"
-                                aria-label="Subscribe form" id="exampleInputEmail3" required>
+                                   aria-label="Subscribe form" id="exampleInputEmail3" required>
                         </div>
                         <div class="col-12 d-grid">
                             <button type="submit" class="btn btn-tertiary" data-loading-text="Sending">
@@ -153,7 +158,8 @@ Contact us if you want to remove it.
                     </div>
                 </form>
                 <p class="text-muted font-small m-0">We’ll never share your details. See our <a class="text-white"
-                        href="#">Privacy Policy</a></p>
+                                                                                                href="#">Privacy
+                    Policy</a></p>
             </div>
         </div>
         <hr class="bg-secondary my-3 my-lg-5">

@@ -56,6 +56,7 @@ urlpatterns = [
     path('target/<uuid:pk>/', views.TargetDetailView.as_view(), name='target'),
     path('create-target/', views.TargetCreateView.as_view(), name='create_target'),
     path('update-target/<uuid:pk>/', views.TargetUpdateView.as_view(), name='update_target'),
-    path('delete-target/<uuid:pk>/', views.TargetDeleteView.as_view(), name='delete_target')
+    path('delete-target/<uuid:pk>/', views.TargetDeleteView.as_view(), name='delete_target'),
+    path('fuel_graph/<uuid:pk>/', views.FuelEmissionsDetailView.as_view(), name='fuel_graph')
 
 ]

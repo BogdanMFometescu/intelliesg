@@ -7,3 +7,4 @@ from .travel_views import *
 from .waste_views import *
 from .navbar_views import *
 from .target_views import *
+from .charts_views import *

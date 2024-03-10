@@ -55,10 +55,6 @@ class Company(models.Model):
     def co2e_net_zero_target(self):
         return Target.get_co2_net_zero_target(self.id)
 
-    @property
-    def co2e_per_year_target(self):
-        return Target.get_co2_yearly_target(self.id)
-
     def __str__(self):
         return self.name
 
@@ -261,18 +257,10 @@ class Target(models.Model):
 
     @classmethod
     def get_co2_net_zero_target(cls, company_id):
-        target = cls.objects.filter(company_id=company_id).first()
+        target = cls.objects.filter(company_id=company_id, intermediate_year=2050).first()
         if target is not None:
             net_zero_target = (target.co2e_base_year * target.reduction_percentage) / 100
             return target.co2e_base_year - net_zero_target
-        return 0
-
-    @classmethod
-    def get_co2_yearly_target(cls, company_id):
-        intermediate_target = cls.objects.filter(company_id=company_id).first()
-        if intermediate_target is not None:
-            intermediate_year = (intermediate_target.co2e_base_year * intermediate_target.reduction_percentage) / 100
-            return intermediate_target.co2e_base_year - intermediate_year
         return 0
 
     @property

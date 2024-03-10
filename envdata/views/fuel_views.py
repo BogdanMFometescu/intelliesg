@@ -12,6 +12,9 @@ class FuelListView(ListView):
     template_name = 'envdata/scope_one_emission/fuel/fuel-emissions.html'
     context_object_name = 'fuel_emissions'
 
+    def get_queryset(self):
+        return Fuel.objects.all().order_by('month','year')
+
 
 class FuelDetailView(DetailView):
     model = Fuel
