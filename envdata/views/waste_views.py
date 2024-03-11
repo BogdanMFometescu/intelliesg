@@ -2,24 +2,24 @@ from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from envdata.mixins import UpdateModeMixin
+from envdata.mixins import UpdateModeMixin, CompanyContextMixin
 from envdata.models import Waste
 from envdata.forms import WasteForm
 
 
-class WasteListView(ListView):
+class WasteListView(CompanyContextMixin, ListView):
     model = Waste
     template_name = 'envdata/scope_two_emission/waste/wastes.html'
     context_object_name = 'wastes'
 
 
-class WasteDetailView(DetailView):
+class WasteDetailView(CompanyContextMixin, DetailView):
     model = Waste
     template_name = 'envdata/scope_two_emission/waste/waste.html'
     context_object_name = 'waste'
 
 
-class WasteCreateView(CreateView):
+class WasteCreateView(CompanyContextMixin, CreateView):
     model = Waste
     form_class = WasteForm
     template_name = 'envdata/scope_two_emission/waste/form-waste.html'
@@ -29,14 +29,14 @@ class WasteCreateView(CreateView):
         return super().form_valid(form)
 
 
-class WasteUpdateView(UpdateModeMixin, UpdateView):
+class WasteUpdateView(UpdateModeMixin, CompanyContextMixin, UpdateView):
     mode = Waste
     form_class = WasteForm
     template_name = 'envdata/scope_two_emission/waste/form-waste.html'
     success_url = reverse_lazy('wastes')
 
 
-class WasteDeleteView(DeleteView):
+class WasteDeleteView(CompanyContextMixin, DeleteView):
     model = Waste
     template_name = 'envdata/delete-universal.html'
     success_url = reverse_lazy('wastes')
