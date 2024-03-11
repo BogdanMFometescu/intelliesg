@@ -1,11 +1,11 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from envdata.models import Target
-from envdata.mixins import UpdateModeMixin
+from envdata.mixins import UpdateModeMixin, CompanyContextMixin
 from envdata.forms import TargetForm
 from django.urls import reverse_lazy
 
 
-class TargetListView(ListView):
+class TargetListView(CompanyContextMixin, ListView):
     model = Target
     template_name = 'envdata/targets/targets.html'
     context_object_name = 'targets'
@@ -14,13 +14,13 @@ class TargetListView(ListView):
         return Target.objects.all().order_by('base_year', 'intermediate_year', 'net_zero_year')
 
 
-class TargetDetailView(DetailView):
+class TargetDetailView(CompanyContextMixin, DetailView):
     model = Target
     template_name = 'envdata/targets/target.html'
     context_object_name = 'target'
 
 
-class TargetCreateView(CreateView):
+class TargetCreateView(CompanyContextMixin, CreateView):
     model = Target
     template_name = 'envdata/targets/form-target.html'
     form_class = TargetForm
@@ -30,14 +30,14 @@ class TargetCreateView(CreateView):
         return super().form_valid(form)
 
 
-class TargetUpdateView(UpdateModeMixin, UpdateView):
+class TargetUpdateView(UpdateModeMixin, CompanyContextMixin, UpdateView):
     model = Target
     template_name = 'envdata/targets/form-target.html'
     form_class = TargetForm
     success_url = reverse_lazy('targets')
 
 
-class TargetDeleteView(DeleteView):
+class TargetDeleteView(CompanyContextMixin, DeleteView):
     model = Target
     template_name = 'envdata/delete-universal.html'
     success_url = reverse_lazy('targets')

@@ -3,6 +3,12 @@
 - Changelog for the intelliesg app
 
 
+[11.03.2024]
+
+Version 0.3.0
+-
+- implemented one chart for fuel emissions using chart.js
+
 
 [10.03.2024]
 

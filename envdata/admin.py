@@ -3,6 +3,7 @@
 from django.contrib import admin
 from envdata.models import (Company, Fuel, Sf6, Refrigerant, Energy, Travel, Waste,Target)
 
+
 # Register your models here.
 admin.site.register(Company)
 admin.site.register(Fuel)
