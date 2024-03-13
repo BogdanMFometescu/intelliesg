@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="section section-lg bg-primary-app">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 text-center mb-5 mb-lg-6">
+                    <h2 class="display-2 fw-bold">
+                        Charts
+                    </h2>
+                    <p class="lead">And if it’s not listed here, I learn incredibly quickly</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <div class="card bg-white border-gray-300">
+                        <div class="border-bottom px-4 py-5">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Fuel</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">Fuel emissions charts for all companies </h3>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'fuel_chart' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">SF6 </h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">SF6 emissions for all companies</h3>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'sf6_chart' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Environment</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">E-F03-Fuel</h3>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Scope One</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_fuel_emission' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Environment</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">E-F04-Refrigerant</h3>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Scope One</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_refrigerant_emissions' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Environment</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">E-F05-SF6</h3>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Scope One</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_sf6_emissions' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Environment</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">E-F06-Travel</h3>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Scope One</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_travel' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Environment</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">E-F07-Energy</h3>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Scope Two</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_energy_eq_emissions' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Environment</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">E-F08-Waste</h3>
+                                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Scope Two</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_waste' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                        </div>
+                        <div class="border-bottom px-4 py-5">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Social</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">S-F01-Front-end Developer</h3>
+                                    <p class="mb-0">Collaborate with creative and development teams on the execution of
+                                        ideas.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right"><span class="badge bg-primary">2016 - 2019</span>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="px-4 py-5">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Governance</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">G-F01-UI/UX Engineer</h3>
+                                    <p class="mb-0">Collaborate with creative and development teams on the execution of
+                                        ideas.</p>
+                                </div>
+                                <div class="col-md-4 text-md-right"><span class="badge bg-primary">2014 - 2016</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}

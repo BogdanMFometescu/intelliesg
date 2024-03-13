@@ -104,6 +104,7 @@ class Sf6(models.Model):
     equipment_type = models.CharField(max_length=255, blank=False, null=False)
     equipment_producer = models.CharField(max_length=255, blank=False, null=False)
     sf6_quantity = models.FloatField(max_length=10, blank=False, null=False)
+    emission_factor = models.FloatField(blank=False, null=False, default=0, )
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
@@ -115,7 +116,7 @@ class Sf6(models.Model):
 
     @classmethod
     def sf6_co2e_per_company(cls, company_id):
-        sf6_co2e_per_company = cls.objects.filter(company=company_id).aggregate(total_co2=Sum('sf6_quantity'))[
+        sf6_co2e_per_company = cls.objects.filter(company=company_id).aggregate(total_co2=Sum(F('sf6_quantity')*F('emission_factor')))[
                                    'total_co2'] or 0
         return sf6_co2e_per_company
 
