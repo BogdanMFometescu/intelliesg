@@ -111,7 +111,7 @@ class Sf6(models.Model):
 
     @property
     def co2e_for_sf6_emission(self):
-        total_co2 = self.sf6_quantity * 1
+        total_co2 = self.sf6_quantity * self.emission_factor
         return total_co2
 
     @classmethod
@@ -129,6 +129,7 @@ class Refrigerant(models.Model):
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     refrigerant_type = models.CharField(max_length=255, blank=False, null=False)
     refrigerant_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0.00)
+    emission_factor = models.FloatField(blank=False, null=False, default=0, )
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)

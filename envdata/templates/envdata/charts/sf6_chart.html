@@ -6,7 +6,6 @@
     <title>{{ chart_title }}</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-
         .chart-container {
             position: relative;
             margin: auto;
@@ -18,12 +17,25 @@
 <body>
 
 <h2>{{ chart_title }}</h2>
+<!-- Dropdown for selecting companies -->
+<label for="companySelector"></label><select id="companySelector">
+    <option value="all">All Companies</option>
+    <!-- Options will be added here dynamically -->
+</select>
+
 <div class="chart-container">
     <canvas id="emissionsChart"></canvas>
 </div>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        populateCompanySelector();
+        updateChartData('all'); // Initialize chart with 'all' data
+    });
+
     const ctx = document.getElementById('emissionsChart').getContext('2d');
+    let myChart; // Declare chart variable to initialize later
+
     const chartData = {
         labels: {{ years|safe }},
         datasets: []
@@ -46,50 +58,76 @@
         'rgba(255, 159, 64, 1)'
     ];
 
-
     const emissionsData = {{ data|safe }};
-    let colorIndex = 0;
-    for (const [company, emissions] of Object.entries(emissionsData)) {
-        chartData.datasets.push({
-            label: company,
-            data: emissions,
-            backgroundColor: colors[colorIndex % colors.length],
-            borderColor: borderColors[colorIndex % borderColors.length],
-            borderWidth: 1
+
+    function populateCompanySelector() {
+        const companySelector = document.getElementById('companySelector');
+        const companies = Object.keys(emissionsData);
+
+        companies.forEach(company => {
+            const option = document.createElement('option');
+            option.value = company;
+            option.textContent = company; // Use a more user-friendly name if available
+            companySelector.appendChild(option);
         });
-        colorIndex++;
     }
 
-    new Chart(ctx, {
-        type: 'bar', // Or 'line' for line chart
-        data: chartData,
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'CO2eq',
-                        font: {
-                            size: 16
+    document.getElementById('companySelector').addEventListener('change', function() {
+        updateChartData(this.value);
+    });
+
+    function updateChartData(selectedCompany) {
+        const filteredData = (selectedCompany === 'all') ? emissionsData : {[selectedCompany]: emissionsData[selectedCompany]};
+
+        chartData.datasets = []; // Reset datasets
+
+        let colorIndex = 0;
+        for (const [company, emissions] of Object.entries(filteredData)) {
+            chartData.datasets.push({
+                label: company,
+                data: emissions,
+                backgroundColor: colors[colorIndex % colors.length],
+                borderColor: borderColors[colorIndex % borderColors.length],
+                borderWidth: 1
+            });
+            colorIndex++;
+        }
+
+        if (myChart) {
+            myChart.destroy(); // Destroy existing chart instance before creating a new one
+        }
+
+        myChart = new Chart(ctx, {
+            type: 'bar', // Or 'line' for line chart
+            data: chartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'CO2eq',
+                            font: {
+                                size: 16
+                            }
                         }
                     }
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top',
                 },
-                title: {
-                    display: true,
-                    text: 'Emissions Over Years'
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Emissions Over Years'
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 </script>
 
 </body>

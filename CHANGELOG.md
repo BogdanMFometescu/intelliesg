@@ -3,9 +3,17 @@
 - Changelog for the intelliesg app
 
 
+[14.03.2024]
+
+Version 0.3.2
+-
+- implemented one chart for refrigerant emissions using chart.js
+
+
+
 [13.03.2024]
 
-Version 0.3.01
+Version 0.3.1
 -
 - implemented one chart for sf6 emissions using chart.js
 
