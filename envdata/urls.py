@@ -59,5 +59,6 @@ urlpatterns = [
     path('delete-target/<uuid:pk>/', views.TargetDeleteView.as_view(), name='delete_target'),
     path('fuel-emission-chart/', views.FuelEmissionsView.as_view(), name='fuel_chart'),
     path('sf6-emission-chart/', views.Sf6EmissionsView.as_view(), name='sf6_chart'),
+    path('refrigerant-emission-chart/', views.RefrigerantEmissionsView.as_view(), name='refrigerant_chart'),
     path('charts',views.Charts.as_view(),name='charts'),
 ]

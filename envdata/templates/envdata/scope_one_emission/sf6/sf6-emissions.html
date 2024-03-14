@@ -76,7 +76,7 @@
                     </div>
                     <br>
                     <br>
-                    <h2 align="left">SF6 Emissions (CO2e)</h2>>
+                    <h2 align="left">SF6 Emissions (CO2e)</h2>
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -101,7 +101,7 @@
                                 <td>{{ sf6.emission_type }}</td>
                                 <td>{{ sf6.equipment_type }}</td>
                                 <td>{{ sf6.equipment_producer }}</td>
-                                <td>{{ sf6.sf6_quantity }}</td>
+                                <td>{{ sf6.co2e_for_sf6_emission }}</td>
                                 <td>
                                     <div class="d-flex">
                                         <a href="{% url 'update_sf6_emissions' sf6.id %}" class="mr-3"
