@@ -186,6 +186,9 @@ class Energy(models.Model):
         return f'{self.supplier_name}'
 
 
+# SCOPE 3 emissions
+
+
 class Travel(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH)
@@ -194,8 +197,10 @@ class Travel(models.Model):
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
     origin = models.CharField(max_length=255, blank=False, null=False)
     destination = models.CharField(max_length=255, blank=False, null=False)
+    emission_factor = models.FloatField(blank=False, null=True, default=0, )
     distance = models.FloatField(blank=False, null=False)
     fuel_consumption = models.FloatField(blank=False, null=False, default=7.5)
+
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
@@ -226,6 +231,7 @@ class Waste(models.Model):
     quantity_recycled = models.FloatField(blank=False, null=False)
     quantity_disposed = models.FloatField(blank=False, null=False)
     quantity_land_filled = models.FloatField(blank=False, null=False)
+    emission_factor = models.FloatField(blank=False, null=True, default=0, )
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
