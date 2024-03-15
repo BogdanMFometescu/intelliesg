@@ -3,6 +3,15 @@
 - Changelog for the intelliesg app
 
 
+
+[15.03.2024]
+
+Version 0.3.3
+-
+- implemented one chart for energy,waste and travel emissions using chart.js
+
+
+
 [14.03.2024]
 
 Version 0.3.2

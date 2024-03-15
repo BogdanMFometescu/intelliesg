@@ -1,7 +1,7 @@
 from django.db.models import F, FloatField, Sum
 from django.db.models.functions import Cast
 
-from envdata.models import Fuel, Sf6,Refrigerant
+from envdata.models import Fuel, Sf6, Refrigerant, Energy
 from django.views.generic import TemplateView
 from envdata.mixins import CompanyContextMixin
 
@@ -78,4 +78,76 @@ class RefrigerantEmissionsView(TemplateView):
         context['years'] = years
         context['data'] = data
         context['chart_title'] = 'Refrigerant Emissions by Year for All Companies'
+        return context
+
+
+class EnergyEmissionsView(TemplateView):
+    template_name = 'envdata/charts/energy_chart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        annotated_qs = Refrigerant.objects.annotate(
+            total_co2=Cast(F('energy_quantity') * F('emission_factor'), output_field=FloatField())
+        ).values('year', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year')
+
+        years = sorted(list(set(annotated_qs.values_list('year', flat=True))))
+        companies = {emission['company__name'] for emission in annotated_qs}
+        data = {company: [0] * len(years) for company in companies}
+
+        for emission in annotated_qs:
+            year_index = years.index(emission['year'])
+            data[emission['company__name']][year_index] = emission['total_co2']
+
+        context['years'] = years
+        context['data'] = data
+        context['chart_title'] = 'Energy Emissions by Year for All Companies'
+        return context
+
+
+class TravelEmissionsView(TemplateView):
+    template_name = 'envdata/charts/travel_chart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        annotated_qs = Refrigerant.objects.annotate(
+            total_co2=Cast(F('energy_quantity') * F('emission_factor'), output_field=FloatField())
+        ).values('year', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year')
+
+        years = sorted(list(set(annotated_qs.values_list('year', flat=True))))
+        companies = {emission['company__name'] for emission in annotated_qs}
+        data = {company: [0] * len(years) for company in companies}
+
+        for emission in annotated_qs:
+            year_index = years.index(emission['year'])
+            data[emission['company__name']][year_index] = emission['total_co2']
+
+        context['years'] = years
+        context['data'] = data
+        context['chart_title'] = 'Travel Emissions by Year for All Companies'
+        return context
+
+
+class WasteEmissionsView(TemplateView):
+    template_name = 'envdata/charts/waste_chart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        annotated_qs = Refrigerant.objects.annotate(
+            total_co2=Cast(F('energy_quantity') * F('emission_factor'), output_field=FloatField())
+        ).values('year', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year')
+
+        years = sorted(list(set(annotated_qs.values_list('year', flat=True))))
+        companies = {emission['company__name'] for emission in annotated_qs}
+        data = {company: [0] * len(years) for company in companies}
+
+        for emission in annotated_qs:
+            year_index = years.index(emission['year'])
+            data[emission['company__name']][year_index] = emission['total_co2']
+
+        context['years'] = years
+        context['data'] = data
+        context['chart_title'] = 'Waste Emissions by Year for All Companies'
         return context
