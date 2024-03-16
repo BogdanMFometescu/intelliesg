@@ -7,9 +7,9 @@
              class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
             <div class="container position-relative">
                 <a class="navbar-brand me-lg-5" href="{% url 'home' %}">
-                    <img class="navbar-brand-dark" src="{% static 'uikit/assets/img/brand/light.svg' %}"
+                    <img class="navbar-brand-dark" src="{% static 'images/Logo-DEO-no-background.png' %}"
                          alt="Logo light">
-                    <img class="navbar-brand-light" src="{% static 'uikit/assets/img/brand/dark.svg' %}"
+                    <img class="navbar-brand-light" src="{% static 'images/Logo-DEO-no-background.png' %}"
                          alt="Logo dark">
                 </a>
                 <div class="navbar-collapse collapse me-auto" id="navbar_global">
@@ -27,329 +27,337 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-                        <li class="nav-item">
+                    {% if user.is_authenticated %}
+                        <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+                            <li class="nav-item">
 
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" id="overviewdDropdown"
+                                   aria-expanded="false"
+                                   data-bs-toggle="dropdown">
+                                    Dashboard
+                                    <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-megamenu-sm px-0 py-2 p-lg-4"
+                                     aria-labelledby="overviewdDropdown">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Overview</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'fuel_emissions' %}">Performance
+                                                        Summary </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Recent
+                                                        Updates
+                                                    </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'sf6_emissions' %}">Alerts and
+                                                        Notifications </a>
+                                                </li>
 
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="overviewdDropdown" aria-expanded="false"
-                               data-bs-toggle="dropdown">
-                                Dashboard
-                                <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-megamenu-sm px-0 py-2 p-lg-4"
-                                 aria-labelledby="overviewdDropdown">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">Overview</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'fuel_emissions' %}">Performance
-                                                    Summary </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Recent
-                                                    Updates
-                                                </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'sf6_emissions' %}">Alerts and
-                                                    Notifications </a>
-                                            </li>
-
-                                        </ul>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
 
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="dashboardDropdown" aria-expanded="false"
-                               data-bs-toggle="dropdown">
-                                Environmental
-                                <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-megamenu-sm px-0 py-2 p-lg-4"
-                                 aria-labelledby="dashboardDropdown">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">Emissions Detail</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'fuel_emissions' %}">Fuel </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Refrigerant
-                                                </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'sf6_emissions' %}">SF6 </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'travels' %}">Travel </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'energy_acquisitions' %}">Energy
-                                                </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'wastes' %}">Waste </a>
-                                            </li>
-                                        </ul>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" id="dashboardDropdown"
+                                   aria-expanded="false"
+                                   data-bs-toggle="dropdown">
+                                    Environmental
+                                    <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-megamenu-sm px-0 py-2 p-lg-4"
+                                     aria-labelledby="dashboardDropdown">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Emissions Detail</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'fuel_emissions' %}">Fuel </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Refrigerant
+                                                    </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'sf6_emissions' %}">SF6 </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'travels' %}">Travel </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'energy_acquisitions' %}">Energy
+                                                    </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'wastes' %}">Waste </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">Energy Sources</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link"
-                                                   href="{% url 'fuel_emissions' %}">Renewable </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Non-Renewable
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Energy Sources</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link"
+                                                       href="{% url 'fuel_emissions' %}">Renewable </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Non-Renewable
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">GHG Targets</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link"
-                                                   href="{% url 'targets' %}">Targets </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Non-Renewable
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">GHG Targets</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link"
+                                                       href="{% url 'targets' %}">Targets </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Non-Renewable
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
 
 
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="newDashboardDropdown" aria-expanded="false"
-                               data-bs-toggle="dropdown">
-                                Social
-                                <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-megamenu-sm px-0 py-2 p-lg-4"
-                                 aria-labelledby="newDashboardDropdown">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">Employee Engagement Survey</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="">Feature 1
-                                                </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="">Feature 2
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">Diversity Metrics</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link"
-                                                   href="{% url 'fuel_emissions' %}">Feature 1 </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Feature
-                                                    2
-                                                </a>
-                                            </li>
-                                        </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" id="newDashboardDropdown"
+                                   aria-expanded="false"
+                                   data-bs-toggle="dropdown">
+                                    Social
+                                    <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-megamenu-sm px-0 py-2 p-lg-4"
+                                     aria-labelledby="newDashboardDropdown">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Employee Engagement Survey</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="">Feature 1
+                                                    </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="">Feature 2
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">Community Programs</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link"
-                                                   href="{% url 'fuel_emissions' %}">Feature 1 </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Feature
-                                                    2
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Diversity Metrics</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link"
+                                                       href="{% url 'fuel_emissions' %}">Feature 1 </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Feature
+                                                        2
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Community Programs</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link"
+                                                       href="{% url 'fuel_emissions' %}">Feature 1 </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Feature
+                                                        2
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="govDashboardDropdown" aria-expanded="false"
-                               data-bs-toggle="dropdown">
-                                Governance
-                                <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-megamenu-sm px-0 py-2 p-lg-4"
-                                 aria-labelledby="govDashboardDropdown">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">Policy Updates</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="">Feature 1
-                                                </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="">Feature 2
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">Compliance Checklist</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="">Feature 1
-                                                </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="">Feature 2
-                                                </a>
-                                            </li>
-                                        </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" id="govDashboardDropdown"
+                                   aria-expanded="false"
+                                   data-bs-toggle="dropdown">
+                                    Governance
+                                    <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-megamenu-sm px-0 py-2 p-lg-4"
+                                     aria-labelledby="govDashboardDropdown">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Policy Updates</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="">Feature 1
+                                                    </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="">Feature 2
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h6 class="d-block mb-3 text-primary">Ethics Violations</h6>
-                                        <ul class="list-style-none mb-4">
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="">Feature 1
-                                                </a>
-                                            </li>
-                                            <li class="mb-2 megamenu-item">
-                                                <a class="megamenu-link" href="">Feature 2
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Compliance Checklist</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="">Feature 1
+                                                    </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="">Feature 2
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Ethics Violations</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="">Feature 1
+                                                    </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="">Feature 2
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-                            </div>
-                        </li>
+                                </div>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="formsDropdown"
-                               aria-expanded="false">
-                                Forms
-                                <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="formsDropdown">
-                                <div class="col-auto px-0">
-                                    <div class="list-group list-group-flush">
-                                        <a href="{% url 'nav_forms' %}"
-                                           class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
-                                            <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
-                                            <div class="ms-4">
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                   id="formsDropdown"
+                                   aria-expanded="false">
+                                    Forms
+                                    <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="formsDropdown">
+                                    <div class="col-auto px-0">
+                                        <div class="list-group list-group-flush">
+                                            <a href="{% url 'nav_forms' %}"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
+                                                <div class="ms-4">
                                             <span class="d-block font-small fw-bold mb-0">Forms<span
                                                     class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
-                                                <span class="small">Examples and guides</span>
-                                            </div>
-                                        </a>
+                                                    <span class="small">Examples and guides</span>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="" class="nav-link dropdown-toggle"
-                               data-bs-toggle="dropdown" id="reportsDropdown"
-                               aria-expanded="false">
-                                Reports&Analytics
-                                <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="reportsDropdown">
-                                <div class="col-auto px-0">
-                                    <div class="list-group list-group-flush">
-                                        <a href="{% url 'companies_list' %}"
-                                           class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
-                                            <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
-                                            <div class="ms-4">
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="" class="nav-link dropdown-toggle"
+                                   data-bs-toggle="dropdown" id="reportsDropdown"
+                                   aria-expanded="false">
+                                    Reports&Analytics
+                                    <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="reportsDropdown">
+                                    <div class="col-auto px-0">
+                                        <div class="list-group list-group-flush">
+                                            <a href="{% url 'companies_list' %}"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
+                                                <div class="ms-4">
                                             <span class="d-block font-small fw-bold mb-0">R1-GHG Emissions<span
                                                     class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
-                                                <span class="small">Total GHG emissions for each company</span>
-                                            </div>
-                                        </a>
-                                    </div>
+                                                    <span class="small">Total GHG emissions for each company</span>
+                                                </div>
+                                            </a>
+                                        </div>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="" class="nav-link dropdown-toggle"
-                               data-bs-toggle="dropdown" id="graphsDropdown"
-                               aria-expanded="false">
-                                Charts
-                                <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="graphsDropdown">
-                                <div class="col-auto px-0">
-                                    <div class="list-group list-group-flush">
-                                        <a href="{% url 'charts'%}"
-                                           class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
-                                            <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
-                                            <div class="ms-4">
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="" class="nav-link dropdown-toggle"
+                                   data-bs-toggle="dropdown" id="graphsDropdown"
+                                   aria-expanded="false">
+                                    Charts
+                                    <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="graphsDropdown">
+                                    <div class="col-auto px-0">
+                                        <div class="list-group list-group-flush">
+                                            <a href="{% url 'charts' %}"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
+                                                <div class="ms-4">
                                             <span class="d-block font-small fw-bold mb-0">Emissions Charts<span
                                                     class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
-                                                <span class="small">All Emissions Charts</span>
-                                            </div>
-                                        </a>
+                                                    <span class="small">All Emissions Charts</span>
+                                                </div>
+                                            </a>
+                                        </div>
+
                                     </div>
 
+
                                 </div>
+                            </li>
 
-
-
-                            </div>
-                        </li>
-
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="supportDropdown"
-                               aria-expanded="false">
-                                Support
-                                <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="supportDropdown">
-                                <div class="col-auto px-0">
-                                    <div class="list-group list-group-flush">
-                                        <a href="{% url 'fuel_chart' %}"
-                                           target="_blank"
-                                           class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                   id="supportDropdown"
+                                   aria-expanded="false">
+                                    Support
+                                    <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="supportDropdown">
+                                    <div class="col-auto px-0">
+                                        <div class="list-group list-group-flush">
+                                            <a href="{% url 'fuel_chart' %}"
+                                               target="_blank"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
                                             <span class="icon icon-sm"><span
                                                     class="fas fa-microphone-alt"></span></span>
-                                            <div class="ms-4">
-                                                <span class="d-block font-small fw-bold mb-0">Support</span>
-                                                <span class="small">Need help? Ask us!</span>
-                                            </div>
-                                        </a>
+                                                <div class="ms-4">
+                                                    <span class="d-block font-small fw-bold mb-0">Support</span>
+                                                    <span class="small">Need help? Ask us!</span>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
 
-                    </ul>
+                        </ul>
+                    {% else %}
+
+
+                    {% endif %}
                 </div>
-
             </div>
         </nav>
     </header>
