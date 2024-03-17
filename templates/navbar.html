@@ -328,27 +328,42 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
-                                   id="supportDropdown"
+                                <a href="{% url 'logout' %}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+                                   id="accountDropdown"
                                    aria-expanded="false">
-                                    Support
+                                    Users
                                     <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="supportDropdown">
+                                <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="accountDropdown">
                                     <div class="col-auto px-0">
                                         <div class="list-group list-group-flush">
-                                            <a href="{% url 'fuel_chart' %}"
-                                               target="_blank"
+                                            <a href="{% url 'profiles' %}"
                                                class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
-                                            <span class="icon icon-sm"><span
-                                                    class="fas fa-microphone-alt"></span></span>
                                                 <div class="ms-4">
-                                                    <span class="d-block font-small fw-bold mb-0">Support</span>
-                                                    <span class="small">Need help? Ask us!</span>
+                                                    <span class="d-block font-small fw-bold mb-0">Profiles<span
+                                                    class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
+                                                    <span class="small">List of all users profiles</span>
                                                 </div>
                                             </a>
                                         </div>
                                     </div>
+
+                                    <div class="col-auto px-0">
+                                        <div class="list-group list-group-flush">
+                                            <a href="{% url 'logout' %}"
+                                               target="_blank"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <div class="ms-4">
+                                                    <form action="{% url 'logout' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <button type="submit" class="btn mb-2 mr-2 btn-info">Logout</button>
+                                                    </form>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </li>
 

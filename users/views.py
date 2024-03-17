@@ -20,17 +20,17 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy('profiles')
+        return reverse_lazy('companies_list')
 
 
 class RegisterView(FormView):
     template_name = 'users/sign-up.html'
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('register')
+    success_url = reverse_lazy('companies_list')
 
     def form_valid(self, form):
         user = form.save()  # Save the new User object
-        Profile.objects.create(user=user)  # Automatically create a Profile for the new user
+        Profile.objects.get_or_create(user=user)  # Automatically create a Profile for the new user
         login(self.request, user)  # Log the user in
         return redirect(self.get_success_url())  # Redirect to the success URL
 
@@ -40,13 +40,13 @@ class RegisterView(FormView):
 
 class ProfileListView(LoginRequiredMixin, ListView):
     model = Profile
-    template_name = ''
+    template_name = 'users/profiles.html'
     context_object_name = 'profiles'
 
 
 class ProfileDetailView(LoginRequiredMixin, DetailView):
     model = Profile
-    template_name = ''
+    template_name = 'users/profile.html'
     context_object_name = 'profile'
 
     def get_context_data(self, **kwargs):
