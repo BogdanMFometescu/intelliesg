@@ -2,11 +2,11 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path, include
 from django.conf import settings
-from users.views import RegisterView
+from users.views import CustomLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',RegisterView.as_view(),name='register'),
+    path('', CustomLoginView.as_view(), name='login'),
     path('envdata/', include('envdata.urls')),
     path('users/', include('users.urls'))
 ]

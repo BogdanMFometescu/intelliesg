@@ -3,6 +3,17 @@
 - Changelog for the intelliesg app
 
 
+
+[17.03.2024]
+
+Version 0.4.1
+-
+- added views for users app - profile
+- created html templates for sign-in and sign up
+- created forms for Profile and User models
+- created signals 
+
+
 [16.03.2024]
 
 Version 0.4.0

@@ -16,4 +16,4 @@ class Profile(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False, primary_key=True)
 
     def __str__(self):
-        return f'{self.name}'
+        return f'{self.user}'
