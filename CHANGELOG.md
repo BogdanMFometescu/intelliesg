@@ -3,6 +3,15 @@
 - Changelog for the intelliesg app
 
 
+[18.03.2024]
+
+Version 0.4.2
+-
+- added LoginRequiredMixin for all views from envdata
+
+
+
+
 
 [17.03.2024]
 
