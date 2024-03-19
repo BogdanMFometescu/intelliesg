@@ -6266,7 +6266,7 @@ textarea.form-control-lg {
 .nav-link {
     display: block;
     padding: 0.5rem 1rem;
-    color: #fff;
+    color: #374151;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 
@@ -29475,5 +29475,25 @@ blockquote {
 .ct-line {
     pointer-events: none;
 }
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: left;
+  gap: 1rem; /* Adjust as necessary for spacing */
+}
+
+/* Flex item - you can adjust the basis to manage the width */
+.form-flex-item {
+  flex: 1 1 auto;
+  min-width: 120px; /* Adjust as necessary to prevent items from becoming too narrow */
+}
+
+/* Style the submit button to align with form fields */
+.form-flex-item.submit-button {
+  margin-left: auto; /* This will push the button to the end of the flex container */
+}
+
+
 
 /*# sourceMappingURL=pixel.css.map */
