@@ -6,76 +6,24 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 text-center">
-                    <h1 class="display-2 mb-3">Blank starter page</h1>
-                    <p>Fuel!</p>
-                    <div class="row">
-                        <div class="col-12">
-                            <!-- Tab Nav -->
-                            <div class="nav-wrapper position-relative mb-2">
-                                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text"
-                                    role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab"
-                                           data-bs-toggle="tab" data-bs-target="#tabs-text-1" role="tab"
-                                           aria-controls="tabs-text-1"
-                                           aria-selected="true">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab" data-bs-toggle="tab"
-                                           data-bs-target="#tabs-text-2" role="tab" aria-controls="tabs-text-2"
-                                           aria-selected="false">Profile</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab" data-bs-toggle="tab"
-                                           data-bs-target="#tabs-text-3" role="tab" aria-controls="tabs-text-3"
-                                           aria-selected="false">Messages</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- End of Tab Nav -->
-                            <!-- Tab Content -->
-                            <div class="card">
-                                <div class="card-body p-0">
-                                    <div class="tab-content" id="tabcontent1">
-                                        <div class="tab-pane fade show active" id="tabs-text-1" role="tabpanel"
-                                             aria-labelledby="tabs-text-1-tab">
-                                            <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch
-                                                freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit
-                                                kale chips proident chillwave deep v laborum. Aliquip veniam delectus,
-                                                Marfa eiusmod Pinterest in do umami readymade swag.</p>
-                                            <p>Day handsome addition horrible sensible goodness two contempt. Evening
-                                                for married his account removal. Estimable me disposing of be moonlight
-                                                cordially curiosity.</p>
-                                        </div>
-                                        <div class="tab-pane fade" id="tabs-text-2" role="tabpanel"
-                                             aria-labelledby="tabs-text-2-tab">
-                                            <p>Photo booth stumptown tote bag Banksy, elit small batch freegan sed.
-                                                Craft beer elit seitan exercitation, photo booth et 8-bit kale chips
-                                                proident chillwave deep v laborum. Aliquip veniam delectus, Marfa
-                                                eiusmod
-                                                Pinterest in do umami readymade swag.</p>
-                                            <p>Day handsome addition horrible sensible goodness two contempt. Evening
-                                                for married his account removal. Estimable me disposing of be moonlight
-                                                cordially curiosity.</p>
-                                        </div>
-                                        <div class="tab-pane fade" id="tabs-text-3" role="tabpanel"
-                                             aria-labelledby="tabs-text-3-tab">
-                                            <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch
-                                                freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit
-                                                kale chips proident chillwave deep v laborum. Aliquip veniam delectus,
-                                                Marfa eiusmod Pinterest in do umami readymade swag.</p>
-                                            <p>Day handsome addition horrible sensible goodness two contempt. Evening
-                                                for married his account removal. Estimable me disposing of be moonlight
-                                                cordially curiosity.</p>
-                                        </div>
-                                    </div>
+                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between mb-4">
+                        <form method="get"
+                              class="w-100 d-flex flex-column flex-md-row align-items-center justify-content-between">
+                            {% for field in filter.form %}
+                                <div class="mb-2 mb-md-0">
+                                    {{ field.label_tag }} {{ field }}
                                 </div>
+                            {% endfor %}
+                            <div class="mt-3 mt-md-0">
+                                <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
                             </div>
-                            <!-- End of Tab Content -->
-                        </div>
+                            <div class="mt-3 mt-md-0">
+                                <button type="reset" class="btn mb-2 mr-2 btn-pill btn-outline-primary ">
+                                    Clear
+                                </button>
+                            </div>
+                        </form>
                     </div>
-                    <br>
-                    <br>
                     <h2 align="left">Waste Emissions (CO2e)</h2>>
                     <table class="table table-hover">
                         <thead>
@@ -123,6 +71,10 @@
                             </tr>
 
                         {% endfor %}
+                        <tr class="table-primary">
+                            <th scope="row" colspan="14" class="text-right">Total CO2e:</th>
+                            <td>{{ total_co2 }}</td>
+                        </tr>
                         </tbody>
                     </table>
 

@@ -3,14 +3,20 @@
 - Changelog for the intelliesg app
 
 
+[19.03.2024]
+
+Version 0.5.0
+-
+- added filters for all emissions views using django-filters
+- modified each html template for the emissions 
+
+
+
 [18.03.2024]
 
 Version 0.4.2
 -
 - added LoginRequiredMixin for all views from envdata
-
-
-
 
 
 [17.03.2024]
@@ -31,7 +37,6 @@ Version 0.4.0
 - created html templates for sign-in and sign up
 - created forms for Profile and User models
 - created signals 
-
 
 
 

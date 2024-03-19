@@ -1,17 +1,30 @@
 from django.urls import reverse_lazy
-from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from envdata.mixins import UpdateModeMixin, CompanyContextMixin
 from envdata.models import Waste
 from envdata.forms import WasteForm
+from .filters import WasteTypeFilter
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django_filters.views import FilterView
+from django.db.models import Sum, F
 
 
-class WasteListView(LoginRequiredMixin, CompanyContextMixin, ListView):
+class WasteListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     model = Waste
+    filterset_class = WasteTypeFilter
     template_name = 'envdata/scope_two_emission/waste/wastes.html'
     context_object_name = 'wastes'
+
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_co2'] = \
+            self.filterset.qs.annotate(co2_for_waste=F('quantity_disposed') * F('emission_factor')).aggregate(
+                total_co2=Sum('co2_for_waste'))['total_co2'] or 0
+        return context
 
 
 class WasteDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):

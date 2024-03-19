@@ -1,17 +1,30 @@
 from django.urls import reverse_lazy
-from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from envdata.mixins import UpdateModeMixin, CompanyContextMixin
 from envdata.models import Energy
 from envdata.forms import EnergyForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django_filters.views import FilterView
+from .filters import EnergyTypeFilter
+from django.db.models import Sum, F
 
 
-class EnergyListView(LoginRequiredMixin, CompanyContextMixin, ListView):
+class EnergyListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     model = Energy
+    filterset_class = EnergyTypeFilter
     template_name = 'envdata/scope_two_emission/energy_aq/energy-acquisitions.html'
     context_object_name = 'energy_acquisitions'
+
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_co2'] = \
+            self.filterset.qs.annotate(co2_for_energy_emissions=F('energy_quantity') * F('emission_factor')).aggregate(
+                total_co2=Sum('co2_for_energy_emissions'))['total_co2'] or 0
+        return context
 
 
 class EnergyDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
