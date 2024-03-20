@@ -17,7 +17,7 @@ class FuelListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     context_object_name = 'fuel_emissions'
 
     def get_queryset(self):
-        return super().get_queryset()
+        return super().get_queryset().order_by('year')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
