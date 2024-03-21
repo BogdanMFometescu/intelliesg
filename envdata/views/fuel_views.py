@@ -2,12 +2,13 @@ from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from envdata.mixins import UpdateModeMixin, CompanyContextMixin
-from django.db.models import Sum,F
+from django.db.models import Sum, F
 from envdata.models import Fuel
 from envdata.forms import FuelForm
 from .filters import FuelTypeFilter
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class FuelListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
@@ -15,15 +16,30 @@ class FuelListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     filterset_class = FuelTypeFilter
     template_name = 'envdata/scope_one_emission/fuel/fuel-emissions.html'
     context_object_name = 'fuel_emissions'
+    paginate_by = 5
 
     def get_queryset(self):
         return super().get_queryset().order_by('year')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['total_co2'] = self.filterset.qs.annotate(
+        filtered_qs = self.filterset.qs.annotate(
             co2e_for_fuel_emission=F('fuel_quantity') * F('emission_factor')
         ).aggregate(total_co2e=Sum('co2e_for_fuel_emission'))['total_co2e'] or 0
+
+        # Pagination
+        paginator = Paginator(self.filterset.qs, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            fuel_emissions = paginator.page(page)
+        except PageNotAnInteger:
+            fuel_emissions = paginator.page(1)
+        except EmptyPage:
+            fuel_emissions = paginator.page(paginator.num_pages)
+
+        context['fuel_emissions'] = fuel_emissions
+        context['total_co2'] = filtered_qs
         return context
 
 

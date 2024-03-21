@@ -8,6 +8,7 @@ from .filters import Sf6TypeFilter
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
 from django.db.models import Sum, F
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class Sf6ListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
@@ -15,15 +16,29 @@ class Sf6ListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     filterset_class = Sf6TypeFilter
     template_name = 'envdata/scope_one_emission/sf6/sf6-emissions.html'
     context_object_name = 'sf6_emissions'
+    paginate_by = 5
 
     def get_queryset(self):
         return super().get_queryset()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['total_co2'] = \
+        filtered_qs = \
             self.filterset.qs.annotate(co2_for_sf6=F('sf6_quantity') * F('emission_factor')).aggregate(
                 total_co2=(Sum('co2_for_sf6')))['total_co2'] or 0
+        paginator = Paginator(self.filterset.qs, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            sf6_emissions = paginator.page(page)
+        except PageNotAnInteger:
+            sf6_emissions = paginator.page(1)
+        except EmptyPage:
+            sf6_emissions = paginator.page(paginator.num_pages)
+
+        context['sf6_emissions'] = sf6_emissions
+        context['total_co2'] = filtered_qs
+
         return context
 
 
