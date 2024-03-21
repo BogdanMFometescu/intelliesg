@@ -54,7 +54,7 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         {{ fuel.company }}<span
-                                            class="badge badge-primary ml-2">{{ fuel.emission_scope }}</span>
+                                            class="badge badge-primary ml-2" style="color: #0b5ed7">{{ fuel.emission_scope }}</span>
                                     </div>
                                 </td>
                                 <td>{{ fuel.year }}</td>
@@ -94,6 +94,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    {% include 'paginator.html' with page_obj=fuel_emissions %}
 
                 </div>
             </div>

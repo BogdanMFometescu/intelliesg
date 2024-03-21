@@ -89,6 +89,7 @@
                             <th scope="col">Email</th>
                             <th scope="col">CO2e</th>
                             <th scope="col">Net Zero Target</th>
+                            <th scope="col">Status</th>
 
                         </tr>
                         </thead>
@@ -108,6 +109,11 @@
                                 <td>{{ company.email }}</td>
                                 <td>{{ company.total_co2_emissions }}</td>
                                 <td>{{ company.co2e_net_zero_target }}</td>
+                                {% if company.co2e_net_zero_target > company.total_co2_emissions %}
+                                    <td style="color: #0f5132">Within limit</td>
+                                {% else %}
+                                    <td style="color:red;">Over limit</td>
+                                {% endif %}
                                 <td>
                                     <div class="d-flex">
                                         <a href="{% url 'update_company' company.id %}" class="mr-3"

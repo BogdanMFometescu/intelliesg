@@ -8,6 +8,7 @@ from .filters import TravelTypeFilter
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
 from django.db.models import Sum, F
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class TravelListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
@@ -15,15 +16,30 @@ class TravelListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     filterset_class = TravelTypeFilter
     template_name = 'envdata/scope_one_emission/travel/travels.html'
     context_object_name = 'travels'
+    paginate_by = 5
 
     def get_queryset(self):
         return super().get_queryset()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['total_co2'] = \
+        filtered_qs = \
             self.filterset.qs.annotate(co2_for_travel=F('distance') * F('emission_factor')).aggregate(
                 total_co2=Sum('co2_for_travel'))['total_co2'] or 0
+
+        paginator = Paginator(self.filterset.qs, self.paginate_by)
+        page = self.request.GET.get('page')
+
+        try:
+            travels = paginator.page(page)
+        except PageNotAnInteger:
+            travels = paginator.page(1)
+        except EmptyPage:
+            travels = paginator.page(paginator.num_pages)
+
+        context['travels'] = travels
+        context['total_co2'] = filtered_qs
+
         return context
 
 

@@ -3,6 +3,15 @@
 - Changelog for the intelliesg app
 
 
+
+[21.03.2024]
+
+Version 0.5.1
+-
+- added paginator for each emission type
+- modified the html templates for each emission type to include paginator 
+
+
 [19.03.2024]
 
 Version 0.5.0
