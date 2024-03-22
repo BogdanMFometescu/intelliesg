@@ -6,7 +6,7 @@ from users.models import Profile
 
 
 class Company(models.Model):
-    owner = models.ForeignKey(Profile, on_delete=models.CASCADE,related_name='companies',null=True,blank=True)
+    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='companies', null=True, blank=True)
     name = models.CharField(max_length=255, unique=True, blank=False, null=False)
     address = models.CharField(max_length=255, blank=False, null=False)
     city = models.CharField(max_length=255, blank=False, null=False)
@@ -22,11 +22,12 @@ class Company(models.Model):
         fuel_co2e = Fuel.fuel_co2e_per_company(self.id)
         refrigerant_co2e = Refrigerant.refrigerant_co2e_per_company(self.id)
         sf6_co2e = Sf6.sf6_co2e_per_company(self.id)
+        gas_co2e = NaturalGas.gas_co2e_per_company(self.id)
         travel_co2e = Travel.travel_co2e_per_company(self.id)
         energy_co2e = Energy.energy_co2e_per_company(self.id)
         waste_co2e = Waste.waste_co2e_per_company(self.id)
 
-        total_co2e = sum([fuel_co2e, refrigerant_co2e, sf6_co2e, travel_co2e, energy_co2e, waste_co2e])
+        total_co2e = sum([fuel_co2e, refrigerant_co2e, sf6_co2e, travel_co2e, energy_co2e, waste_co2e, gas_co2e])
         return total_co2e
 
     @property
@@ -40,6 +41,10 @@ class Company(models.Model):
     @property
     def sf6_co2e(self):
         return Sf6.sf6_co2e_per_company(self.id)
+
+    @property
+    def gas_co2e(self):
+        return NaturalGas.gas_co2e_per_company(self.id)
 
     @property
     def travel_co2e(self):
@@ -97,6 +102,36 @@ class Fuel(models.Model):
         return f'{self.fuel_type}'
 
 
+class NaturalGas(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    month = models.CharField(blank=False, null=False, choices=MONTH)
+    year = models.CharField(blank=False, null=False, max_length=4)
+    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
+    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
+    location = models.CharField(max_length=255, blank=False, null=False, choices=NATURAL_GAS_LOCATIONS)
+    gas_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0)
+    emission_factor = models.FloatField(blank=False, null=False, default=0, )
+    measure_unit = models.CharField(max_length=30, blank=False, null=False, default='kWh')
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+
+    @property
+    def co2_for_natural_gas_emission(self):
+        total_co2 = self.gas_quantity * self.emission_factor
+        return total_co2
+
+    @classmethod
+    def gas_co2e_per_company(cls, company_id):
+        gas_co2e_per_company = \
+            cls.objects.filter(company=company_id).aggregate(total_co2=Sum(F('gas_quantity') * F('emission_factor')))[
+                'total_co2'] or 0
+        return gas_co2e_per_company
+
+    def __str__(self):
+        return f'{self.location}'
+
+
 class Sf6(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH)
@@ -118,8 +153,9 @@ class Sf6(models.Model):
 
     @classmethod
     def sf6_co2e_per_company(cls, company_id):
-        sf6_co2e_per_company = cls.objects.filter(company=company_id).aggregate(total_co2=Sum(F('sf6_quantity')*F('emission_factor')))[
-                                   'total_co2'] or 0
+        sf6_co2e_per_company = \
+            cls.objects.filter(company=company_id).aggregate(total_co2=Sum(F('sf6_quantity') * F('emission_factor')))[
+                'total_co2'] or 0
         return sf6_co2e_per_company
 
 
@@ -161,12 +197,12 @@ class Energy(models.Model):
     year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
-    location = models.CharField(max_length=255, blank=False, null=False)
+    location = models.CharField(max_length=255, blank=False, choices=ENERGY_LOCATIONS)
     supplier_name = models.CharField(max_length=255, blank=False, null=False)
     measure_unit = models.CharField(max_length=20, blank=False, null=False)
     energy_quantity = models.FloatField(max_length=20, blank=False, null=False, default=0.00)
     emission_factor = models.FloatField(blank=False, null=True, default=0, )
-    calculation_method = models.CharField(max_length=255, blank=False, null=False)
+    calculation_method = models.CharField(max_length=255, blank=False, choices=CALCULATION_METHOD)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
