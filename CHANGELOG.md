@@ -3,6 +3,13 @@
 - Changelog for the intelliesg app
 
 
+[22.03.2024]
+
+Version 0.5.2
+-
+- added new model class for natural gas emissions
+- added location field in models and updated constants
+
 
 [21.03.2024]
 

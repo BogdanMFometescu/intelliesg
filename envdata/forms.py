@@ -2,6 +2,7 @@ from envdata.models import (Company,
                             Fuel,
                             Sf6,
                             Refrigerant,
+                            NaturalGas,
                             Energy,
                             Travel,
                             Waste,
@@ -51,6 +52,17 @@ class RefrigerantForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(RefrigerantForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class NaturalGasForm(ModelForm):
+    class Meta:
+        model = NaturalGas
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(NaturalGasForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
 

@@ -3,6 +3,7 @@
 EMISSION_TYPE = [('Car fuels', 'Car fuels',),
                  ('SF6', 'SF6'),
                  ('Refrigerants', 'Refrigerants',),
+                 ('Natural gas', 'Natural gas',),
                  ('Energy Acquisition', 'Energy Acquisition'),
                  ('Travel', 'Travel'),
                  ('Waste', 'Waste')]
@@ -10,10 +11,6 @@ EMISSION_TYPE = [('Car fuels', 'Car fuels',),
 EMISSION_SCOPE = [('Scope 1', 'Scope 1'),
                   ('Scope 2', 'Scope 2'),
                   ('Scope 3', 'Scope 3')]
-
-CALCULATION_METHOD = [('Sales Approach (Product)', 'Sales Approach (Product)'),
-                      ('Sales Approach (User)', 'Sales Approach (User'),
-                      ('LifeCycle Stage Approach', 'LifeCycle Stage Approach')]
 
 # FUEL EMISSIONS CONSTANTS
 FUEL_TYPE = [('Diesel Fuel', 'Diesel '),
@@ -52,6 +49,23 @@ POLLUTION_NORM = [('Euro 1', 'Euro 1'),
                   ('Euro 4', 'Euro 4'),
                   ('Euro 5', 'Euro 5'),
                   ('Euro 6', 'Euro 6')]
+
+# ENERGY EMISSIONS CONSTANTS
+
+ENERGY_LOCATIONS = [('Location 1', 'Location 1'),
+                    ('Location 2', 'Location 2'),
+                    ('Location 3', 'Location 3'),
+                    ('Location 4', 'Location 4'),
+                    ('Location 5', 'Location 5')]
+
+NATURAL_GAS_LOCATIONS = [('Location 1', 'Location 1'),
+                         ('Location 2', 'Location 2'),
+                         ('Location 3', 'Location 3'),
+                         ('Location 4', 'Location 4'),
+                         ('Location 5', 'Location 5')]
+
+CALCULATION_METHOD = [('Location Based', 'Location Based'),
+                      ('Market Based', 'Market Based')]
 
 MONTH = [('January', 'January'),
          ('February', 'February'),
