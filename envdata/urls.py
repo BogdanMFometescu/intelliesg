@@ -16,6 +16,12 @@ urlpatterns = [
     path('update-fuel-emission/<uuid:pk>/', views.FuelUpdateView.as_view(), name='update_fuel_emission'),
     path('delete-fuel-emission/<uuid:pk>/', views.FuelDeleteView.as_view(), name='delete_fuel_emission'),
 
+    path('gas-emissions/', views.NaturalGasListView.as_view(), name='gas_emissions'),
+    path('gas-emission/<uuid:pk>/', views.NaturalGasDetailView.as_view(), name='gas_emission'),
+    path('create-gas-emission/', views.NaturalGasCreateView.as_view(), name='create_gas_emission'),
+    path('update-natural-gas-emission/<uuid:pk>/', views.NaturalGasUpdateView.as_view(), name='update_gas_emission'),
+    path('delete-natural-gas-emission/<uuid:pk>/', views.NaturalGasDeleteView.as_view(), name='delete_gas_emission'),
+
     path('sf6-emissions/', views.Sf6ListView.as_view(), name='sf6_emissions'),
     path('sf6-emission/<uuid:pk>/', views.Sf6DetailView.as_view(), name='sf6_emission'),
     path('create-sf6-emissions/', views.Sf6CreateView.as_view(), name='create_sf6_emissions'),
