@@ -1,5 +1,5 @@
 import django_filters
-from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Waste)
+from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Waste, NaturalGas)
 from envdata.constants import *
 
 
@@ -60,4 +60,14 @@ class WasteTypeFilter(django_filters.FilterSet):
 
     class Meta:
         model = Waste
+        fields = ['company', 'year', 'month', ]
+
+
+class NaturalGasTypeFilter(django_filters.FilterSet):
+    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
+    month = django_filters.ChoiceFilter(choices=MONTH, field_name='month')
+    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
+
+    class Meta:
+        model = NaturalGas
         fields = ['company', 'year', 'month', ]

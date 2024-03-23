@@ -1,7 +1,7 @@
 from django.db.models import F, FloatField, Sum
 from django.db.models.functions import Cast
 
-from envdata.models import Fuel, Sf6, Refrigerant, Energy
+from envdata.models import Fuel, Sf6, Refrigerant, Energy,Waste,Travel
 from django.views.generic import TemplateView
 from envdata.mixins import CompanyContextMixin
 
@@ -87,7 +87,7 @@ class EnergyEmissionsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        annotated_qs = Refrigerant.objects.annotate(
+        annotated_qs = Energy.objects.annotate(
             total_co2=Cast(F('energy_quantity') * F('emission_factor'), output_field=FloatField())
         ).values('year', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year')
 
@@ -111,7 +111,7 @@ class TravelEmissionsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        annotated_qs = Refrigerant.objects.annotate(
+        annotated_qs = Travel.objects.annotate(
             total_co2=Cast(F('energy_quantity') * F('emission_factor'), output_field=FloatField())
         ).values('year', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year')
 
@@ -135,7 +135,7 @@ class WasteEmissionsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        annotated_qs = Refrigerant.objects.annotate(
+        annotated_qs = Waste.objects.annotate(
             total_co2=Cast(F('energy_quantity') * F('emission_factor'), output_field=FloatField())
         ).values('year', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year')
 
