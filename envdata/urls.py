@@ -70,6 +70,7 @@ urlpatterns = [
     path('energy-emission-chart/', views.EnergyEmissionsView.as_view(), name='energy_chart'),
     path('travel-emission-chart/', views.TravelEmissionsView.as_view(), name='travel_chart'),
     path('waste-emission-chart/', views.WasteEmissionsView.as_view(), name='waste_chart'),
+    path('gas-emission-chart', views.NaturalGasEmissionsView.as_view(), name='gas_emission_chart'),
 
     path('charts', views.Charts.as_view(), name='charts'),
 ]

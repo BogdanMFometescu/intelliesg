@@ -11,7 +11,7 @@ from django.views.generic import TemplateView
 
 
 class Account(LoginRequiredMixin, TemplateView):
-    template_name = 'users/account.html'
+    template_name = 'starter.html'
 
 
 class CustomLoginView(LoginView):
