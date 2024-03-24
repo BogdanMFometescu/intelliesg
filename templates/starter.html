@@ -1,11 +1,129 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <br>
+    <br>
+    <br>
+    <br>
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                   <h1 class="display-2 mb-4">IntelliESG <br>Welcome ! <br class="d-none d-md-inline">{{ request.user.profile.name }}</h1>
+                    <p class="lead mb-4 text-muted">
+                         Dive into the future of sustainability with IntelliESG. Our platform empowers you to seamlessly
+                        integrate and manage your ESG goals,
+                        ensuring you not only keep up with the competition but set new benchmarks in
+                        corporate responsibility
+                        and environmental stewardship. Discover a world where sustainability meets efficiency.</p>
+                    <a href="./services.html" class="btn btn-tertiary me-3 animate-up-2">What we do <span class="ms-2">
+                            <span class="fas fa-arrow-right"></span></span></a>
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img
+                        src="../../assets/img/illustrations/about-illustration.svg" alt=""></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-md">
+        <div class="container">
+            <div class="row align-items-center justify-content-around">
+                <div class="col-md-6 col-xl-6 mb-5">
+                    <img class="organic-radius img-fluid" src="../../assets/img/sections/about-us-1.jpg"
+                         alt="Office Desk">
+                </div>
+                <div class="col-md-6 col-xl-5 text-center text-md-left">
+                    <h2 class="h1 mb-5">All challenges accepted.</h2>
+                    <p class="lead">Themesberg is an experienced and passionate group of designers, developers, project
+                        managers, writers and artists. Every client we work with becomes a part of the team. Together we
+                        face the challenges and celebrate the victories.</p>
+                    <p class="lead">With a culture of collaboration, a roster of talent, and several office pooches, the
+                        Themesberg team is active in the creative community, endlessly interested in what’s next, and
+                        generally pleasant to be around.</p>
+                    <img src="../../assets/img/signature.svg" alt="signature" class="mt-4" width="150">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-lg bg-gray-200">
+        <figure class="position-absolute top-0 left-0 w-100 d-none d-md-block mt-n3">
+            <svg class="fill-gray-200" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1920 43.4"
+                 style="enable-background:new 0 0 1920 43.4;" xml:space="preserve">
+                   <path d="M0,23.3c0,0,405.1-43.5,697.6,0c316.5,1.5,108.9-2.6,480.4-14.1c0,0,139-12.2,458.7,14.3 c0,0,67.8,19.2,283.3-22.7v35.1H0V23.3z"></path>
+                </svg>
+        </figure>
+        <div class="container">
+            <div class="row text-center">
+                <div class="col">
+                    <h2 class="h1 fw-light"><span class="fw-bold">Quick</span> start</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center mt-6">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 col-lg-8">
+                        <div class="timeline timeline-one dark px-3 px-sm-0">
+                            <!-- Timeline Item 1 -->
+                            <div class="timeline-item">
+                                <h3 class="h4 mb-4">Register a Company</h3>
+                                <p>Now over seven years old, Bootstrap is an established and widely-used HTML, CSS, and
+                                    JavaScript framework. It can be used as a basis for creating responsive web and
+                                    mobile sites and web applications.</p>
+                                <a href="{% url 'create_company' %}" class="btn btn-primary">Register Now</a>
+                            </div>
+                            <!-- Timeline Item 2 -->
+                            <div class="timeline-item">
+                                <h3 class="h4 mb-4">Set your Net Zero Targets</h3>
+
+                                <p>Bootstrap. Build responsive, mobile-first projects on the web with the world's most
+                                    popular front-end component library. Bootstrap is an open source toolkit for
+                                    developing with HTML, CSS, and JS. Quickly prototype your
+                                    ideas.
+                                </p>
+                                <a href="{% url 'create_target' %}" class="btn btn-primary">Add Target</a>
+                            </div>
+                            <!-- Timeline Item 3 -->
+                            <div class="timeline-item">
+                                <h3 class="h4 mb-4">Fill out GHG Forms</h3>
+                                <img class="mt-2" src="{% static 'images/co2-logo.svg' %}" alt="Themesberg workspace"
+                                     width="300">
+                                <p>AngularJS is a JavaScript-based open-source front-end web application framework
+                                    mainly maintained by Google and by a community of individuals and corporations to
+                                    address many of the challenges encountered in developing
+                                    single-page applications.
+                                </p>
+                                <a href="{% url 'nav_forms' %}" class="btn btn-primary">Fill out Form</a>
+
+                            </div>
+                            <!-- Timeline Item 4 -->
+                            <div class="timeline-item">
+                                <h3 class="h4 mb-4">Check your progress</h3>
+                                <img class="mt-2" src="{% static 'images/target-marketing-goal-svgrepo-com.svg' %}"
+                                     alt="signature" width="100">
+                                <p>AngularJS is a JavaScript-based open-source front-end web application framework
+                                    mainly maintained by Google and by a community of individuals and corporations to
+                                    address many of the challenges encountered in developing
+                                    single-page applications.
+                                </p>
+                                <a href="{% url 'companies_list' %}" class="btn btn-primary">View progress</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <figure class="position-absolute bottom-0 left-0 w-100 d-none d-md-block mb-n2">
+            <svg class="fill-white" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1920 43.4"
+                 style="enable-background:new 0 0 1920 43.4;" xml:space="preserve">
+                   <path d="M0,23.3c0,0,405.1-43.5,697.6,0c316.5,1.5,108.9-2.6,480.4-14.1c0,0,139-12.2,458.7,14.3 c0,0,67.8,19.2,283.3-22.7v35.1H0V23.3z"></path>
+                </svg>
+        </figure>
+    </section>
 
 
-<br>
-<br>
-<br>
 
 
 

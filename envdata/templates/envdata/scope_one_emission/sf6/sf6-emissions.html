@@ -2,11 +2,31 @@
 {% load static %}
 {% block content %}
 
+
+    <br>
+    <br>
+    <br>
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4">SF6 CO2eq <br class="d-none d-md-inline">Emissions</h1>
+                    <p class="lead mb-4 text-muted">
+                        Themesberg can help you build a modern website, a creative logo or PWA, that will bring you
+                        customers and and stay on top of your competition.</p>
+                    <a href="./services.html" class="btn btn-tertiary me-3 animate-up-2">What we do <span class="ms-2">
+                            <span class="fas fa-arrow-right"></span></span></a>
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img
+                        src="../../assets/img/illustrations/about-illustration.svg" alt=""></div>
+            </div>
+        </div>
+    </section>
     <section class="section-header">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 text-center">
-                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between mb-4">
+                    <div class="form-control">
                         <form method="get"
                               class="w-100 d-flex flex-column flex-md-row align-items-center justify-content-between">
                             {% for field in filter.form %}
@@ -18,13 +38,9 @@
                                 <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
                             </div>
                             <div class="mt-3 mt-md-0">
-                                <button type="reset" class="btn mb-2 mr-2 btn-pill btn-outline-primary ">
-                                    Clear
-                                </button>
                             </div>
                         </form>
                     </div>
-                    <h2 align="left">SF6 Emissions (CO2e)</h2>
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -44,7 +60,8 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         {{ sf6.company }}<span
-                                            class="badge badge-primary ml-2" style="color:#0b5ed7;">{{ sf6.emission_scope }}</span>
+                                            class="badge badge-primary ml-2"
+                                            style="color:#0b5ed7;">{{ sf6.emission_scope }}</span>
                                     </div>
                                 </td>
                                 <td>{{ sf6.emission_type }}</td>
@@ -81,21 +98,7 @@
         </div>
     </section>
 
-<section class="section section-md">
-            <div class="container">
-                <div class="row align-items-center justify-content-around">
-                    <div class="col-md-6 col-xl-6 mb-5">
-                        <img class="organic-radius img-fluid" src="../../assets/img/sections/about-us-1.jpg" alt="Office Desk">
-                    </div>
-                    <div class="col-md-6 col-xl-5 text-center text-md-left">
-                        <h2 class="h1 mb-5">All challenges accepted.</h2>
-                        <p class="lead">Themesberg is an experienced and passionate group of designers, developers, project managers, writers and artists. Every client we work with becomes a part of the team. Together we face the challenges and celebrate the victories.</p>
-                        <p class="lead">With a culture of collaboration, a roster of talent, and several office pooches, the Themesberg team is active in the creative community, endlessly interested in what’s next, and generally pleasant to be around.</p>
-                        <img src="../../assets/img/signature.svg" alt="signature" class="mt-4" width="150">
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
 
 {% endblock content %}

@@ -3,6 +3,16 @@
 - Changelog for the intelliesg app
 
 
+
+[24.03.2024]
+
+Version 0.5.3
+-
+- created html templates for natural gas emissions
+- modified all emissions html templates
+- created a starter html template
+
+
 [22.03.2024]
 
 Version 0.5.2
