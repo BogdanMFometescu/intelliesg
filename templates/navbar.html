@@ -7,9 +7,9 @@
              class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
             <div class="container position-relative">
                 <a class="navbar-brand me-lg-5" href="{% url 'home' %}">
-                    <img class="navbar-brand-dark" src="{% static 'images/Logo-DEO-no-background.png' %}"
+                    <img class="navbar-brand-dark" src="{% static 'images/logo-esg.png' %}"
                          alt="Logo light">
-                    <img class="navbar-brand-light" src="{% static 'images/Logo-DEO-no-background.png' %}"
+                    <img class="navbar-brand-light" src="{% static 'images/logo-esg.png' %}"
                          alt="Logo dark">
                 </a>
                 <div class="navbar-collapse collapse me-auto" id="navbar_global">
@@ -69,7 +69,7 @@
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" id="dashboardDropdown"
                                    aria-expanded="false"
-                                   data-bs-toggle="dropdown" style="color:seagreen;">
+                                   data-bs-toggle="dropdown" >
                                     Environment
                                     <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
                                 </a>
@@ -142,7 +142,7 @@
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" id="newDashboardDropdown"
                                    aria-expanded="false"
-                                   data-bs-toggle="dropdown" style="color:#0b5ed7;">
+                                   data-bs-toggle="dropdown" >
                                     Social
                                     <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
                                 </a>
@@ -201,7 +201,7 @@
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" id="govDashboardDropdown"
                                    aria-expanded="false"
-                                   data-bs-toggle="dropdown" style="color: #9a6e3a">
+                                   data-bs-toggle="dropdown" >
                                     Governance
                                     <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
                                 </a>
@@ -359,7 +359,7 @@
                                                 <div class="ms-4">
                                                     <form action="{% url 'logout' %}" method="post">
                                                         {% csrf_token %}
-                                                        <button type="submit" class="btn mb-2 mr-2 btn-info">Logout</button>
+                                                        <button type="submit" class="btn btn-primary">Logout</button>
                                                     </form>
                                                 </div>
                                             </a>
