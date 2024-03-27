@@ -20,7 +20,7 @@ class CustomLoginView(LoginView):
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse_lazy('companies_list')
+        return reverse_lazy('starter')
 
 
 class RegisterView(FormView):

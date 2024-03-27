@@ -6,20 +6,23 @@
     <br>
     <br>
     <section class="section-header bg-secondary text-white">
-            <div class="container">
-               <div class="row justify-content-between align-items-center">
-                  <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
-                        <h1 class="display-2 mb-4">Fuel CO2eq  <br class="d-none d-md-inline">Emissions</h1>
-                        <p class="lead mb-4 text-muted">
-                            Themesberg can help you build a modern website, a creative logo or PWA, that will bring you
-                            customers and and stay on top of your competition.</p>
-                        <a href="./services.html" class="btn btn-tertiary me-3 animate-up-2">What we do <span class="ms-2">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4">Fuel CO2eq <br class="d-none d-md-inline">Emissions</h1>
+                    <p class="lead mb-4 text-muted">
+                        Themesberg can help you build a modern website, a creative logo or PWA, that will bring you
+                        customers and and stay on top of your competition.</p>
+                    <a href="./services.html" class="btn btn-tertiary me-3 animate-up-2">What we do <span class="ms-2">
                             <span class="fas fa-arrow-right"></span></span></a>
-                    </div>
-                  <div class="col-12 col-md-5 d-none d-md-block text-center"><img src="{% static 'images/fuel-gas-station-svgrepo-com.svg' %}" alt=""></div>
-               </div>
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img src=" " alt=""></div>
             </div>
-        </section>
+        </div>
+    </section>
+
+
+
     <section class="section-header">
         <div class="container">
             <div class="row justify-content-center">
@@ -33,7 +36,7 @@
                                 </div>
                             {% endfor %}
 
-                                <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
+                            <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
 
                         </form>
                     </div>
@@ -66,7 +69,8 @@
                                 <td>
                                     <div class="d-flex align-items-center">
                                         {{ fuel.company }}<span
-                                            class="badge badge-primary ml-2" style="color: #0b5ed7">{{ fuel.emission_scope }}</span>
+                                            class="badge badge-primary ml-2"
+                                            style="color: #0b5ed7">{{ fuel.emission_scope }}</span>
                                     </div>
                                 </td>
                                 <td>{{ fuel.year }}</td>
@@ -107,7 +111,8 @@
                         </tbody>
                     </table>
                     {% include 'paginator.html' with page_obj=fuel_emissions %}
-
+                    <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
+                       class="btn btn-tertiary me-3 animate-up-2">Download </a>
                 </div>
             </div>
         </div>
