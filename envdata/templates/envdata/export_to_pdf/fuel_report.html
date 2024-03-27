@@ -1,0 +1,74 @@
+<style>
+    @page {
+        size: landscape;
+        margin: 20px; /* Add margin to the page */
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        margin-left: 10px;
+        color: #205067;
+    }
+
+    small {
+        margin-left: 10px;
+    }
+
+    table {
+        width: 100%; /* Use 100% width for the table */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .form-row label {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .form-row input, .form-row select {
+        margin-bottom: 2px;
+    }
+</style>
+
+<h2 style="color: #205067;"><b>REPORT ON FUEL EMISSIONS </b></h2>
+
+<h2 style="margin-left: 10px">Valid records as of : {% now "d.m.Y" %}</h2>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>Company</th>
+        <th>Company</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for emission in fuels %}
+        <tr>
+            <td style="width: 80px">{{ forloop.counter }}</td>
+            <td>{{ emission.company }}</td>
+            <td>{{ emission.co2e_for_fuel_emission }}</td>
+
+        </tr>
+    {% endfor %}
+    <tr class="table-primary">
+        <th scope="row" colspan="2" class="text-right">Total CO2e:</th>
+        <td>{{ total_co2 }}</td>
+    </tr>
+    </tbody>
+</table>

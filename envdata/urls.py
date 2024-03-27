@@ -73,4 +73,6 @@ urlpatterns = [
     path('gas-emission-chart', views.NaturalGasEmissionsView.as_view(), name='gas_emission_chart'),
 
     path('charts', views.Charts.as_view(), name='charts'),
+    path('fuel-pdf-report',views.FuelExportPdfView.as_view(),name='fuel_report')
+
 ]

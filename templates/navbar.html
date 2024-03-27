@@ -6,12 +6,14 @@
         <nav id="navbar-main" aria-label="Primary navigation"
              class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
             <div class="container position-relative">
+            {% block navbar-brand %}
                 <a class="navbar-brand me-lg-5" href="{% url 'home' %}">
                     <img class="navbar-brand-dark" src="{% static 'images/logo-esg.png' %}"
                          alt="Logo light">
                     <img class="navbar-brand-light" src="{% static 'images/logo-esg.png' %}"
                          alt="Logo dark">
                 </a>
+                {% endblock  %}
                 <div class="navbar-collapse collapse me-auto" id="navbar_global">
                     <div class="navbar-collapse-header">
                         <div class="row">

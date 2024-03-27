@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block navbar-brand %}
+
+{% endblock %}
+
 {% block content %}
 
 
@@ -66,4 +71,12 @@
             </div>
         </div>
     </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelector('.navbar-brand').style.display = 'none';
+    });
+</script>
+
 {% endblock content %}
+
