@@ -2,11 +2,20 @@
 
 - Changelog for the intelliesg app
 
+[28.03.2024]
+
+Version 0.6.1
+-
+- finished html templates for emissions pdf export 
+- created urls for pdf reports
+
+
+
+
 [27.03.2024]
 
 Version 0.6.0
 -
-
 - added xhtml2pdf package to export pdf
 - created views for fuel emissions report export to pdf
 - created html template for fuel emissions export to pdf

@@ -37,7 +37,6 @@
                             {% endfor %}
 
                             <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
-
                         </form>
                     </div>
                     <br>
@@ -106,13 +105,15 @@
                         {% endfor %}
                         <tr class="table-primary">
                             <th scope="row" colspan="14" class="text-right">Total CO2e:</th>
-                            <td>{{ total_co2 }}</td>
+                            <td>{{ total_co2 }} </td>
                         </tr>
+
                         </tbody>
                     </table>
                     {% include 'paginator.html' with page_obj=fuel_emissions %}
+                    <br>
                     <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
-                       class="btn btn-tertiary me-3 animate-up-2">Download </a>
+                       class="btn btn-tertiary me-3 animate-up-2 aligned right-10"  >Download Report </a>
                 </div>
             </div>
         </div>

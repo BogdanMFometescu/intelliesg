@@ -48,6 +48,8 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Company</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Month</th>
                             <th scope="col">Emission</th>
                             <th scope="col">Origin</th>
                             <th scope="col">Destination</th>
@@ -69,6 +71,8 @@
                                             style="color:#0b5ed7;">{{ travel.emission_scope }}</span>
                                     </div>
                                 </td>
+                                <td>{{ travel.year }}</td>
+                                <td>{{ travel.month }}</td>
                                 <td>{{ travel.emission_type }}</td>
                                 <td>{{ travel.origin }}</td>
                                 <td>{{ travel.destination }}</td>
@@ -100,6 +104,8 @@
                         </tbody>
                     </table>
                     {% include 'paginator.html' with page_obj=travels %}
+                    <a href="{% url 'travel_report' %}?{{ request.GET.urlencode }}"
+                       class="btn btn-tertiary me-3 animate-up-2">Download </a>
                 </div>
             </div>
         </div>
