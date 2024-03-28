@@ -46,6 +46,8 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Company</th>
+                             <th scope="col">Year</th>
+                            <th scope="col">Month</th>
                             <th scope="col">Emission</th>
                             <th scope="col">Equipment</th>
                             <th scope="col">Manufacturer</th>
@@ -64,6 +66,8 @@
                                             style="color:#0b5ed7;">{{ sf6.emission_scope }}</span>
                                     </div>
                                 </td>
+                                <td>{{ sf6.year }}</td>
+                                <td>{{ sf6.month }}</td>
                                 <td>{{ sf6.emission_type }}</td>
                                 <td>{{ sf6.equipment_type }}</td>
                                 <td>{{ sf6.equipment_producer }}</td>
@@ -93,6 +97,8 @@
                         </tbody>
                     </table>
                     {% include 'paginator.html' with page_obj=sf6_emissions %}
+                    <a href="{% url 'sf6_report' %}?{{ request.GET.urlencode }}"
+                       class="btn btn-tertiary me-3 animate-up-2">Download </a>
                 </div>
             </div>
         </div>

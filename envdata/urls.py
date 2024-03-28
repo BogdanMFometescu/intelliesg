@@ -73,6 +73,12 @@ urlpatterns = [
     path('gas-emission-chart', views.NaturalGasEmissionsView.as_view(), name='gas_emission_chart'),
 
     path('charts', views.Charts.as_view(), name='charts'),
-    path('fuel-pdf-report',views.FuelExportPdfView.as_view(),name='fuel_report')
+    path('fuel-pdf-report', views.FuelExportPdfView.as_view(), name='fuel_report'),
+    path('sf6-pdf-report', views.Sf6ExportPdfView.as_view(), name='sf6_report'),
+    path('refrigerant-pdf-report', views.RefrigerantPdfView.as_view(), name='refrigerant_report'),
+    path('gas-pdf-report', views.NaturalGasPdfView.as_view(), name='gas_report'),
+    path('energy-pdf-report', views.EnergyPdfView.as_view(), name='energy_report'),
+    path('waste-pdf-report', views.WastePdfView.as_view(), name='waste_report'),
+    path('travel-pdf-report', views.TravelPdfView.as_view(), name='travel_report'),
 
 ]

@@ -47,6 +47,8 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Company</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Month</th>
                             <th scope="col">Emission</th>
                             <th scope="col">Refrigerant</th>
                             <th scope="col">Quantity</th>
@@ -65,6 +67,8 @@
                                             style="color:#0b5ed7;">{{ refrigerant.emission_scope }}</span>
                                     </div>
                                 </td>
+                                <td>{{ refrigerant.year }}</td>
+                                <td>{{ refrigerant.month }}</td>
                                 <td>{{ refrigerant.emission_type }}</td>
                                 <td>{{ refrigerant.refrigerant_type }}</td>
                                 <td>{{ refrigerant.refrigerant_quantity }}</td>
@@ -93,6 +97,8 @@
                         </tbody>
                     </table>
                     {% include 'paginator.html' with page_obj=refrigerants %}
+                    <a href="{% url 'refrigerant_report' %}?{{ request.GET.urlencode }}"
+                       class="btn btn-tertiary me-3 animate-up-2">Download </a>
                 </div>
             </div>
         </div>

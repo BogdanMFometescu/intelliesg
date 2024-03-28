@@ -43,7 +43,7 @@
     }
 </style>
 
-<h2 style="color: #205067;"><b>REPORT ON FUEL EMISSIONS </b></h2>
+<h2 style="color: #205067;"><b>REPORT ON REFRIGERANT EMISSIONS </b></h2>
 
 <h2 style="margin-left: 10px">Valid records as of : {% now "d.m.Y" %}</h2>
 <br>
@@ -54,7 +54,6 @@
         <th>Company</th>
         <th>Type</th>
         <th>Quantity</th>
-        <th>Measure Unit</th>
         <th>Emission Factor</th>
         <th>CO2eq</th>
 
@@ -62,20 +61,19 @@
     </tr>
     </thead>
     <tbody>
-    {% for emission in fuels %}
+    {% for emission in refrigerants %}
         <tr>
             <td style="width: 80px">{{ forloop.counter }}</td>
             <td>{{ emission.company }}</td>
-            <td>{{ emission.fuel_type }}</td>
-            <td>{{ emission.fuel_quantity }}</td>
-            <td>{{ emission.measure_unit }}</td>
+            <td>{{ emission.emission_type }}</td>
+            <td>{{ emission.refrigerant_quantity }}</td>
             <td>{{ emission.emission_factor }}</td>
-            <td>{{ emission.co2e_for_fuel_emission }}</td>
+            <td>{{ emission.co2e_for_refrigerant }}</td>
 
         </tr>
     {% endfor %}
     <tr class="table-primary">
-        <th scope="row" colspan="6" class="text-right">Total CO2e:</th>
+        <th scope="row" colspan="5" class="text-right">Total CO2e:</th>
         <td>{{ total_co2 }}</td>
     </tr>
     </tbody>

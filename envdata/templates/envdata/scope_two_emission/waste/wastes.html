@@ -47,6 +47,8 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Company</th>
+                            <th scope="col">Year</th>
+                            <th scope="col">Month</th>
                             <th scope="col">Emission</th>
                             <th scope="col">Waste</th>
                             <th scope="col">Recycled</th>
@@ -67,6 +69,8 @@
                                             style="color:#0b5ed7;">{{ waste.emission_scope }}</span>
                                     </div>
                                 </td>
+                                <td>{{ waste.year }}</td>
+                                <td>{{ waste.month }}</td>
                                 <td>{{ waste.emission_type }}</td>
                                 <td>{{ waste.waste_name }}</td>
                                 <td>{{ waste.quantity_recycled }}</td>
@@ -96,6 +100,8 @@
                         </tbody>
                     </table>
                     {% include 'paginator.html' with page_obj=wastes %}
+                    <a href="{% url 'waste_report' %}?{{ request.GET.urlencode }}"
+                       class="btn btn-tertiary me-3 animate-up-2">Download </a>
                 </div>
             </div>
         </div>
