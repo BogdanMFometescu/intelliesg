@@ -5,115 +5,44 @@
     <section class="section-header">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-12 col-md-8 text-center">
-                    <h1 class="display-2 mb-3">Blank starter page</h1>
-                    <p>List of Companies</p>
-                    <div class="row">
-                        <div class="col-12">
-                            <!-- Tab Nav -->
-                            <div class="nav-wrapper position-relative mb-2">
-                                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-text"
-                                    role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-text-1-tab"
-                                           data-bs-toggle="tab" data-bs-target="#tabs-text-1" role="tab"
-                                           aria-controls="tabs-text-1"
-                                           aria-selected="true">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-2-tab" data-bs-toggle="tab"
-                                           data-bs-target="#tabs-text-2" role="tab" aria-controls="tabs-text-2"
-                                           aria-selected="false">Profile</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-text-3-tab" data-bs-toggle="tab"
-                                           data-bs-target="#tabs-text-3" role="tab" aria-controls="tabs-text-3"
-                                           aria-selected="false">Messages</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- End of Tab Nav -->
-                            <!-- Tab Content -->
-                            <div class="card">
-                                <div class="card-body p-0">
-                                    <div class="tab-content" id="tabcontent1">
-                                        <div class="tab-pane fade show active" id="tabs-text-1" role="tabpanel"
-                                             aria-labelledby="tabs-text-1-tab">
-                                            <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch
-                                                freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit
-                                                kale chips proident chillwave deep v laborum. Aliquip veniam delectus,
-                                                Marfa eiusmod Pinterest in do umami readymade swag.</p>
-                                            <p>Day handsome addition horrible sensible goodness two contempt. Evening
-                                                for married his account removal. Estimable me disposing of be moonlight
-                                                cordially curiosity.</p>
-                                        </div>
-                                        <div class="tab-pane fade" id="tabs-text-2" role="tabpanel"
-                                             aria-labelledby="tabs-text-2-tab">
-                                            <p>Photo booth stumptown tote bag Banksy, elit small batch freegan sed.
-                                                Craft beer elit seitan exercitation, photo booth et 8-bit kale chips
-                                                proident chillwave deep v laborum. Aliquip veniam delectus, Marfa
-                                                eiusmod
-                                                Pinterest in do umami readymade swag.</p>
-                                            <p>Day handsome addition horrible sensible goodness two contempt. Evening
-                                                for married his account removal. Estimable me disposing of be moonlight
-                                                cordially curiosity.</p>
-                                        </div>
-                                        <div class="tab-pane fade" id="tabs-text-3" role="tabpanel"
-                                             aria-labelledby="tabs-text-3-tab">
-                                            <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch
-                                                freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit
-                                                kale chips proident chillwave deep v laborum. Aliquip veniam delectus,
-                                                Marfa eiusmod Pinterest in do umami readymade swag.</p>
-                                            <p>Day handsome addition horrible sensible goodness two contempt. Evening
-                                                for married his account removal. Estimable me disposing of be moonlight
-                                                cordially curiosity.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End of Tab Content -->
-                        </div>
-                    </div>
-                    <br>
-                    <br>
+                <h2 align="left">Total GHG emissions (CO2e) by Year</h2>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Fuel (kg CO2e)</th>
+                        <th scope="col">Natural Gas (kg CO2e)</th>
+                        <th scope="col">Refrigerant (kg CO2e)</th>
+                        <th scope="col">SF6 (kg CO2e)</th>
+                        <th scope="col">Travel (kg CO2e)</th>
+                        <th scope="col">Energy (kg CO2e)</th>
+                        <th scope="col">Waste (kg CO2e)</th>
+                        <th scope="col">Total (kg CO2e)</th>
 
-                    <h2 align="left">Total GHG emissions (CO2e) </h2>
-                    <table class="table table-hover">
-                        <thead>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in emissions_data %}
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Company</th>
-                            <th scope="col">Fuel</th>
-                            <th scope="col">Natural Gas</th>
-                            <th scope="col">Refrigerant</th>
-                            <th scope="col">SF6</th>
-                            <th scope="col">Travel</th>
-                            <th scope="col">Energy</th>
-                            <th scope="col">Waste</th>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ item.year }}</td>
+                            <td>{{ item.fuel|default:"0" }}</td>
+                            <td>{{ item.naturalgas|default:"0" }}</td>
+                            <td>{{ item.refrigerant|default:"0" }}</td>
+                            <td>{{ item.sf6|default:"0" }}</td>
+                            <td>{{ item.travel|default:"0" }}</td>
+                            <td>{{ item.energy|default:"0" }}</td>
+                            <td>{{ item.waste|default:"0" }}</td>
+                            <td>{{ item.total|default:"0" }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">{{ forloop.counter }}</th>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        {{ single_company.name }}
-                                    </div>
-                                </td>
-                                <td>{{ single_company.fuel_co2e }}</td>
-                                <td>{{ single_company.gas_co2e }}</td>
-                                <td>{{ single_company.refrigerant_co2e }}</td>
-                                <td>{{ single_company.sf6_co2e }}</td>
-                                <td>{{ single_company.travel_co2e }}</td>
-                                <td>{{ single_company.energy_co2e }}</td>
-                                <td>{{ single_company.waste_co2e }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-                </div>
             </div>
         </div>
+
     </section>
 
 
