@@ -98,6 +98,12 @@ class Fuel(models.Model):
                 'total_co2'] or 0
         return fuel_co2e_per_company
 
+    @classmethod
+    def annual_co2_per_company(cls, company_id):
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
+            total_co2=Sum(F('fuel_quantity') * F('emission_factor'))).order_by('year')
+        return annual_co2_per_company
+
     def __str__(self):
         return f'{self.fuel_type}'
 
@@ -127,6 +133,12 @@ class NaturalGas(models.Model):
             cls.objects.filter(company=company_id).aggregate(total_co2=Sum(F('gas_quantity') * F('emission_factor')))[
                 'total_co2'] or 0
         return gas_co2e_per_company
+
+    @classmethod
+    def annual_co2_per_company(cls, company_id):
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
+            total_co2=Sum(F('gas_quantity') * F('emission_factor'))).order_by('year')
+        return annual_co2_per_company
 
     def __str__(self):
         return f'{self.location}'
@@ -158,6 +170,12 @@ class Sf6(models.Model):
                 'total_co2'] or 0
         return sf6_co2e_per_company
 
+    @classmethod
+    def annual_co2_per_company(cls, company_id):
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
+            total_co2=Sum(F('sf6_quantity') * F('emission_factor'))).order_by('year')
+        return annual_co2_per_company
+
 
 class Refrigerant(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -183,6 +201,12 @@ class Refrigerant(models.Model):
             cls.objects.filter(company=company_id).aggregate(total_co2=Sum('refrigerant_quantity'))[
                 'total_co2'] or 0
         return refrigerant_co2e_per_company
+
+    @classmethod
+    def annual_co2_per_company(cls, company_id):
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
+            total_co2=Sum(F('refrigerant_quantity') * F('emission_factor'))).order_by('year')
+        return annual_co2_per_company
 
     def __str__(self):
         return f'{self.refrigerant_type}'
@@ -220,6 +244,12 @@ class Energy(models.Model):
                 'total_co2'] or 0
         return energy_co2e_per_company
 
+    @classmethod
+    def annual_co2_per_company(cls, company_id):
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
+            total_co2=Sum(F('energy_quantity') * F('emission_factor'))).order_by('year')
+        return annual_co2_per_company
+
     def __str__(self):
         return f'{self.supplier_name}'
 
@@ -251,9 +281,15 @@ class Travel(models.Model):
     @classmethod
     def travel_co2e_per_company(cls, company_id):
         travel_co2_per_company = cls.objects.filter(company_id=company_id).aggregate(
-            total_co2=Sum((F('fuel_consumption') * F('distance')) / 100) * 10.8)[
+            total_co2=Sum(F('distance') * F('emission_factor')))[
                                      'total_co2'] or 0
         return travel_co2_per_company
+
+    @classmethod
+    def annual_co2_per_company(cls, company_id):
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
+            total_co2=Sum(F('distance') * F('emission_factor'))).order_by('year')
+        return annual_co2_per_company
 
     def __str__(self):
         return f'{self.distance}'
@@ -285,6 +321,12 @@ class Waste(models.Model):
             cls.objects.filter(company_id=company_id).aggregate(total_co2=Sum('quantity_disposed'))[
                 'total_co2'] or 0
         return waste_co2e_per_company
+
+    @classmethod
+    def annual_co2_per_company(cls, company_id):
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
+            total_co2=Sum(F('quantity_disposed') * F('emission_factor'))).order_by('year')
+        return annual_co2_per_company
 
     def __str__(self):
         return f'{self.waste_name}'

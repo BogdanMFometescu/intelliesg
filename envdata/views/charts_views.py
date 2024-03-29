@@ -112,7 +112,7 @@ class TravelEmissionsView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         annotated_qs = Travel.objects.annotate(
-            total_co2=Cast(F('destination') * F('emission_factor'), output_field=FloatField())
+            total_co2=Cast(F('distance') * F('emission_factor'), output_field=FloatField())
         ).values('year', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year')
 
         years = sorted(list(set(annotated_qs.values_list('year', flat=True))))
