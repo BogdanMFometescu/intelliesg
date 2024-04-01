@@ -10,8 +10,6 @@ Version 0.6.1
 - created urls for pdf reports
 
 
-
-
 [27.03.2024]
 
 Version 0.6.0

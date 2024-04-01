@@ -46,7 +46,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Company</th>
-                             <th scope="col">Year</th>
+                            <th scope="col">Year</th>
                             <th scope="col">Month</th>
                             <th scope="col">Emission</th>
                             <th scope="col">Equipment</th>
@@ -97,8 +97,12 @@
                         </tbody>
                     </table>
                     {% include 'paginator.html' with page_obj=sf6_emissions %}
-                    <a href="{% url 'sf6_report' %}?{{ request.GET.urlencode }}"
-                       class="btn btn-tertiary me-3 animate-up-2">Download </a>
+                    <div class="text-right">
+                        <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
+                           class="btn btn-tertiary animate-up-2">
+                            Download Report
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
