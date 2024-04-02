@@ -1,5 +1,5 @@
 from envdata.forms import CompanyForm
-from envdata.models import Company, Fuel, NaturalGas, Sf6, Refrigerant, Energy, Travel, Waste
+from envdata.models import Company, Fuel, NaturalGas, Sf6, Refrigerant, Energy, Travel, Waste, Target
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from envdata.mixins import UpdateModeMixin, CompanyContextMixin
@@ -42,12 +42,24 @@ class CompanyDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
                     emissions_data_by_year[year]['total'] += total_co2
         except Exception as e:
             print(e)
+
+        try:
+            target_emission_per_year = Target.get_target_per_year(company_id)
+        except Exception as e:
+            print(e)
+            target_emission_per_year = {}
         emissions_data = []
         for year, emissions in emissions_data_by_year.items():
             emissions['year'] = year
+            emissions['target'] = target_emission_per_year.get(year,0)
             emissions_data.append(emissions)
+            target_for_year = target_emission_per_year.get(year,
+                                                       "Not set")  # or a default value like 0 if that makes more sense in your context
+            emissions_data_by_year[year]['target'] = target_for_year
 
         emissions_data.sort(key=lambda x: x['year'])
+        for item in emissions_data:
+            print(f"Year: {item['year']}, Target: {item.get('target', 'Not set')}")
         context['emissions_data'] = emissions_data
         return context
 

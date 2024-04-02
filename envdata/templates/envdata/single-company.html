@@ -1,6 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+    <br>
+    <br>
+    <br>
+
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4">Company-Specific GHG (CO2eq) Emissions</h1>
+                    <p class="lead mb-4 text-muted">
+                        In the landscape of environmental responsibility, each organization's journey towards
+                        sustainability is unique. This detailed report provides an in-depth analysis of your company's
+                        greenhouse gas emissions, reflecting our commitment to supporting you in achieving a more
+                        sustainable operational footprint. Here, you'll find comprehensive data on your CO2eq emissions,
+                        shedding light on areas for improvement and celebrating progress towards your net zero targets.
+                    </p>
+                    <p class="lead mb-4 text-muted">
+                        Understanding the specifics of your carbon emissions is crucial for setting actionable
+                        sustainability goals. Our platform not only highlights your current emissions and progress
+                        towards net zero but also equips you with the insights needed to implement effective reduction
+                        strategies. By focusing on detailed emissions data, we empower your company to lead in the fight
+                        against climate change, driving forward with innovative practices that set a benchmark in your
+                        industry.
+                    </p>
+                    <a href="./services.html" class="btn btn-tertiary me-3 animate-up-2">Explore Our Services <span
+                            class="ms-2"><span class="fas fa-arrow-right"></span></span></a>
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img
+                        src="../../assets/img/illustrations/about-illustration.svg" alt=""></div>
+            </div>
+        </div>
+    </section>
 
     <section class="section-header">
         <div class="container">
@@ -19,6 +51,7 @@
                         <th scope="col">Energy (kg CO2e)</th>
                         <th scope="col">Waste (kg CO2e)</th>
                         <th scope="col">Total (kg CO2e)</th>
+                        <th scope="col">Target (kg CO2e)</th>
 
                     </tr>
                     </thead>
@@ -35,6 +68,7 @@
                             <td>{{ item.energy|default:"0" }}</td>
                             <td>{{ item.waste|default:"0" }}</td>
                             <td>{{ item.total|default:"0" }}</td>
+                            <td>{{ item.target|default:"0" }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
