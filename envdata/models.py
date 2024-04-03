@@ -353,16 +353,10 @@ class Target(models.Model):
 
     @classmethod
     def get_target_per_year(cls, company_id):
-        # Fetch all target objects for the specified company.
         targets = cls.objects.filter(company_id=company_id)
-        print(f"Targets found: {targets.count()}")
-        # Initialize a dictionary to store year and corresponding target values.
         target_dict = {}
         for target in targets:
-            # Calculate the target for the year.
             target_value = target.co2e_base_year - (target.co2e_base_year * (target.reduction_percentage / 100))
-            print(f"Year: {target.intermediate_year}, Target: {target_value}")
-            # Store the calculated target value in the dictionary with the year as the key.
             target_dict[target.intermediate_year] = target_value
         return target_dict
 

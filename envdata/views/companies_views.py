@@ -27,6 +27,7 @@ class CompanyDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
         company_id = self.kwargs.get('pk')
         emissions_data_by_year = {}
 
+        # Collect emissions data by year
         try:
             for model in [Fuel, NaturalGas, Sf6, Refrigerant, Energy, Travel, Waste]:
                 model_name = model.__name__.lower()
@@ -41,25 +42,20 @@ class CompanyDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
                     emissions_data_by_year[year][model_name] = total_co2
                     emissions_data_by_year[year]['total'] += total_co2
         except Exception as e:
-            print(e)
+            print(f"Error collecting emissions data: {e}")
 
         try:
             target_emission_per_year = Target.get_target_per_year(company_id)
-        except Exception as e:
-            print(e)
-            target_emission_per_year = {}
-        emissions_data = []
-        for year, emissions in emissions_data_by_year.items():
-            emissions['year'] = year
-            emissions['target'] = target_emission_per_year.get(year,0)
-            emissions_data.append(emissions)
-            target_for_year = target_emission_per_year.get(year,
-                                                       "Not set")  # or a default value like 0 if that makes more sense in your context
-            emissions_data_by_year[year]['target'] = target_for_year
+            target_emission_per_year_str_keys = {str(year): target for year, target in target_emission_per_year.items()}
 
+            for year in emissions_data_by_year:
+                emissions_data_by_year[year]['target'] = target_emission_per_year_str_keys.get(year, "Not set")
+        except Exception as e:
+            print(f"Error merging target data: {e}")
+
+        emissions_data = [dict(year=year, **data) for year, data in emissions_data_by_year.items()]
         emissions_data.sort(key=lambda x: x['year'])
-        for item in emissions_data:
-            print(f"Year: {item['year']}, Target: {item.get('target', 'Not set')}")
+
         context['emissions_data'] = emissions_data
         return context
 
