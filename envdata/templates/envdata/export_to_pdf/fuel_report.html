@@ -53,6 +53,8 @@
         <th>No</th>
         <th>Company</th>
         <th>Type</th>
+        <th>Year</th>
+        <th>Month</th>
         <th>Quantity</th>
         <th>Measure Unit</th>
         <th>Emission Factor</th>
@@ -67,6 +69,8 @@
             <td style="width: 80px">{{ forloop.counter }}</td>
             <td>{{ emission.company }}</td>
             <td>{{ emission.fuel_type }}</td>
+             <td>{{ emission.year }}</td>
+            <td>{{ emission.month }}</td>
             <td>{{ emission.fuel_quantity }}</td>
             <td>{{ emission.measure_unit }}</td>
             <td>{{ emission.emission_factor }}</td>
@@ -75,7 +79,7 @@
         </tr>
     {% endfor %}
     <tr class="table-primary">
-        <th scope="row" colspan="6" class="text-right">Total CO2e:</th>
+        <th scope="row" colspan="8" class="text-right">Total CO2e:</th>
         <td>{{ total_co2 }}</td>
     </tr>
     </tbody>
