@@ -15,7 +15,7 @@ class TravelListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     filterset_class = TravelTypeFilter
     template_name = 'envdata/scope_one_emission/travel/travels.html'
     context_object_name = 'travels'
-    paginate_by = 5
+    paginate_by = 12
 
     def get_queryset(self):
         return super().get_queryset()

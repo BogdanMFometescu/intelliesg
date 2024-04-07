@@ -67,7 +67,11 @@
                             <td>{{ item.travel|default:"0" }}</td>
                             <td>{{ item.energy|default:"0" }}</td>
                             <td>{{ item.waste|default:"0" }}</td>
-                            <td>{{ item.total|default:"0" }}</td>
+                            {% if item.total > item.target %}
+                            <td style="color: red">{{ item.total|default:"0" }}</td>
+                            {% else %}
+                              <td style="color: darkgreen">{{ item.total|default:"0" }}</td>
+                            {% endif %}
                             <td>{{ item.target }}</td>
                         </tr>
                     {% endfor %}

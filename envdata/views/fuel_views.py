@@ -15,7 +15,7 @@ class FuelListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     filterset_class = FuelTypeFilter
     template_name = 'envdata/scope_one_emission/fuel/fuel-emissions.html'
     context_object_name = 'fuel_emissions'
-    paginate_by = 5
+    paginate_by = 12
 
     def get_queryset(self):
         return super().get_queryset().order_by('year')
