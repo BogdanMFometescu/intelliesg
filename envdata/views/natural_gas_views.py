@@ -15,7 +15,7 @@ class NaturalGasListView(CompanyContextMixin, LoginRequiredMixin, FilterView):
     filterset_class = NaturalGasTypeFilter
     template_name = 'envdata/scope_one_emission/gas/natural_gas_emissions.html'
     context_object_name = 'gas_emissions'
-    paginate_by = 5
+    paginate_by = 12
 
     def get_queryset(self):
         return super().get_queryset()

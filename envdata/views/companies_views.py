@@ -49,7 +49,7 @@ class CompanyDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
             target_emission_per_year_str_keys = {str(year): target for year, target in target_emission_per_year.items()}
 
             for year in emissions_data_by_year:
-                emissions_data_by_year[year]['target'] = target_emission_per_year_str_keys.get(year, "Not set")
+                emissions_data_by_year[year]['target'] = target_emission_per_year_str_keys.get(year, "Base year")
         except Exception as e:
             print(f"Error merging target data: {e}")
 

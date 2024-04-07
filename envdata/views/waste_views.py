@@ -15,7 +15,7 @@ class WasteListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     filterset_class = WasteTypeFilter
     template_name = 'envdata/scope_two_emission/waste/wastes.html'
     context_object_name = 'wastes'
-    paginate_by = 5
+    paginate_by = 12
 
     def get_queryset(self):
         return super().get_queryset()
