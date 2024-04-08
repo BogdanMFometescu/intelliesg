@@ -10,3 +10,4 @@ from .target_views import *
 from .charts_views import *
 from .natural_gas_views import *
 from .export_pdf_views import *
+from .upload_excel_views import *
