@@ -120,9 +120,10 @@
                     <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}" class="btn btn-tertiary animate-up-2">
                         Download Report
                     </a>
+                    <a href="{% url 'upload_fuel_data' %}" class="btn btn-tertiary animate-up-2">
+                        Upload Data
+                    </a>
                 </div>
-
-                <a href="{% url 'upload_fuel_data' %}">Upload Excel File</a>
             </div>
         </div>
     </section>

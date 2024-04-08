@@ -81,6 +81,7 @@ urlpatterns = [
     path('waste-pdf-report', views.WastePdfView.as_view(), name='waste_report'),
     path('travel-pdf-report', views.TravelPdfView.as_view(), name='travel_report'),
 
-    path('upload-fuel-data', views.ExcelUploadView.as_view(), name='upload_fuel_data')
+    path('upload-fuel-data', views.ExcelUploadView.as_view(), name='upload_fuel_data'),
+    path('upload-ng-data', views.ExcelUploadViewForNaturalGas.as_view(), name='upload_ng_data')
 
 ]

@@ -1,6 +1,6 @@
 from django.db import transaction
 
-from envdata.models import Company, Fuel
+from envdata.models import Company, Fuel, NaturalGas
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from openpyxl import load_workbook
@@ -15,12 +15,16 @@ class ExcelUploadView(FormView):
     def form_valid(self, form):
         excel_file = form.cleaned_data['excel_file']
         wb = load_workbook(filename=excel_file)
-        ws = wb.active
+        sheet_name = 'fuel'
+        if sheet_name in wb.sheetnames:
+            ws = wb[sheet_name]
+        else:
+            return self.form_invalid(form)
 
-        with transaction.atomic():  # Use a transaction to ensure data integrity
+        with transaction.atomic():
             for row in ws.iter_rows(min_row=2, values_only=True):
-                company_name = row[0]  # Make sure this is the correct index for company name
-                if company_name:  # Check if company_name is not empty
+                company_name = row[0]
+                if company_name:
                     company, created = Company.objects.get_or_create(name=company_name)
                     Fuel.objects.create(
                         company=company,
@@ -38,8 +42,44 @@ class ExcelUploadView(FormView):
                         emission_factor=row[12]
                     )
                 else:
-                    # Handle the case where company name is empty
-                    # Maybe raise a validation error or skip this row
+
+                    pass
+
+        return super().form_valid(form)
+
+
+class ExcelUploadViewForNaturalGas(FormView):
+    form_class = ExcelUploadForm
+    template_name = 'envdata/upload_excel/upload_natural_gas_data.html'
+    success_url = reverse_lazy('gas_emissions')
+
+    def form_valid(self, form):
+        excel_file = form.cleaned_data['excel_file']
+        wb = load_workbook(filename=excel_file)
+        sheet_name = 'natural_gas'
+        if sheet_name in wb.sheetnames:
+            ws = wb[sheet_name]
+        else:
+            return self.form_invalid(form)
+
+        with transaction.atomic():
+            for row in ws.iter_rows(min_row=2, values_only=True):
+                company_name = row[0]
+                if company_name:
+                    company, created = Company.objects.get_or_create(name=company_name)
+                    NaturalGas.objects.create(
+                        company=company,
+                        month=row[1],
+                        year=row[2],
+                        emission_type=row[3],
+                        emission_scope=row[4],
+                        location=row[5],
+                        gas_quantity=row[6],
+                        emission_factor=row[7],
+                        measure_unit=row[8]
+                    )
+                else:
+
                     pass
 
         return super().form_valid(form)
