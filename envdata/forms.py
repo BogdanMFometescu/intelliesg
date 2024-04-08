@@ -9,6 +9,7 @@ from envdata.models import (Company,
                             Target)
 
 from django.forms import ModelForm
+from django import forms
 
 
 class CompanyForm(ModelForm):
@@ -109,3 +110,7 @@ class TargetForm(ModelForm):
         super(TargetForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
+
+
+class ExcelUploadForm(forms.Form):
+    excel_file = forms.FileField(label='Upload Excel File')
