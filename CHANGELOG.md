@@ -2,6 +2,15 @@
 
 - Changelog for the intelliesg app
 
+
+[10.04.2024]
+
+Version 0.7.0
+-
+- new feature to upload data into the models from an Excel file 
+- added buttons for uploading data
+
+
 [28.03.2024]
 
 Version 0.6.1

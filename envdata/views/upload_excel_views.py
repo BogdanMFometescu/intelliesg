@@ -1,6 +1,6 @@
 from django.db import transaction
 
-from envdata.models import Company, Fuel, NaturalGas
+from envdata.models import Company, Fuel, NaturalGas,Energy
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from openpyxl import load_workbook
@@ -77,6 +77,46 @@ class ExcelUploadViewForNaturalGas(FormView):
                         gas_quantity=row[6],
                         emission_factor=row[7],
                         measure_unit=row[8]
+                    )
+                else:
+
+                    pass
+
+        return super().form_valid(form)
+
+
+class ExcelUploadViewForEnergy(FormView):
+    form_class = ExcelUploadForm
+    template_name = 'envdata/upload_excel/upload_energy_data.html'
+    success_url = reverse_lazy('energy_acquisitions')
+
+    def form_valid(self, form):
+        excel_file = form.cleaned_data['excel_file']
+        wb = load_workbook(filename=excel_file)
+        sheet_name = 'energy'
+        if sheet_name in wb.sheetnames:
+            ws = wb[sheet_name]
+        else:
+            return self.form_invalid(form)
+
+        with transaction.atomic():
+            for row in ws.iter_rows(min_row=2, values_only=True):
+                company_name = row[0]
+                if company_name:
+                    company, created = Company.objects.get_or_create(name=company_name)
+                    Energy.objects.create(
+                        company=company,
+                        month=row[1],
+                        year=row[2],
+                        emission_type=row[3],
+                        emission_scope=row[4],
+                        location=row[5],
+                        supplier_name=row[6],
+                        measure_unit=row[7],
+                        energy_quantity=row[8],
+                        emission_factor=row[9],
+                        calculation_method=row[10]
+
                     )
                 else:
 

@@ -15,7 +15,7 @@ class RefrigerantView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     filterset_class = RefrigerantTypeFilter
     template_name = 'envdata/scope_one_emission/refrigerant/refrigerant-emissions.html'
     context_object_name = 'refrigerants_emissions'
-    paginate_by = 12
+    paginate_by = 50
 
     def get_queryset(self):
         return super().get_queryset()

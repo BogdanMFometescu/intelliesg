@@ -15,7 +15,7 @@ class EnergyListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     filterset_class = EnergyTypeFilter
     template_name = 'envdata/scope_two_emission/energy_aq/energy-acquisitions.html'
     context_object_name = 'energy_acquisitions'
-    paginate_by = 12
+    paginate_by = 50
 
     def get_queryset(self):
         return super().get_queryset()
