@@ -15,7 +15,7 @@ class Sf6ListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     filterset_class = Sf6TypeFilter
     template_name = 'envdata/scope_one_emission/sf6/sf6-emissions.html'
     context_object_name = 'sf6_emissions'
-    paginate_by = 12
+    paginate_by = 50
 
     def get_queryset(self):
         return super().get_queryset()
