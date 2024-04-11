@@ -111,7 +111,7 @@
                     </table>
                     {% include 'paginator.html' with page_obj=gas_emissions %}
                     <div class="text-right">
-                        <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
+                        <a href="{% url 'gas_report' %}?{{ request.GET.urlencode }}"
                            class="btn btn-tertiary animate-up-2">
                             Download Report
                         </a>

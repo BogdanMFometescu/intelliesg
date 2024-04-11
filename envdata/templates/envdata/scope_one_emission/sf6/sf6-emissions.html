@@ -109,9 +109,12 @@
                     </table>
                     {% include 'paginator.html' with page_obj=sf6_emissions %}
                     <div class="text-right">
-                        <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
+                        <a href="{% url 'sf6_report' %}?{{ request.GET.urlencode }}"
                            class="btn btn-tertiary animate-up-2">
                             Download Report
+                        </a>
+                        <a href="{% url 'upload_sf6_data' %}" class="btn btn-tertiary animate-up-2">
+                            Upload Data
                         </a>
                     </div>
                 </div>
