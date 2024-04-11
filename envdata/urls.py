@@ -83,6 +83,10 @@ urlpatterns = [
 
     path('upload-fuel-data', views.ExcelUploadView.as_view(), name='upload_fuel_data'),
     path('upload-ng-data', views.ExcelUploadViewForNaturalGas.as_view(), name='upload_ng_data'),
-    path('upload-energy-data',views.ExcelUploadViewForEnergy.as_view(),name='upload_energy_data')
+    path('upload-energy-data', views.ExcelUploadViewForEnergy.as_view(), name='upload_energy_data'),
+    path('upload-sf6-data', views.ExcelUploadViewForSf6.as_view(), name='upload_sf6_data'),
+    path('upload-refrigerant-data', views.ExcelUploadViewForRefrigerant.as_view(), name='upload_refrigerant_data'),
+    path('upload-travels-data', views.ExcelUploadViewForTravel.as_view(), name='upload_travel_data'),
+path('upload-waste-data', views.ExcelUploadViewForWaste.as_view(), name='upload_waste_data'),
 
 ]

@@ -109,9 +109,12 @@
                     </table>
                     {% include 'paginator.html' with page_obj=refrigerants %}
                     <div class="text-right">
-                        <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
+                        <a href="{% url 'refrigerant_report' %}?{{ request.GET.urlencode }}"
                            class="btn btn-tertiary animate-up-2">
                             Download Report
+                        </a>
+                        <a href="{% url 'upload_refrigerant_data' %}" class="btn btn-tertiary animate-up-2">
+                            Upload Data
                         </a>
                     </div>
                 </div>
