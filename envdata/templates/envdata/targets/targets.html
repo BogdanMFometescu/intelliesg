@@ -48,7 +48,7 @@
                             <th scope="row">{{ forloop.counter }}</th>
                             <td>
                                 <div class="d-flex align-items-center">
-                                    {{ target.company }}
+                                    <a href="{% url 'target' target.id %}">{{ target.company }}</a>
                                 </div>
                             </td>
                             <td style="color: dodgerblue">{{ target.base_year }}</td>
