@@ -136,8 +136,8 @@ class NaturalGas(models.Model):
 
     @classmethod
     def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
-            total_co2=Sum(F('gas_quantity') * F('emission_factor'))).order_by('year')
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year','month').annotate(
+            total_co2=Sum(F('gas_quantity') * F('emission_factor'))).order_by('year','month')
         return annual_co2_per_company
 
     def __str__(self):
@@ -172,8 +172,8 @@ class Sf6(models.Model):
 
     @classmethod
     def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
-            total_co2=Sum(F('sf6_quantity') * F('emission_factor'))).order_by('year')
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year','month').annotate(
+            total_co2=Sum(F('sf6_quantity') * F('emission_factor'))).order_by('year','month')
         return annual_co2_per_company
 
 
@@ -204,8 +204,8 @@ class Refrigerant(models.Model):
 
     @classmethod
     def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
-            total_co2=Sum(F('refrigerant_quantity') * F('emission_factor'))).order_by('year')
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year','month').annotate(
+            total_co2=Sum(F('refrigerant_quantity') * F('emission_factor'))).order_by('year','month')
         return annual_co2_per_company
 
     def __str__(self):
@@ -246,8 +246,8 @@ class Energy(models.Model):
 
     @classmethod
     def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
-            total_co2=Sum(F('energy_quantity') * F('emission_factor'))).order_by('year')
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year','month').annotate(
+            total_co2=Sum(F('energy_quantity') * F('emission_factor'))).order_by('year','month')
         return annual_co2_per_company
 
     def __str__(self):
@@ -287,8 +287,8 @@ class Travel(models.Model):
 
     @classmethod
     def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
-            total_co2=Sum(F('distance') * F('emission_factor'))).order_by('year')
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year','month').annotate(
+            total_co2=Sum(F('distance') * F('emission_factor'))).order_by('year','month')
         return annual_co2_per_company
 
     def __str__(self):
@@ -324,8 +324,8 @@ class Waste(models.Model):
 
     @classmethod
     def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year').annotate(
-            total_co2=Sum(F('quantity_disposed') * F('emission_factor'))).order_by('year')
+        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year','month').annotate(
+            total_co2=Sum(F('quantity_disposed') * F('emission_factor'))).order_by('year','month')
         return annual_co2_per_company
 
     def __str__(self):

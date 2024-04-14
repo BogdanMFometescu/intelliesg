@@ -6,22 +6,72 @@
     <title>{{ chart_title }}</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #444;
+        }
+
         .chart-container {
             position: relative;
             margin: auto;
             height: 40vh;
             width: 80vw;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        label {
+            margin: 10px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        select {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #66afe9;
+            box-shadow: 0 0 8px rgba(102,175,233,.6);
+        }
+
+        .controls {
+            text-align: center;
+            margin: 20px;
         }
     </style>
 </head>
 <body>
 
 <h2>{{ chart_title }}</h2>
-<!-- Dropdown for selecting companies -->
-<label for="companySelector"></label><select id="companySelector">
-    <option value="all">All Companies</option>
-    <!-- Options will be added here dynamically -->
-</select>
+<div class="controls">
+    <!-- Dropdowns for selecting company and year -->
+    <label for="companySelector">Company:</label>
+    <select id="companySelector">
+        <option value="all">Select Company</option>
+        <!-- Options will be added here dynamically -->
+    </select>
+
+    <label for="yearSelector">Year:</label>
+    <select id="yearSelector">
+        <!-- Years options added dynamically -->
+    </select>
+</div>
 
 <div class="chart-container">
     <canvas id="emissionsChart"></canvas>
@@ -29,76 +79,75 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        populateCompanySelector();
-        updateChartData('all'); // Initialize chart with 'all' data
+        populateSelectors();
+        updateChart();
     });
 
     const ctx = document.getElementById('emissionsChart').getContext('2d');
     let myChart; // Declare chart variable to initialize later
 
-    const chartData = {
-        labels: {{ years|safe }},
-        datasets: []
-    };
+    const emissionsData = JSON.parse('{{ data|safe }}');
+    const years = {{ years|safe }};
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; // Fixed order
 
-    const colors = [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-    ];
-    const borderColors = [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-    ];
-
-    const emissionsData = {{ data|safe }};
-
-    function populateCompanySelector() {
+    function populateSelectors() {
         const companySelector = document.getElementById('companySelector');
-        const companies = Object.keys(emissionsData);
+        const yearSelector = document.getElementById('yearSelector');
 
-        companies.forEach(company => {
+        Object.keys(emissionsData).forEach(company => {
             const option = document.createElement('option');
             option.value = company;
-            option.textContent = company; // Use a more user-friendly name if available
+            option.textContent = company;
             companySelector.appendChild(option);
+        });
+
+        years.forEach(year => {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            yearSelector.appendChild(option);
         });
     }
 
-    document.getElementById('companySelector').addEventListener('change', function() {
-        updateChartData(this.value);
-    });
+    document.getElementById('companySelector').addEventListener('change', updateChart);
+    document.getElementById('yearSelector').addEventListener('change', updateChart);
 
-    function updateChartData(selectedCompany) {
-        const filteredData = (selectedCompany === 'all') ? emissionsData : {[selectedCompany]: emissionsData[selectedCompany]};
+    function updateChart() {
+        const selectedCompany = document.getElementById('companySelector').value;
+        const selectedYear = document.getElementById('yearSelector').value;
+        const chartData = {
+            labels: months,
+            datasets: []
+        };
 
-        chartData.datasets = []; // Reset datasets
-
-        let colorIndex = 0;
-        for (const [company, emissions] of Object.entries(filteredData)) {
+        if (selectedCompany === 'all') {
+            Object.keys(emissionsData).forEach((company, index) => {
+                const monthlyData = months.map(month => emissionsData[company][selectedYear][month] || 0);
+                chartData.datasets.push({
+                    label: company,
+                    data: monthlyData,
+                    backgroundColor: `rgba(54, 162, 235, 0.${index + 2})`,
+                    borderColor: `rgba(54, 162, 235, 1)`,
+                    borderWidth: 1
+                });
+            });
+        } else {
+            const monthlyData = months.map(month => emissionsData[selectedCompany][selectedYear][month] || 0);
             chartData.datasets.push({
-                label: company,
-                data: emissions,
-                backgroundColor: colors[colorIndex % colors.length],
-                borderColor: borderColors[colorIndex % borderColors.length],
+                label: selectedCompany,
+                data: monthlyData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
             });
-            colorIndex++;
         }
 
         if (myChart) {
-            myChart.destroy(); // Destroy existing chart instance before creating a new one
+            myChart.destroy();
         }
 
         myChart = new Chart(ctx, {
-            type: 'bar', // Or 'line' for line chart
+            type: 'bar',
             data: chartData,
             options: {
                 scales: {
@@ -122,7 +171,7 @@
                     },
                     title: {
                         display: true,
-                        text: 'Emissions Over Years'
+                        text: 'Monthly Emissions Over Selected Year'
                     }
                 }
             }
