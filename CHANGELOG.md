@@ -3,6 +3,16 @@
 - Changelog for the intelliesg app
 
 
+
+[15.04.2024]
+
+Version 0.8.0
+-
+- added new app for esg manager
+- added methods for models.py
+- added methods for forms.py
+
+
 [14.04.2024]
 
 Version 0.7.1
