@@ -3,6 +3,15 @@
 - Changelog for the intelliesg app
 
 
+[14.04.2024]
+
+Version 0.7.1
+-
+- modified the charts to display emissions by year and month
+- refactored the models, views and html templates
+
+
+
 [10.04.2024]
 
 Version 0.7.0
