@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'envdata',
     'socialdata',
     'users',
+    'esgmanager',
     'django_filters',
 ]
 

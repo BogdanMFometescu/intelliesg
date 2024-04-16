@@ -48,26 +48,31 @@
                                             <h6 class="d-block mb-3 text-primary">Overview</h6>
                                             <ul class="list-style-none mb-4">
                                                 <li class="mb-2 megamenu-item">
-                                                    <a class="megamenu-link" href="{% url 'fuel_emissions' %}">ESG Strategy </a>
+                                                    <a class="megamenu-link" href="{% url 'fuel_emissions' %}">ESG
+                                                        Strategy </a>
                                                 </li>
                                                 <li class="mb-2 megamenu-item">
-                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">ESG Pillars
+                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">ESG
+                                                        Pillars
                                                     </a>
                                                 </li>
                                                 <li class="mb-2 megamenu-item">
-                                                    <a class="megamenu-link" href="{% url 'sf6_emissions' %}">ESG Action Plan </a>
+                                                    <a class="megamenu-link" href="{% url 'sf6_emissions' %}">ESG Action
+                                                        Plan </a>
                                                 </li>
                                                 <li class="mb-2 megamenu-item">
-                                                    <a class="megamenu-link" href="{% url 'sf6_emissions' %}">ESG NZBP </a>
+                                                    <a class="megamenu-link" href="{% url 'sf6_emissions' %}">ESG
+                                                        NZBP </a>
                                                 </li>
 
                                             </ul>
                                         </div>
-                                         <div class="col-6">
+                                        <div class="col-6">
                                             <h6 class="d-block mb-3 text-primary">Benchmark</h6>
                                             <ul class="list-style-none mb-4">
                                                 <li class="mb-2 megamenu-item">
-                                                    <a class="megamenu-link" href="{% url 'fuel_emissions' %}">Standards </a>
+                                                    <a class="megamenu-link"
+                                                       href="{% url 'fuel_emissions' %}">Standards </a>
                                                 </li>
                                                 <li class="mb-2 megamenu-item">
                                                     <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Legislation
@@ -141,7 +146,8 @@
                                                        href="{% url 'fuel_emissions' %}">Feature 1 </a>
                                                 </li>
                                                 <li class="mb-2 megamenu-item">
-                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Feature 2
+                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Feature
+                                                        2
                                                     </a>
                                                 </li>
                                             </ul>
@@ -280,14 +286,82 @@
                                                class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
                                                 <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
                                                 <div class="ms-4">
-                                            <span class="d-block font-small fw-bold mb-0">Forms<span
+                                            <span class="d-block font-small fw-bold mb-0">Company<span
                                                     class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
-                                                    <span class="small">Fill in ESG forms</span>
                                                 </div>
                                             </a>
                                         </div>
+                                          <div class="list-group list-group-flush">
+                                            <a href="{% url 'nav_forms' %}"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
+                                                <div class="ms-4">
+                                            <span class="d-block font-small fw-bold mb-0">ESG Pillars<span
+                                                    class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                         <div class="list-group list-group-flush">
+                                            <a href="{% url 'nav_forms' %}"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
+                                                <div class="ms-4">
+                                            <span class="d-block font-small fw-bold mb-0">ESG Action Plan<span
+                                                    class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                         <div class="list-group list-group-flush">
+                                            <a href="{% url 'nav_forms' %}"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
+                                                <div class="ms-4">
+                                            <span class="d-block font-small fw-bold mb-0">ESG Action Plan Objectives<span
+                                                    class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="list-group list-group-flush">
+                                            <a href="{% url 'nav_forms' %}"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
+                                                <div class="ms-4">
+                                            <span class="d-block font-small fw-bold mb-0">ESG Action Plan Actions<span
+                                                    class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
+                                                </div>
+                                            </a>
+                                        </div>
+
+
+
+                                         <div class="list-group list-group-flush">
+                                            <a href="{% url 'nav_forms' %}"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
+                                                <div class="ms-4">
+                                            <span class="d-block font-small fw-bold mb-0">GHG Targets<span
+                                                    class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
+                                                </div>
+                                            </a>
+                                        </div>
+
+
+
+                                        <div class="list-group list-group-flush">
+                                            <a href="{% url 'nav_forms' %}"
+                                               class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                                <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
+                                                <div class="ms-4">
+                                            <span class="d-block font-small fw-bold mb-0">GHG Emissions<span
+                                                    class="badge badge-sm badge-secondary ms-2">v3.1</span></span>
+                                                </div>
+                                            </a>
+                                        </div>
+
+
                                     </div>
                                 </div>
+
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle"
