@@ -8,7 +8,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', CustomLoginView.as_view(), name='login'),
     path('envdata/', include('envdata.urls')),
-    path('users/', include('users.urls'))
+    path('users/', include('users.urls')),
+    path('esgmanager/', include('esgmanager.urls'))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
