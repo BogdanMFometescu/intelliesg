@@ -3,6 +3,15 @@
 - Changelog for the intelliesg app
 
 
+[17.04.2024]
+
+Version 0.8.1
+-
+- finished views for esg-manger models
+- finished the html templates  for esg-manager 
+- finished the urls from esg-manager models
+
+
 
 [15.04.2024]
 
