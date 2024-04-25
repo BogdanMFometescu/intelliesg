@@ -32,6 +32,7 @@ class CreateViewActions(LoginRequiredMixin, CompanyContextMixin, CreateView):
 
 
 class UpdateViewActions(LoginRequiredMixin, CompanyContextMixin, UpdateView, UpdateModeMixin):
+    model = ESGActionPlanActions
     form_class = ESGActionPlanActionsForm
     template_name = 'esgmanager/action_plan_actions/form-action.html'
     success_url = reverse_lazy('actions')

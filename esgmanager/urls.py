@@ -15,7 +15,7 @@ urlpatterns = [path('pillars/', views.ListViewPillars.as_view(), name='pillars')
 
                path('objectives/', views.ListViewObjectives.as_view(), name='objectives'),
                path('objective/<uuid:pk>/', views.DetailViewObjectives.as_view(), name='objective'),
-               path('create-objective/', views.CreateViewObjective.as_view(), name='create_objective'),
+               path('create-objective/', views.CreateViewObjectives.as_view(), name='create_objective'),
                path('update-objective/<uuid:pk>/', views.UpdateViewObjectives.as_view(), name='update_objective'),
                path('delete-objective/<uuid:pk>/', views.DeleteViewObjectives.as_view(), name='delete_objective'),
 
