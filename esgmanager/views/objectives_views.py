@@ -18,7 +18,7 @@ class DetailViewObjectives(LoginRequiredMixin, CompanyContextMixin, DetailView):
     context_object_name = 'objective'
 
 
-class CreateViewObjective(LoginRequiredMixin, CompanyContextMixin, CreateView):
+class CreateViewObjectives(LoginRequiredMixin, CompanyContextMixin, CreateView):
     form_class = ESGActionPlanObjectivesForm
     template_name = 'esgmanager/action_plan_objectives/form-objective.html'
     success_url = reverse_lazy('objectives')
@@ -31,7 +31,8 @@ class CreateViewObjective(LoginRequiredMixin, CompanyContextMixin, CreateView):
         return reverse_lazy('objectives')
 
 
-class UpdateViewObjectives(LoginRequiredMixin, CompanyContextMixin, UpdateView, UpdateModeMixin):
+class UpdateViewObjectives(LoginRequiredMixin, CompanyContextMixin,UpdateModeMixin, UpdateView ):
+    model = ESGActionPlanObjectives
     form_class = ESGActionPlanObjectivesForm
     template_name = 'esgmanager/action_plan_objectives/form-objective.html'
     success_url = reverse_lazy('objectives')
