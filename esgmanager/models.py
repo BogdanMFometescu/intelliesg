@@ -1,7 +1,6 @@
 from django.db import models
 from envdata.models import Company
 import uuid
-#from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 # Create your models here.
@@ -43,8 +42,8 @@ class ESGActionPlanObjectives(models.Model):
     start_date = models.DateField(blank=False, null=False)
     end_date = models.DateField(blank=False, null=False)
     responsible = models.CharField(blank=False, null=False, max_length=255)
-    status = models.CharField(blank=False, null=False,max_length=255)
-    completion = models.FloatField(blank=False, null=False, default=0,)
+    status = models.CharField(blank=False, null=False, max_length=255)
+    completion = models.FloatField(blank=False, null=False, default=0, )
 
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
@@ -64,8 +63,8 @@ class ESGActionPlanActions(models.Model):
     start_date = models.DateField(blank=False, null=False)
     end_date = models.DateField(blank=False, null=False)
     responsible = models.CharField(blank=False, null=False, max_length=255)
-    status = models.CharField(blank=False, null=False,max_length=255)
-    completion = models.FloatField(blank=False, null=False, default=0,)
+    status = models.CharField(blank=False, null=False, max_length=255)
+    completion = models.FloatField(blank=False, null=False, default=0, )
 
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
