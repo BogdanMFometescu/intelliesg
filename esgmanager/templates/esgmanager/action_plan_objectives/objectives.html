@@ -12,10 +12,7 @@
                     <h1 class="display-2 mb-4">ESG <br class="d-none d-md-inline">Objectives</h1>
                     <p class="lead mb-4 text-muted">
                         In the quest for sustainability, understanding and managing the carbon footprint of fuel
-                        consumption is paramount. Our platform offers an advanced solution for measuring, tracking, and
-                        reporting CO2 equivalent emissions from various fuels. By leveraging accurate data and
-                        analytics, companies can make informed decisions to reduce their environmental impact and
-                        achieve sustainability goals.
+                        consumption is paramount.
                     </p>
 
                     <a href="" class="btn btn-tertiary me-3 animate-up-2">What we do <span class="ms-2">
@@ -50,6 +47,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Company</th>
+                            <th scope="col">Plan Name</th>
                             <th scope="col">Pillar</th>
                             <th scope="col">Objective</th>
                             <th scope="col">Description</th>
@@ -69,6 +67,7 @@
                                         {{ objective.company }}
                                     </div>
                                 </td>
+                                 <td>{{ objective.plan}}</td>
                                 <td>{{ objective.pillar }}</td>
                                 <td>{{ objective.objective }}</td>
                                 <td>{{ objective.description }}</td>
