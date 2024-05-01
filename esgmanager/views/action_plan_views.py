@@ -38,12 +38,22 @@ class DetailViewActionPlan(LoginRequiredMixin, CompanyContextMixin, DetailView):
     template_name = 'esgmanager/action_plan/action-plan.html'
     context_object_name = 'action_plan'
 
-    def get_object(self):
-        queryset = super().get_queryset()
-        queryset = queryset.select_related('company', 'pillar').prefetch_related(
-            'esgactionplanobjectives_set__esgactionplanactions_set'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        action_plan = context['action_plan']
+        context['company'] = action_plan.company
+        context['pillars'] = action_plan.pillar.company.esgpillars_set.all().prefetch_related(
+            Prefetch('esgactionplanobjectives_set',
+                     queryset=ESGActionPlanObjectives.objects.prefetch_related('esgactionplanactions_set'))
         )
-        return queryset.get(pk=self.kwargs.get('pk'))
+        return context
+
+    def get_object(self):
+        action_plan_id = self.kwargs.get('pk')
+
+        return ESGActionPlan.objects.select_related('company', 'pillar').prefetch_related(
+            'esgactionplanobjectives_set__esgactionplanactions_set'
+        ).get(id=action_plan_id)
 
 
 class CreateViewActionPlan(LoginRequiredMixin, CompanyContextMixin, CreateView):
