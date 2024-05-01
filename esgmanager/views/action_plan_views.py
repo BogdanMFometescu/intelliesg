@@ -3,14 +3,27 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Prefetch
 from envdata.mixins import CompanyContextMixin, UpdateModeMixin
-from esgmanager.models import ESGActionPlan, ESGActionPlanObjectives
+from esgmanager.models import ESGActionPlan, ESGActionPlanObjectives, ESGPillars
 from esgmanager.forms import ESGActionPlanForm
+from envdata.models import Company
 
 
 class ListViewActionPlan(LoginRequiredMixin, CompanyContextMixin, ListView):
     model = ESGActionPlan
     template_name = 'esgmanager/action_plan/action-plans.html'
     context_object_name = 'action_plans'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        companies = Company.objects.prefetch_related(
+            Prefetch('esgpillars_set', queryset=ESGPillars.objects.prefetch_related(Prefetch
+
+                                                                                    ('esgactionplanobjectives_set',
+                                                                                     queryset=ESGActionPlanObjectives.objects.prefetch_related(
+                                                                                         'esgactionplanactions_set')))))
+        print(companies)
+        context['companies'] = companies
+        return context
 
     def get_queryset(self):
         objectives_prefetched = Prefetch('esgactionplanobjectives_set',
