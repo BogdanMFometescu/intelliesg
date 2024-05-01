@@ -67,7 +67,7 @@
                                         {{ objective.company }}
                                     </div>
                                 </td>
-                                 <td>{{ objective.plan}}</td>
+                                <td>{{ objective.plan }}</td>
                                 <td>{{ objective.pillar }}</td>
                                 <td>{{ objective.objective }}</td>
                                 <td>{{ objective.description }}</td>
@@ -75,7 +75,7 @@
                                 <td>{{ objective.end_date }}</td>
                                 <td>{{ objective.responsible }}</td>
                                 <td>{{ objective.status }}</td>
-                                <td>{{ objective.completion }}</td>
+                                <td>{{ objective.completion }}%</td>
                                 <td>
                                     <div class="d-flex">
                                         <a href="{% url 'update_objective' objective.id %}" class="mr-3"
@@ -87,26 +87,21 @@
                                            onclick="return confirm('Are you sure you want to delete this item?');">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                        <a href="{% url 'create_objective' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+
                                     </div>
                                 </td>
                             </tr>
 
                         {% endfor %}
-
-
                         </tbody>
                     </table>
                     {% include 'paginator.html' with page_obj=fuel_emissions %}
                     <br>
                 </div>
-                <div class="text-right">
-                    <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}" class="btn btn-tertiary animate-up-2">
-                        Download Report
-                    </a>
-                    <a href="{% url 'upload_fuel_data' %}" class="btn btn-tertiary animate-up-2">
-                        Upload Data
-                    </a>
-                </div>
+
             </div>
         </div>
     </section>
