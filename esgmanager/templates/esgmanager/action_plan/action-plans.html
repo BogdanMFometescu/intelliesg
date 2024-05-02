@@ -29,19 +29,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 text-center">
-                    <div class="form-control">
-                        <form method="get"
-                              class="w-100 d-flex flex-column flex-md-row align-items-center justify-content-between">
-                            {% for field in filter.form %}
-                                <div class="mb-2 mb-md-0">
-                                    {{ field.label_tag }} {{ field }}
-                                </div>
-                            {% endfor %}
 
-                            <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
-                        </form>
-                    </div>
                     <br>
+                    <h2 align="left">List of Action Plans </h2>
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -51,6 +41,8 @@
                             <th scope="col">Pillar</th>
                             <th scope="col">Start</th>
                             <th scope="col">End</th>
+                            <th scope="col">Status</th>
+
 
                         </tr>
                         </thead>
@@ -68,6 +60,11 @@
 
                                 <td>{{ plan.start_date }}</td>
                                 <td>{{ plan.end_date }}</td>
+                                {% if plan.current_status == 'On track' %}
+                                    <td style="color: #0f5132">{{ plan.current_status }}</td>
+                                {% else %}
+                                    <td style="color: red">{{ plan.current_status }}</td>
+                                {% endif %}
 
                                 <td>
                                     <div class="d-flex">

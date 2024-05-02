@@ -1,5 +1,6 @@
 from django.db import models
 from envdata.models import Company
+from datetime import date
 import uuid
 
 
@@ -29,6 +30,12 @@ class ESGActionPlan(models.Model):
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
 
+    @property
+    def current_status(self):
+        if self.end_date > date.today():
+            return 'On track'
+        return 'Delayed'
+
     def __str__(self):
         return f'{self.plan_name}'
 
@@ -48,6 +55,12 @@ class ESGActionPlanObjectives(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
+
+    @property
+    def current_status(self):
+        if self.end_date > date.today():
+            return 'On track'
+        return 'Delayed'
 
     def __str__(self):
         return f'{self.objective}'
@@ -69,6 +82,12 @@ class ESGActionPlanActions(models.Model):
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
+
+    @property
+    def current_status(self):
+        if self.end_date > date.today():
+            return 'On track'
+        return 'Delayed'
 
     def __str__(self):
         return f'{self.action}'

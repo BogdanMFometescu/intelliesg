@@ -29,19 +29,9 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 text-center">
-                    <div class="form-control">
-                        <form method="get"
-                              class="w-100 d-flex flex-column flex-md-row align-items-center justify-content-between">
-                            {% for field in filter.form %}
-                                <div class="mb-2 mb-md-0">
-                                    {{ field.label_tag }} {{ field }}
-                                </div>
-                            {% endfor %}
 
-                            <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
-                        </form>
-                    </div>
                     <br>
+                    <h2 align="left">List of actions </h2>
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -71,10 +61,14 @@
                                 <td>{{ action.pillar }}</td>
                                 <td>{{ action.objective }}</td>
                                 <td>{{ action.action }}</td>
-                                 <td>{{ action.responsible }}</td>
+                                <td>{{ action.responsible }}</td>
                                 <td>{{ action.start_date }}</td>
                                 <td>{{ action.end_date }}</td>
-                                <td>{{ action.status }}</td>
+                                {% if action.current_status == 'On track' %}
+                                    <td style="color: #0f5132">{{ action.current_status }}</td>
+                                {% else %}
+                                    <td style="color: red">{{ action.current_status }}</td>
+                                {% endif %}
 
                                 <td>
                                     <div class="d-flex">
@@ -87,7 +81,7 @@
                                            onclick="return confirm('Are you sure you want to delete this item?');">
                                             <i class="fas fa-trash"></i>
                                         </a>
-                                         <a href="{% url 'create_action' %}" class="text-danger">
+                                        <a href="{% url 'create_action' %}" class="text-danger">
                                             <i class="fas fa-plus"></i>
                                         </a>
                                     </div>
