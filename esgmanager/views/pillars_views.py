@@ -11,6 +11,9 @@ class ListViewPillars(LoginRequiredMixin, ListView, CompanyContextMixin):
     template_name = 'esgmanager/pillars/pillars.html'
     context_object_name = 'pillars'
 
+    def get_queryset(self):
+        return ESGPillars.objects.all().order_by('pillar')
+
 
 class DetailViewPillars(LoginRequiredMixin, DetailView, CompanyContextMixin):
     model = ESGPillars
