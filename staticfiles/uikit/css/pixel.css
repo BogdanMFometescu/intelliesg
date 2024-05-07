@@ -29501,4 +29501,17 @@ blockquote {
 
 
 
+.card-link {
+    text-decoration: none; 
+    color: inherit;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+.card-link:hover, .card-link:focus {
+    opacity: 0.7; /* This will create a fade effect on hover or focus */
+}
+
+
+
 /*# sourceMappingURL=pixel.css.map */
