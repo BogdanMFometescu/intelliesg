@@ -3,6 +3,7 @@ from envdata import views
 
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
+    path('quik-start',views.QuickStart.as_view(),name='quick_start'),
     path('companies', views.CompanyListView.as_view(), name='companies_list'),
     path('company/<uuid:pk>/', views.CompanyDetailView.as_view(), name='single_company'),
     path('create-company/', views.CompanyCreateView.as_view(), name='create_company'),

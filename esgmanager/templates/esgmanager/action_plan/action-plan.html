@@ -81,6 +81,8 @@
         {% empty %}
             <p>No pillars found for this company.</p>
         {% endfor %}
+     <a href="{% url 'action_plans' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
     </div>
 
 {% endblock content %}
