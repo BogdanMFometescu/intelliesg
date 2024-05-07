@@ -24,82 +24,60 @@
     </section>
 
 
-
-    <section class="section-header">
+     <section class="section section-lg">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-8 text-center">
-
-                    <br>
-                    <h2 align="left">List of Action Plans </h2>
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Company</th>
-                            <th scope="col">Plan Name</th>
-                            <th scope="col">Pillar</th>
-                            <th scope="col">Start</th>
-                            <th scope="col">End</th>
-                            <th scope="col">Status</th>
 
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for plan in action_plans %}
-                            <tr>
-                                <th scope="row">{{ forloop.counter }}</th>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <a href="{% url 'action_plan' plan.id %}">{{ plan.company.name }}</a>
-                                    </div>
-                                </td>
-                                <td>{{ plan.plan_name }}</td>
-                                <td>{{ plan.pillar }}</td>
+            <div class="row mb-5 mb-lg-6">
+                {% for action in action_plans %}
+                    <div class="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0">
+                        <a href="{% url 'action_plan' action.id%}" class="card-link">
+                        <div class="card shadow border-gray-300">
+                            <img src="{% static 'images/action_plan.webp' %}" class="card-img-top rounded-top"
+                                 alt="Pillar">
 
-                                <td>{{ plan.start_date }}</td>
-                                <td>{{ plan.end_date }}</td>
-                                {% if plan.current_status == 'On track' %}
-                                    <td style="color: #0f5132">{{ plan.current_status }}</td>
+                            <div class="card-body">
+                                <h3 class="h4 card-title mb-2" style="color:green;">{{ action.pillar }}</h3>
+                                <h3 class="h4 card-title mb-2" style="color:#0b5ed7;">{{ action.plan_name }}</h3>
+                                <span class="card-subtitle text-gray fw-normal">{{ action.company }}</span>
+                                <br>
+                                <br>
+                                <h4>{{ action.description }}</h4>
+                                <p class="card-text my-3">Start date: {{ action.start_date }}</p>
+                                <p class="card-text my-3">End date: {{ action.end_date }}</p>
+                                {% if action.current_status == 'On track' %}
+                                    <p class="card-text my-3" style="color:green;">
+                                        Status: {{ action.current_status }}</p>
                                 {% else %}
-                                    <td style="color: red">{{ plan.current_status }}</td>
+                                    <p class="card-text my-3" style="color:red;">
+                                        Status: {{ action.current_status }}</p>
                                 {% endif %}
-
-                                <td>
-                                    <div class="d-flex">
-                                        <a href="{% url 'update_action_plan' plan.id %}" class="mr-3"
+                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'update_action_plan' action.id %}" class="mr-3"
                                            data-toggle="tooltip" data-placement="top" title="Edit item">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="{% url 'delete_action_plan' plan.id %}" class="text-danger"
+                                    </li>
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'delete_action_plan' action.id %}" class="text-danger"
                                            data-toggle="tooltip" data-placement="top" title="Delete item"
                                            onclick="return confirm('Are you sure you want to delete this item?');">
                                             <i class="fas fa-trash"></i>
                                         </a>
-                                        <a href="{% url 'create_action_plan' %}" class="text-danger">
+                                    </li>
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'create_action' %}" class="text-danger">
                                             <i class="fas fa-plus"></i>
                                         </a>
-
-                                    </div>
-                                </td>
-                            </tr>
-
-                        {% endfor %}
-
-
-                        </tbody>
-                    </table>
-                    {% include 'paginator.html' with page_obj=fuel_emissions %}
-                    <br>
-                </div>
-
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </section>
-
-
-
-
-
 {% endblock content %}
