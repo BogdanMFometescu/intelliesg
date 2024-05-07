@@ -11,6 +11,10 @@ class HomePageView(TemplateView, CompanyContextMixin):
     template_name = 'starter.html'
 
 
+class QuickStart(TemplateView,CompanyContextMixin):
+    template_name = 'envdata/quik_start.html'
+
+
 class CompanyListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     model = Company
     template_name = 'envdata/companies.html'

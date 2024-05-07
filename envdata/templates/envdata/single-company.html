@@ -9,16 +9,13 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
-                    <h1 class="display-2 mb-4">Company-Specific GHG (CO2eq) Emissions</h1>
+                    <h1 class="display-2 mb-4"> {{ single_company.name }} Emissions</h1>
                     <p class="lead mb-4 text-muted">
-                        In the landscape of environmental responsibility, each organization's journey towards
-                        sustainability is unique. This detailed report provides an in-depth analysis of your company's
-                        greenhouse gas emissions, reflecting our commitment to supporting you in achieving a more
-                        sustainable operational footprint. Here, you'll find comprehensive data on your CO2eq emissions,
-                        shedding light on areas for improvement and celebrating progress towards your net zero targets.
+                        In the landscape of environmental responsibility
                     </p>
-                    <a href="./services.html" class="btn btn-tertiary me-3 animate-up-2">Explore Our Services <span
+                    <a href="{% url 'charts' %}" class="btn btn-tertiary me-3 animate-up-2">Detailed Charts <span
                             class="ms-2"><span class="fas fa-arrow-right"></span></span></a>
+
                 </div>
                 <div class="col-12 col-md-5 d-none d-md-block text-center"><img
                         src="../../assets/img/illustrations/about-illustration.svg" alt=""></div>
@@ -71,6 +68,8 @@
                 </table>
                 <p>*Emissions quantities are in kgCO2e</p>
             </div>
+        <a href="{% url 'companies_list' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
         </div>
 
     </section>

@@ -12,84 +12,65 @@
                 <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
                     <h1 class="display-2 mb-4">Total GHG (CO2eq) <br class="d-none d-md-inline">Emissions</h1>
                     <p class="lead mb-4 text-muted">
-                        Tracking and managing greenhouse gas emissions is not just about regulatory compliance; it's a
-                        commitment to a sustainable future. Our platform provides a comprehensive overview of CO2
-                        equivalent emissions for each company, showcasing efforts towards environmental stewardship and
-                        the journey towards net zero. With the spotlight on corporate responsibility, understanding and
-                        reducing your organization's carbon footprint has never been more crucial.
-                    </p>
-
-                    <a href="" class="btn btn-tertiary me-3 animate-up-2">What we do <span class="ms-2">
-                            <span class="fas fa-arrow-right"></span></span></a>
+                    <p>Click on a company name to see detailed information about GHG emissions, including each year Net
+                    Zero Targets.</p>
                 </div>
                 <div class="col-12 col-md-5 d-none d-md-block text-center"><img
                         src="" alt=""></div>
             </div>
         </div>
     </section>
-    <section class="section-header">
+
+    <section class="section section-lg">
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row mb-5 mb-lg-6">
+                {% for company in companies_list %}
+                    <div class="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0">
+                        <a href="{% url 'single_company' company.id %}" class="card-link">
+                            <div class="card shadow border-gray-300">
+                                <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
+                                     alt="Pillar">
 
-                <br>
-                <br>
-                <h2 align="left">List of registered companies </h2>
-                <p align="left">Click on a company name to view detailed information about its CO2 emissions, including
-                    breakdowns, sources, and targets towards achieving net zero.</p>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">City</th>
-                        <th scope="col">Country</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Email</th>
+                                <div class="card-body">
+                                    <h3 class="h4 card-title mb-2" style="color:green;">{{ company.name }}</h3>
+                                    <h3 class="h4 card-title mb-2" style="color: #0b5ed7">{{ company.country }}</h3>
+                                    <span class="card-subtitle text-gray fw-normal">{{ company.address }}</span>
+                                    <br>
+                                    <br>
+                                    <h4>{{ action.description }}</h4>
+                                    <p class="card-text my-3">Phone: {{ company.phone }}</p>
+                                    <p class="card-text my-3">Email: {{ company.email }}</p>
 
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for company in companies_list %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <a href="{% url 'single_company' company.id %}">{{ company.name }}</a>
+                                    <ul class="list-unstyled d-flex mt-3 mb-0">
+                                        <li style="margin-right: 10px;">
+                                            <a href="{% url 'update_company' company.id %}" class="mr-3"
+                                               data-toggle="tooltip" data-placement="top" title="Edit item">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </li>
+                                        <li style="margin-right: 10px;">
+                                            <a href="{% url 'delete_company' company.id %}" class="text-danger"
+                                               data-toggle="tooltip" data-placement="top" title="Delete item"
+                                               onclick="return confirm('Are you sure you want to delete this item?');">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </li>
+                                        <li style="margin-right: 10px;">
+                                            <a href="{% url 'create_company' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </td>
-                            <td>{{ company.city }}</td>
-                            <td>{{ company.country }}</td>
-                            <td>{{ company.address }}</td>
-                            <td>{{ company.phone }}</td>
-                            <td>{{ company.email }}</td>
-
-                            <td>
-                                <div class="d-flex">
-                                    <a href="{% url 'update_company' company.id %}" class="mr-3"
-                                       data-toggle="tooltip" data-placement="top" title="Edit item">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="{% url 'delete_company' company.id %}" class="text-danger"
-                                       data-toggle="tooltip" data-placement="top" title="Delete item"
-                                       onclick="return confirm('Are you sure you want to delete this item?');">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
-                    {% endfor %}
-                    </tbody>
-                </table>
-
+                            </div>
+                            </a>
+                    </div>
+                {% endfor %}
             </div>
-        </div>
+        <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
         </div>
     </section>
-
-
 
 
 {% endblock content %}
