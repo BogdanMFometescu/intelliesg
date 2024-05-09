@@ -105,6 +105,8 @@
                     </table>
                     {% include 'paginator.html' with page_obj=wastes %}
                     <div class="text-right">
+                        <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
                         <a href="{% url 'waste_report' %}?{{ request.GET.urlencode }}"
                            class="btn btn-tertiary animate-up-2">
                             Download Report
