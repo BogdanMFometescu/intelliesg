@@ -2,6 +2,7 @@ from django.db import models
 from envdata.models import Company
 from datetime import date
 import uuid
+from esgmanager.constants import *
 
 
 # Create your models here.
@@ -95,3 +96,95 @@ class ESGActionPlanActions(models.Model):
 
 class NetZeroBusinessPlan(models.Model):
     pass
+
+
+class EnvironmentalRisk(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    category = models.CharField(blank=False, null=False, max_length=255, choices=ENV_CATEGORY_CHOICES,
+                                default='category')
+    risk = models.CharField(blank=False, null=False, max_length=255)
+    description = models.TextField(blank=False, null=False,default='description')
+    probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
+    severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
+    mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
+    opportunities = models.TextField(blank=True, null=True, default='opportunities')
+    responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
+    updated = models.DateField(auto_now=True)
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.risk}'
+
+    class Meta:
+        verbose_name = "Environmental Risk"
+        verbose_name_plural = "Environmental Risks"
+
+
+class ClimateChangeRisk(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    category = models.CharField(blank=False, null=False, max_length=255, choices=CC_CATEGORY_CHOICES,
+                                default='category')
+    risk = models.CharField(blank=False, null=False, max_length=255)
+    description = models.TextField(blank=False, null=False,default='description')
+    probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
+    severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
+    mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
+    opportunities = models.TextField(blank=True, null=True, default='opportunities')
+    responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
+    updated = models.DateField(auto_now=True)
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.risk}'
+
+    class Meta:
+        verbose_name = "Climate Change Risk"
+        verbose_name_plural = "Climate Change Risks"
+
+
+class SocialRisk(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    category = models.CharField(blank=False, null=False, max_length=255, choices=SOCIAL_CATEGORY_CHOICES,
+                                default='category')
+    risk = models.CharField(blank=False, null=False, max_length=255)
+    description = models.TextField(blank=False, null=False,default='description')
+    probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
+    severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
+    mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
+    opportunities = models.TextField(blank=True, null=True, default='opportunities')
+    responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
+    updated = models.DateField(auto_now=True)
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.risk}'
+
+    class Meta:
+        verbose_name = "Social Risk"
+        verbose_name_plural = "Social Risks"
+
+
+class GovernanceRisks(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    category = models.CharField(blank=False, null=False, max_length=255, choices=GOV_CATEGORY_CHOICES,
+                                default='category')
+    risk = models.CharField(blank=False, null=False, max_length=255)
+    description = models.TextField(blank=False, null=False,default='description')
+    probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
+    severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
+    mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
+    opportunities = models.TextField(blank=True, null=True, default='opportunities')
+    responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
+    updated = models.DateField(auto_now=True)
+    created = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.risk}'
+
+    class Meta:
+        verbose_name = "Governance Risk"
+        verbose_name_plural = "Governance Risks"
