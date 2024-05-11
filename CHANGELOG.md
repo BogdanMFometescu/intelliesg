@@ -3,6 +3,16 @@
 - Changelog for the intelliesg app
 
 
+[09.05.2024]
+
+Version 0.9.0
+-
+- finished the esg-manager's app  views,templates, forms, urls 
+- refactored the nav links for the entire app
+- added new classes in models form esg manager for Risks (E,S,G,Climate Change)
+- created forms for the new model classes for risks
+
+
 [17.04.2024]
 
 Version 0.8.1
