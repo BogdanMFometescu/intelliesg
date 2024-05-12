@@ -17,3 +17,7 @@ class NavFormObjectives(LoginRequiredMixin, TemplateView, CompanyContextMixin):
 
 class NavFormActions(LoginRequiredMixin, TemplateView, CompanyContextMixin):
     template_name = 'esgmanager/esg_nav_forms/nav-forms-actions.html'
+
+
+class NavFormsRisks(LoginRequiredMixin, TemplateView, CompanyContextMixin):
+    template_name = 'esgmanager/esg_nav_forms/nav-forms-risks.html'

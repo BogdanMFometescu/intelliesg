@@ -4,3 +4,7 @@ from .nzbp_views import *
 from .objectives_views import *
 from .pillars_views import *
 from .esg_nav_views import *
+from .cc_risks_views import *
+from .env_risks_views import *
+from .soc_risks_views import *
+from .gov_risks_views import *
