@@ -2,53 +2,70 @@
 {% load static %}
 {% block content %}
 
-<section class="section-header">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <h1 class="display-2 mb-3">Profiles</h1>
-                <p>All profiles</p>
+
+    <br>
+    <br>
+    <br>
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4">Users <br class="d-none d-md-inline">Profiles</h1>
+                    <p class="lead mb-4 text-muted">
+                        Some placeholder here
+                    </p>
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img src=" " alt=""></div>
             </div>
         </div>
-        <!-- Profiles Row -->
-        <div class="row justify-content-center">
-            {% for profile in profiles %}
-                <!-- Profile Card -->
-                <div class="col-12 col-sm-6 col-md-4 mb-4">
-                    <div class="card border-light">
-                        <div class="profile-image text-center">
-                            {% if profile.profile_image %}
-                                <img src="{{ profile.profile_image.url }}"
-                                     alt="{{ profile.user.username }}'s profile picture" class="img-fluid">
-                            {% else %}
-                                <img src="{% static 'images/user-default.png' %}"
-                                     alt="Default profile picture" class="img-fluid">
-                            {% endif %}
-                        </div>
-                        <div class="card-body">
-                             <h2><a href="{% url 'profile' profile.id %}">{{ profile.name }}</a></h2>
-                            <span class="h6 icon-tertiary small"><i class="fas fa-medal mr-2"></i>Awards</span>
-                            <p class="card-text">
+    </section>
 
-                            <p><strong>Job Title:</strong> {{ profile.job_title }}</p>
-                            <p><strong>Location:</strong> {{ profile.location }}</p>
-                            <p><strong>Member since:</strong> {{ profile.created|date:"F d, Y" }}</p>
 
-                            {% if request.user == profile.user %}
-                            <div class="action-buttons">
-                                <a href="{% url 'update_profile' profile.id %}" class="btn btn-primary">Edit Profile</a>
-                                <a href="{% url 'delete_profile' profile.id %}" class="btn btn-danger"
-                                   onclick="return confirm('Are you sure you want to delete this profile?');">Delete Profile</a>
+ <section class="section section-lg">
+        <div class="container">
+            <div class="row mb-5 mb-lg-6">
+                {% for profile  in profiles %}
+                    <div class="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0">
+                     <a href="{% url 'profile' profile.id %}" class="card-link">
+                        <div class="card shadow border-gray-300">
+                            <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
+                                 alt="Pillar">
+
+                            <div class="card-body">
+                                <h3 class="h4 card-title mb-2" style="color:green;">{{ profile.name }}</h3>
+                                <h3 class="h4 card-title mb-2">{{ profile.job_title }}</h3>
+                                <p><strong>Location:</strong> {{ profile.location }}</p>
+                                <p><strong>Member since:</strong> {{ profile.created|date:"F d, Y" }}</p>
+
+
+                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'update_profile' profile.id %}" class="mr-3"
+                                           data-toggle="tooltip" data-placement="top" title="Edit item">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </li>
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'delete_profile' profile.id %}" class="text-danger"
+                                           data-toggle="tooltip" data-placement="top" title="Delete item"
+                                           onclick="return confirm('Are you sure you want to delete this item?');">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </li>
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'create_profile' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
-                            {% endif %}
                         </div>
+                     </a>
                     </div>
-                </div>
-                <!-- /Profile Card -->
-            {% endfor %}
+                {% endfor %}
+            </div>
+            <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
         </div>
-        <!-- /Profiles Row -->
-    </div>
-</section>
-
+    </section>
 {% endblock content %}

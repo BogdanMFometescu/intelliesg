@@ -13,9 +13,6 @@
                     <p class="lead mb-4 text-muted">
                         Some placeholder here
                     </p>
-
-                    <a href="{% url 'charts' %}" class="btn btn-tertiary me-3 animate-up-2">Detailed Charts <span
-                            class="ms-2"><span class="fas fa-arrow-right"></span></span></a>
                 </div>
                 <div class="col-12 col-md-5 d-none d-md-block text-center"><img src=" " alt=""></div>
             </div>
@@ -54,6 +51,8 @@
                             <th scope="col">Opportunities</th>
                             <th scope="col">Risk Owner</th>
                             <th scope="col">Impact</th>
+                            <th scope="col">Last Updated</th>
+
 
                         </tr>
                         </thead>
@@ -76,6 +75,8 @@
                                 <td>{{ risk.opportunities }}</td>
                                 <td>{{ risk.responsible }}</td>
                                 <td>{{ risk.get_risk_impact }}</td>
+                                <td>{{ risk.updated }}</td>
+
                                 <td>
                                     <div class="d-flex">
                                         <a href="{% url 'update_env_risk' risk.id %}" class="mr-3"
@@ -100,7 +101,8 @@
                     <br>
                 </div>
                 <div class="text-right">
-                    <a href="{% url 'esg_nav_risks_list' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                    <a href="{% url 'esg_nav_risks_list' %}" class="btn btn-tertiary me-3 animate-up-2"> <span
+                            class="ms-2">
                             <span class="fas fa-arrow-left"></span></span></a>
                     <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}" class="btn btn-tertiary animate-up-2">
                         Download Report
