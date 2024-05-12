@@ -3,6 +3,14 @@
 - Changelog for the intelliesg app
 
 
+[11.05.2024]
+
+Version 0.9.1
+-
+- finished the risks classes url, views 
+- working on the html templates
+
+
 [09.05.2024]
 
 Version 0.9.0
