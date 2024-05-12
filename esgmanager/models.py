@@ -122,13 +122,17 @@ class EnvironmentalRisk(models.Model):
     def get_risk_impact(self):
         low = 1
         medium = 2
-        impact = ((self.probability * 0.25) / 100 + (self.severity * 0.75) / 100) / 2
+        impact = ((self.probability * 25) / 100 + (self.severity * 75) / 100) / 2
         if impact <= low:
             return 'Low'
         elif low < impact <= medium:
             return 'Medium'
         else:
             return 'High'
+
+    @property
+    def risk_count(self):
+        return EnvironmentalRisk.objects.count()
 
     class Meta:
         verbose_name = "Environmental Risk"
