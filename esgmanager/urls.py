@@ -30,6 +30,7 @@ urlpatterns = [path('pillars/', views.ListViewPillars.as_view(), name='pillars')
                path('esg-nav-form-objectives', views.NavFormObjectives.as_view(), name='esg_nav_forms_objectives'),
                path('esg-nav-form-actions', views.NavFormActions.as_view(), name='esg_nav_forms_actions'),
                path('esg-nav-form-risks', views.NavFormsRisks.as_view(), name='esg_nav_forms_risks'),
+               path('esg-risks-list', views.NavListRisks.as_view(), name='esg_nav_risks_list'),
 
                path('env-risks/', views.EnvRiskListView.as_view(), name='env_risks'),
                path('env-risk/<uuid:pk>/', views.EnvRiskDetailView.as_view(), name='env_risk'),

@@ -101,11 +101,13 @@ class NetZeroBusinessPlan(models.Model):
 class EnvironmentalRisk(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     category = models.CharField(blank=False, null=False, max_length=255, choices=ENV_CATEGORY_CHOICES,
-                                default='category')
+                                )
     risk = models.CharField(blank=False, null=False, max_length=255)
-    description = models.TextField(blank=False, null=False,default='description')
-    probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
-    severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
+    description = models.TextField(blank=False, null=False, default='description')
+    probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)", blank=False, null=False,
+                                                   default=1)
+    severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)", blank=False, null=False,
+                                                default=1)
     mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
     opportunities = models.TextField(blank=True, null=True, default='opportunities')
     responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
@@ -115,6 +117,18 @@ class EnvironmentalRisk(models.Model):
 
     def __str__(self):
         return f'{self.risk}'
+
+    @property
+    def get_risk_impact(self):
+        low = 1
+        medium = 2
+        impact = ((self.probability * 0.25) / 100 + (self.severity * 0.75) / 100) / 2
+        if impact <= low:
+            return 'Low'
+        elif low < impact <= medium:
+            return 'Medium'
+        else:
+            return 'High'
 
     class Meta:
         verbose_name = "Environmental Risk"
@@ -123,21 +137,35 @@ class EnvironmentalRisk(models.Model):
 
 class ClimateChangeRisk(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    category = models.CharField(blank=False, null=False, max_length=255, choices=CC_CATEGORY_CHOICES,
-                                default='category')
-    risk = models.CharField(blank=False, null=False, max_length=255)
-    description = models.TextField(blank=False, null=False,default='description')
-    probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
-    severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
-    mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
-    opportunities = models.TextField(blank=True, null=True, default='opportunities')
-    responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
+    cc_category = models.CharField(blank=False, null=False, max_length=255, choices=CC_CATEGORY_CHOICES, )
+    cc_risk = models.CharField(blank=False, null=False, max_length=255)
+    cc_description = models.TextField(blank=False, null=False, default='description')
+    cc_probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)", blank=False,
+                                                      null=False,
+                                                      default=1)
+    cc_severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)", blank=False, null=False,
+                                                   default=1)
+    cc_mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
+    cc_opportunities = models.TextField(blank=True, null=True, default='opportunities')
+    cc_responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.risk}'
+        return f'{self.cc_risk}'
+
+    @property
+    def get_risk_impact(self):
+        low = 1
+        medium = 2
+        impact = ((self.cc_probability * 0.25) / 100 + (self.cc_severity * 0.75) / 100) / 2
+        if impact <= low:
+            return 'Low'
+        elif low < impact <= medium:
+            return 'Medium'
+        else:
+            return 'High'
 
     class Meta:
         verbose_name = "Climate Change Risk"
@@ -146,21 +174,37 @@ class ClimateChangeRisk(models.Model):
 
 class SocialRisk(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    category = models.CharField(blank=False, null=False, max_length=255, choices=SOCIAL_CATEGORY_CHOICES,
-                                default='category')
-    risk = models.CharField(blank=False, null=False, max_length=255)
-    description = models.TextField(blank=False, null=False,default='description')
-    probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
-    severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
-    mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
-    opportunities = models.TextField(blank=True, null=True, default='opportunities')
-    responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
+    soc_category = models.CharField(blank=False, null=False, max_length=255, choices=SOCIAL_CATEGORY_CHOICES,
+                                    )
+    soc_risk = models.CharField(blank=False, null=False, max_length=255)
+    soc_description = models.TextField(blank=False, null=False, default='description')
+    soc_probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)", blank=False,
+                                                       null=False,
+                                                       default=1)
+    soc_severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)", blank=False,
+                                                    null=False,
+                                                    default=1)
+    soc_mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
+    soc_opportunities = models.TextField(blank=True, null=True, default='opportunities')
+    soc_responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.risk}'
+        return f'{self.soc_risk}'
+
+    @property
+    def get_risk_impact(self):
+        low = 1
+        medium = 2
+        impact = ((self.soc_probability * 0.25) / 100 + (self.soc_severity * 0.75) / 100) / 2
+        if impact <= low:
+            return 'Low'
+        elif low < impact <= medium:
+            return 'Medium'
+        else:
+            return 'High'
 
     class Meta:
         verbose_name = "Social Risk"
@@ -169,21 +213,37 @@ class SocialRisk(models.Model):
 
 class GovernanceRisks(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    category = models.CharField(blank=False, null=False, max_length=255, choices=GOV_CATEGORY_CHOICES,
-                                default='category')
-    risk = models.CharField(blank=False, null=False, max_length=255)
-    description = models.TextField(blank=False, null=False,default='description')
-    probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
-    severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)",blank=False,null=False,default=1)
-    mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
-    opportunities = models.TextField(blank=True, null=True, default='opportunities')
-    responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
+    gov_category = models.CharField(blank=False, null=False, max_length=255, choices=GOV_CATEGORY_CHOICES,
+                                    default='category')
+    gov_risk = models.CharField(blank=False, null=False, max_length=255)
+    gov_description = models.TextField(blank=False, null=False, default='description')
+    gov_probability = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)", blank=False,
+                                                       null=False,
+                                                       default=1)
+    gov_severity = models.PositiveSmallIntegerField(help_text="Scale from 1 (Low) to 10 (High)", blank=False,
+                                                    null=False,
+                                                    default=1)
+    gov_mitigation_measures = models.TextField(blank=False, null=False, default='mitigation measure')
+    gov_opportunities = models.TextField(blank=True, null=True, default='opportunities')
+    gov_responsible = models.CharField(blank=False, null=False, max_length=255, default='responsible')
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     updated = models.DateField(auto_now=True)
     created = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.risk}'
+        return f'{self.gov_risk}'
+
+    @property
+    def get_risk_impact(self):
+        low = 1
+        medium = 2
+        impact = ((self.gov_probability * 0.25) / 100 + (self.gov_severity * 0.75) / 100) / 2
+        if impact <= low:
+            return 'Low'
+        elif low < impact <= medium:
+            return 'Medium'
+        else:
+            return 'High'
 
     class Meta:
         verbose_name = "Governance Risk"

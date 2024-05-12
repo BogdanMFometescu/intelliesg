@@ -68,6 +68,9 @@
                                                 <li class="mb-2 megamenu-item">
                                                     <a class="megamenu-link" href="{% url 'actions' %}">ESG Actions </a>
                                                 </li>
+                                                 <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'esg_nav_risks_list' %}">ESG Risks </a>
+                                                </li>
 
                                             </ul>
                                         </div>
@@ -146,10 +149,11 @@
                                             <ul class="list-style-none mb-4">
                                                 <li class="mb-2 megamenu-item">
                                                     <a class="megamenu-link"
-                                                       href="{% url 'fuel_emissions' %}">Environmental Risks </a>
+                                                       href="{% url 'env_risks' %}">Environment Risks </a>
                                                 </li>
                                                 <li class="mb-2 megamenu-item">
-                                                    <a class="megamenu-link" href="{% url 'refrigerant_emissions' %}">Climate Change Risks
+                                                    <a class="megamenu-link" href="{% url 'cc_risks' %}">Climate Change
+                                                        Risks
                                                     </a>
                                                 </li>
                                             </ul>
@@ -232,6 +236,18 @@
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Risks</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link"
+                                                       href="{% url 'soc_risks' %}">Social Risks </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -288,6 +304,23 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h6 class="d-block mb-3 text-primary">Risks</h6>
+                                            <ul class="list-style-none mb-4">
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="{% url 'gov_risks' %}">Governance
+                                                        Risks
+                                                    </a>
+                                                </li>
+                                                <li class="mb-2 megamenu-item">
+                                                    <a class="megamenu-link" href="">Feature 2
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
 
                                 </div>
                             </li>
@@ -352,7 +385,7 @@
                                             </a>
                                         </div>
 
-                                         <div class="list-group list-group-flush">
+                                        <div class="list-group list-group-flush">
                                             <a href="{% url 'esg_nav_forms_risks' %}"
                                                class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
                                                 <span class="icon icon-sm"><span class="fas fa-file-alt"></span></span>
@@ -362,7 +395,6 @@
                                                 </div>
                                             </a>
                                         </div>
-
 
 
                                         <div class="list-group list-group-flush">

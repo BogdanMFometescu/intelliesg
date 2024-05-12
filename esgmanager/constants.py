@@ -1,5 +1,4 @@
 ENV_CATEGORY_CHOICES = [
-    ('Climate Change', 'Climate Change'),
     ('Air Pollution', 'Air Pollution'),
     ('Water Pollution', 'Water Pollution'),
     ('Soil Degradation', 'Soil Degradation'),
