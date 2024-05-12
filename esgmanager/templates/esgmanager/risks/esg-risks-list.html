@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4">ESG Risks <br class="d-none d-md-inline"></h1>
+                    <p class="lead mb-4 text-muted">
+                        Some placeholder here
+                    </p>
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img src=" " alt=""></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-lg">
+        <div class="container">
+            <div class="row mb-5 mb-lg-6">
+                <div class="col-12 col-md-6 col-lg-4 mb-5 ">
+                    <a href="{% url 'env_risks' %}" class="card-link">
+                        <div class="card shadow border-gray-300">
+                            <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
+                                 alt="Risk">
+
+                            <div class="card-body">
+                                <h3 class="h4 card-title mb-2">Environment</h3>
+                                <span class="card-subtitle text-gray fw-normal">.....</span>
+                                <p class="card-text my-3">........</p>
+                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'create_env_risk' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4 mb-5 ">
+                    <a href="{% url 'gov_risks' %}" class="card-link">
+                        <div class="card shadow border-gray-300">
+                            <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
+                                 alt="Risk">
+
+                            <div class="card-body">
+                                <h3 class="h4 card-title mb-2">Governance</h3>
+                                <span class="card-subtitle text-gray fw-normal">.....</span>
+                                <p class="card-text my-3">........</p>
+                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'create_gov_risk' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+                 <div class="col-12 col-md-6 col-lg-4 mb-5 ">
+                    <a href="{% url 'soc_risks' %}" class="card-link">
+                        <div class="card shadow border-gray-300">
+                            <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
+                                 alt="Risk">
+
+                            <div class="card-body">
+                                <h3 class="h4 card-title mb-2">Social</h3>
+                                <span class="card-subtitle text-gray fw-normal">.....</span>
+                                <p class="card-text my-3">........</p>
+                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'create_soc_risk' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                 <div class="col-12 col-md-6 col-lg-4 mb-5 ">
+                    <a href="{% url 'cc_risks' %}" class="card-link">
+                        <div class="card shadow border-gray-300">
+                            <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
+                                 alt="Risk">
+
+                            <div class="card-body">
+                                <h3 class="h4 card-title mb-2">Climate Change</h3>
+                                <span class="card-subtitle text-gray fw-normal">.....</span>
+                                <p class="card-text my-3">........</p>
+                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'create_cc_risk' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+            <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+        </div>
+    </section>
+{% endblock content %}

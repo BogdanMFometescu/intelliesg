@@ -1,10 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
-</body>
-</html>
+    <br>
+    <br>
+    <br>
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4">Governance <br class="d-none d-md-inline">Risks</h1>
+                    <p class="lead mb-4 text-muted">
+                        Some placeholder here
+                    </p>
+
+                    <a href="{% url 'charts' %}" class="btn btn-tertiary me-3 animate-up-2">Detailed Charts <span
+                            class="ms-2"><span class="fas fa-arrow-right"></span></span></a>
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img src=" " alt=""></div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="section-header">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 text-center">
+                    <div class="form-control">
+                        <form method="get"
+                              class="w-100 d-flex flex-column flex-md-row align-items-center justify-content-between">
+                            {% for field in filter.form %}
+                                <div class="mb-2 mb-md-0">
+                                    {{ field.label_tag }} {{ field }}
+                                </div>
+                            {% endfor %}
+
+                            <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
+                        </form>
+                    </div>
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Probability</th>
+                            <th scope="col">Severity</th>
+                            <th scope="col">Measures</th>
+                            <th scope="col">Opportunities</th>
+                            <th scope="col">Risk Owner</th>
+                            <th scope="col">Impact</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for risk in governance_risks %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        {{ risk.company }}<span
+                                            class="badge badge-primary ml-2"
+                                            style="color: #0b5ed7">{{ fuel.emission_scope }}</span>
+                                    </div>
+                                </td>
+                                <td>{{ risk.gov_category }}</td>
+                                <td>{{ risk.gov_description }}</td>
+                                <td>{{ risk.gov_probability }}</td>
+                                <td>{{ risk.gov_severity }}</td>
+                                <td>{{ risk.gov_mitigation_measures }}</td>
+                                <td>{{ risk.gov_opportunities }}</td>
+                                <td>{{ risk.gov_responsible }}</td>
+                                <td>{{ risk.get_risk_impact }}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{% url 'update_gov_risk' risk.id %}" class="mr-3"
+                                           data-toggle="tooltip" data-placement="top" title="Edit item">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'delete_gov_risk' risk.id %}" class="text-danger"
+                                           data-toggle="tooltip" data-placement="top" title="Delete item"
+                                           onclick="return confirm('Are you sure you want to delete this item?');">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                    {% include 'paginator.html' with page_obj=fuel_emissions %}
+                    <br>
+                </div>
+                <div class="text-right">
+                    <a href="{% url 'esg_nav_risks_list' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+                    <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}" class="btn btn-tertiary animate-up-2">
+                        Download Report
+                    </a>
+                    <a href="{% url 'upload_fuel_data' %}" class="btn btn-tertiary animate-up-2">
+                        Upload Data
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+{% endblock content %}
