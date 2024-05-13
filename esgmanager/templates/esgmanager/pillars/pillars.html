@@ -20,6 +20,23 @@
         </div>
     </section>
 
+    {% if not pillars %}
+     <section class="section section-lg">
+            <div class="container">
+                <H4>No pillars available.<br>Click the  'add'  button  bellow to add a pillar.</H4>
+                <a href="{% url 'create_pillar' %}" class="btn btn-tertiary animate-up-2">
+                        Add
+                    </a>
+            </div>
+            <br>
+            <br>
+            <div class="container">
+            <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+            </div>
+        </section>
+
+    {% else %}
     <section class="section section-lg">
         <div class="container">
             <div class="row mb-5 mb-lg-6">
@@ -62,4 +79,6 @@
                             <span class="fas fa-arrow-left"></span></span></a>
         </div>
     </section>
+    {% endif %}
+
 {% endblock content %}
