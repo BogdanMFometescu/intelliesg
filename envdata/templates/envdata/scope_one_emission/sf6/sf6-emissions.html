@@ -26,6 +26,26 @@
             </div>
         </div>
     </section>
+
+
+    {% if not sf6_emissions %}
+      <section class="section section-lg">
+            <div class="container">
+                <H4>No SF6 Emissions registered.<br>Click the  'add'  button  bellow to add SF6 emissions.</H4>
+                <a href="{% url 'create_sf6_emissions' %}" class="btn btn-tertiary animate-up-2">
+                        Add
+                    </a>
+            </div>
+            <br>
+            <br>
+            <div class="container">
+            <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+            </div>
+        </section>
+
+    {% else %}
+
     <section class="section-header">
         <div class="container">
             <div class="row justify-content-center">
@@ -116,8 +136,6 @@
             </div>
         </div>
     </section>
-
-
-
+{% endif %}
 
 {% endblock content %}
