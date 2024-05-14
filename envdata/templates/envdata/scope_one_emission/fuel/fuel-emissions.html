@@ -23,6 +23,23 @@
     </section>
 
 
+     {% if not fuel_emissions %}
+      <section class="section section-lg">
+            <div class="container">
+                <H4>No Fuel Emissions registered.<br>Click the  'add'  button  bellow to add fuel emissions.</H4>
+                <a href="{% url 'create_fuel_emission' %}" class="btn btn-tertiary animate-up-2">
+                        Add
+                    </a>
+            </div>
+            <br>
+            <br>
+            <div class="container">
+            <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+            </div>
+        </section>
+
+    {% else %}
 
     <section class="section-header">
         <div class="container">
@@ -128,7 +145,7 @@
             </div>
         </div>
     </section>
-
+    {% endif %}
 
 
 
