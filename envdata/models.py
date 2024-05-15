@@ -392,3 +392,26 @@ class TaxonomyRevenue(models.Model):
     revenue = models.FloatField(blank=False, null=False, default=0.0)
     eligible_activity = models.CharField(blank=False, null=False, max_length=1000)
     eligible_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
+    aligned_activity = models.CharField(blank=False, null=False, max_length=1000)
+    aligned_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
+    not_aligned_activity = models.CharField(blank=False, null=False, max_length=1000)
+    not_aligned_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
+
+    def __str__(self):
+        return f'{self.revenue}'
+
+
+class TaxonomyCapEx(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    sector = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
+    currency = models.CharField(blank=False, null=False, choices=CURRENCY_CHOICES, max_length=10)
+    capex = models.FloatField(blank=False, null=False, default=0.0)
+
+    capex_a_activity = models.CharField(blank=False, null=False, max_length=1000)
+    capex_a_amount = models.FloatField(blank=False, null=False, default=0.0)
+
+    capex_b_activity = models.CharField(blank=False, null=False, max_length=1000)
+    capex_b_amount = models.FloatField(blank=False, null=False, default=0.0)
+
+    capex_c_activity = models.CharField(blank=False, null=False, max_length=1000)
+    capex_c_amount = models.FloatField(blank=False, null=False, default=0.0)
