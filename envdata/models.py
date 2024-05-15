@@ -369,3 +369,26 @@ class Target(models.Model):
         return f'{self.co2e_base_year}'
 
 
+class TaxonomySector(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    sector = models.CharField(blank=False, null=False, choices=TAXONOMY_SECTOR_CHOICES, max_length=2000)
+    activity = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_CHOICES, max_length=2000)
+    id = models.UUIDField(uuid=uuid.uuid4, primary_key=True, editable=False, unique=True)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.sector}'
+
+    class Meta:
+        verbose_name = 'Taxonomy Sector'
+        verbose_name_plural = 'Taxonomy Sectors'
+
+
+class TaxonomyRevenue(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    sector = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
+    currency = models.CharField(blank=False, null=False, choices=CURRENCY_CHOICES, max_length=10)
+    revenue = models.FloatField(blank=False, null=False, default=0.0)
+    eligible_activity = models.CharField(blank=False, null=False, max_length=1000)
+    eligible_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
