@@ -390,12 +390,31 @@ class TaxonomyRevenue(models.Model):
     sector = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
     currency = models.CharField(blank=False, null=False, choices=CURRENCY_CHOICES, max_length=10)
     revenue = models.FloatField(blank=False, null=False, default=0.0)
+
     eligible_activity = models.CharField(blank=False, null=False, max_length=1000)
     eligible_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
+
     aligned_activity = models.CharField(blank=False, null=False, max_length=1000)
     aligned_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
+
     not_aligned_activity = models.CharField(blank=False, null=False, max_length=1000)
     not_aligned_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
+
+    @property
+    def get_eligible_revenue(self):
+        return (self.eligible_activity_amount / self.revenue) * 100
+
+    @property
+    def get_aligned_revenue(self):
+        return (self.aligned_activity_amount / self.revenue) * 100
+
+    @property
+    def get_non_aligned_revenue(self):
+        return (self.not_aligned_activity_amount / self.revenue) * 100
+
+    @property
+    def get_total_aligned_revenue(self):
+        return self.get_eligible_revenue + self.get_aligned_revenue
 
     def __str__(self):
         return f'{self.revenue}'
@@ -415,6 +434,18 @@ class TaxonomyCapEx(models.Model):
 
     capex_c_activity = models.CharField(blank=False, null=False, max_length=1000)
     capex_c_amount = models.FloatField(blank=False, null=False, default=0.0)
+
+    @property
+    def get_aligned_capex_a(self):
+        return (self.capex_a_amount / self.capex) * 100
+
+    @property
+    def get_aligned_capex_b(self):
+        return (self.capex_b_amount / self.capex) * 100
+
+    @property
+    def get_aligned_capex_c(self):
+        return (self.capex_c_amount / self.capex) * 100
 
     def __str__(self):
         return f'{self.capex}'
