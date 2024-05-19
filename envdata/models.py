@@ -447,6 +447,10 @@ class TaxonomyCapEx(models.Model):
     def get_aligned_capex_c(self):
         return (self.capex_c_amount / self.capex) * 100
 
+    @property
+    def get_aligned_total_capex(self):
+        return self.get_aligned_capex_a + self.get_aligned_capex_b + self.get_aligned_capex_c
+
     def __str__(self):
         return f'{self.capex}'
 
@@ -466,5 +470,29 @@ class TaxonomyOpEx(models.Model):
     opex_c_activity = models.CharField(blank=False, null=False, max_length=1000)
     opex_c_amount = models.FloatField(blank=False, null=False, default=0.0)
 
+    @property
+    def get_aligned_opex_a(self):
+        return (self.opex_a_amount / self.opex) * 100
+
+    @property
+    def get_aligned_opex_b(self):
+        return (self.opex_b_amount / self.opex) * 100
+
+    @property
+    def get_aligned_opex_c(self):
+        return (self.opex_c_amount / self.oppex) * 100
+
+    @property
+    def get_aligned_total_opex(self):
+        return self.get_aligned_opex_a + self.get_aligned_opex_b + self.get_aligned_opex_c
+
     def __str__(self):
         return f'{self.opex}'
+
+
+class DoNotSeriousHarm(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    sector = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
+    climate_change_mitigation =models.CharField(null=False,blank=False,max_length=255,choices=DNSH_CHOICES)
+    climate_change_adaptation =models.CharField(null=False,blank=False,max_length=255,choices=DNSH_CHOICES)
+   
