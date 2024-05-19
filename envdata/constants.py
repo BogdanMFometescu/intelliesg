@@ -81,8 +81,12 @@ MONTH = [('January', 'January'),
          ('December', 'December')]
 
 TAXONOMY_SECTOR_CHOICES = [('Accommodation activities', 'Accommodation activities'),
-                           ('Arts, entertainment and recreation','Arts, entertainment and recreation')]
+                           ('Arts, entertainment and recreation', 'Arts, entertainment and recreation')]
 
-TAXONOMY_ACTIVITY_CHOICES =[('Transmission and distribution of electricity','Transmission and distribution of electricity')]
+TAXONOMY_ACTIVITY_CHOICES = [
+    ('Transmission and distribution of electricity', 'Transmission and distribution of electricity')]
 
 CURRENCY_CHOICES = [('EUR', 'EUR'), ('USD', 'USD'), ('RON', 'RON')]
+
+DNSH_CHOICES = [('Yes', 'Yes'),
+                ('No', 'No')]
