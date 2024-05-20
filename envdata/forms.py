@@ -6,7 +6,12 @@ from envdata.models import (Company,
                             Energy,
                             Travel,
                             Waste,
-                            Target)
+                            Target,
+                            TaxonomyTurnover,
+                            TaxonomySector,
+                            TaxonomyOpEx,
+                            TaxonomyCapEx,
+                            DoNotSeriousHarm)
 
 from django.forms import ModelForm
 from django import forms
@@ -114,3 +119,58 @@ class TargetForm(ModelForm):
 
 class ExcelUploadForm(forms.Form):
     excel_file = forms.FileField(label='Upload Excel File')
+
+
+class TaxonomySectorForm(ModelForm):
+    class Meta:
+        model = TaxonomySector
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(TaxonomySectorForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class TaxonomyTurnoverForm(ModelForm):
+    class Meta:
+        model = TaxonomyTurnover
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(TaxonomyTurnoverForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class TaxonomyCapexForm(ModelForm):
+    class Meta:
+        model = TaxonomyCapEx
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(TaxonomyCapexForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class TaxonomyOpexForm(ModelForm):
+    class Meta:
+        model = TaxonomyOpEx
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(TaxonomyOpexForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class TaxonomyDnshForm(ModelForm):
+    class Meta:
+        model = DoNotSeriousHarm
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(TaxonomyDnshForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})

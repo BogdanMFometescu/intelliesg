@@ -90,3 +90,14 @@ CURRENCY_CHOICES = [('EUR', 'EUR'), ('USD', 'USD'), ('RON', 'RON')]
 
 DNSH_CHOICES = [('Yes', 'Yes'),
                 ('No', 'No')]
+
+DNSH_CRITERIA_CHOICES = [
+    ('Climate change adaptation', 'Climate change adaptation'),
+    ('Sustainable use and protection of water and marine resources',
+     'Sustainable use and protection of water and marine resources'),
+    ('Transition to a circular economy', 'Transition to a circular economy'),
+    ('Pollution prevention and control', 'Pollution prevention and control'),
+    ('Protection and restoration of biodiversity and ecosystems',
+     'Protection and restoration of biodiversity and ecosystems')
+
+]
