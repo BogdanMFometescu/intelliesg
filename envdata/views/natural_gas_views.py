@@ -54,6 +54,7 @@ class NaturalGasCreateView(CompanyContextMixin, LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('gas_emissions')
 
     def form_valid(self, form):
+        form.instance.owner = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
