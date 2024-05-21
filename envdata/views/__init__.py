@@ -11,3 +11,7 @@ from .charts_views import *
 from .natural_gas_views import *
 from .export_pdf_views import *
 from .upload_excel_views import *
+from .taxonomy_sector_views import *
+from .taxonomy_capex import *
+from .taxonomy_opex import *
+from .taxonomy_dnsh import *
