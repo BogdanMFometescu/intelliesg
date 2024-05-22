@@ -8,20 +8,20 @@ from envdata.mixins import CompanyContextMixin, UpdateModeMixin
 
 class TaxonomySectorListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     model = TaxonomySector
-    template_name = ''
+    template_name = 'envdata/taxonomy/sector/sectors.html'
     context_object_name = 'sectors'
 
 
 class TaxonomySectorDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = TaxonomySector
-    template_name = ''
+    template_name = 'envdata/taxonomy/sector/sector.html'
     context_object_name = 'sector'
 
 
 class TaxonomySectorCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     model = TaxonomySector
     form_class = TaxonomySectorForm
-    template_name = ''
+    template_name = 'envdata/taxonomy/sector/form-sector.html'
     success_url = reverse_lazy('sectors')
 
     def form_valid(self, form):
@@ -35,11 +35,11 @@ class TaxonomySectorCreateView(LoginRequiredMixin, CompanyContextMixin, CreateVi
 class TaxonomySectorUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = TaxonomySector
     form_class = TaxonomySectorForm
-    template_name = ''
+    template_name = 'envdata/taxonomy/sector/form-sector.html'
     success_url = reverse_lazy('sectors')
 
 
 class TaxonomySectorDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):
     model = TaxonomySector
-    template_name = ''
+    template_name = 'envdata/delete-universal.html'
     success_url = reverse_lazy('sectors')

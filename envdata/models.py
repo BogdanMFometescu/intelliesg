@@ -401,8 +401,8 @@ class TaxonomyTurnover(models.Model):
     not_aligned_activity = models.CharField(blank=False, null=False, max_length=1000)
     not_aligned_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
 
-    climate_change_mitigation = models.CharField(blank=False, null=False, max_length=255)
-    climate_change_adaptation = models.CharField(blank=False, null=False, max_length=255)
+    climate_change_mitigation = models.CharField(blank=False, null=False, max_length=255,choices=CLIMATE_CHANGE_CHOICES)
+    climate_change_adaptation = models.CharField(blank=False, null=False, max_length=255,choices=CLIMATE_CHANGE_CHOICES)
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     created = models.DateField(auto_now_add=True)
