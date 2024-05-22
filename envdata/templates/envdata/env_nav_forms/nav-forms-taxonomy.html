@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4">Taxonomy<br class="d-none d-md-inline">Forms</h1>
+                    <p class="lead mb-4 text-muted">
+                        Some placeholder here </p>
+
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img
+                        src="../../assets/img/illustrations/about-illustration.svg" alt=""></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section section-lg bg-primary-app">
+        <div class="container">
+            <div class="row justify-content-center">
+
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+                    <div class="card bg-white border-gray-300">
+                        <div class="border-bottom px-4 py-5">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Sector</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">Sector Form</h3>
+                                    <p class="mb-0">Fill in the sector information</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Taxonomy</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_sector' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="card bg-white border-gray-300">
+                        <div class="border-bottom px-4 py-5">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">Turnover</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">Turnover Form</h3>
+                                    <p class="mb-0">Fill in the turnover information</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Taxonomy</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_turnover' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary" role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card bg-white border-gray-300">
+                        <div class="border-bottom px-4 py-5">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">CapEx </h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">CapEx Form</h3>
+                                    <p class="mb-0">Fill in the CapEx information</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Taxonomy</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_capex' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary"
+                                           role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card bg-white border-gray-300">
+                        <div class="border-bottom px-4 py-5">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">OpEx</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">OpEx Form</h3>
+                                    <p class="mb-0">Fill in the OpEx information</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Taxonomy</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_opex' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary"
+                                           role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card bg-white border-gray-300">
+                        <div class="border-bottom px-4 py-5">
+                            <div class="row align-items-center">
+                                <div class="col-12 col-md-3 pb-3 pb-md-0">
+                                    <h2 class="h5">DNSH</h2>
+                                </div>
+                                <div class="col-md-5 pb-2 pb-md-0">
+                                    <h3 class="h5 mb-3">DNSH Form</h3>
+                                    <p class="mb-0">Fill in the DNSH information</p>
+                                </div>
+                                <div class="col-md-4 text-md-right">
+                                    <span class="badge bg-primary">Taxonomy</span>
+                                    <div class="d-inline-block w-100 mt-2">
+                                        <a href="{% url 'create_dnsh' %}"
+                                           class="btn mb-2 mr-2 btn-sm btn-outline-primary"
+                                           role="button">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <br>
+            <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span
+                    class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+        </div>
+    </div>
+
+
+
+{% endblock content %}

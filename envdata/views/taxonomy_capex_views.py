@@ -8,20 +8,20 @@ from envdata.mixins import CompanyContextMixin, UpdateModeMixin
 
 class TaxonomyCapexListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     model = TaxonomyCapEx
-    template_name = ''
+    template_name = 'envdata/taxonomy/capex/all-capex.html'
     context_object_name = 'capexs'
 
 
 class TaxonomyCapexDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = TaxonomyCapEx
-    template_name = ''
+    template_name = 'envdata/taxonomy/capex/single-capex.html'
     context_object_name = 'capex'
 
 
 class TaxonomyCapexCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     model = TaxonomyCapEx
     form_class = TaxonomyCapexForm
-    template_name = ''
+    template_name = 'envdata/taxonomy/capex/form-capex.html'
     success_url = reverse_lazy('capexs')
 
     def form_valid(self, form):
@@ -35,11 +35,11 @@ class TaxonomyCapexCreateView(LoginRequiredMixin, CompanyContextMixin, CreateVie
 class TaxonomyCapexUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = TaxonomyCapEx
     form_class = TaxonomyCapexForm
-    template_name = ''
+    template_name = 'envdata/taxonomy/capex/form-capex.html'
     success_url = reverse_lazy('capexs')
 
 
 class TaxonomyCapexDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):
     model = TaxonomyCapEx
-    template_name = ''
+    template_name = 'envdata/delete-universal.html'
     success_url = reverse_lazy('capexs')

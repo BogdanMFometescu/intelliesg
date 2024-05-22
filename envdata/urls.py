@@ -3,7 +3,7 @@ from envdata import views
 
 urlpatterns = [
     path('', views.HomePageView.as_view(), name='home'),
-    path('quik-start',views.QuickStart.as_view(),name='quick_start'),
+    path('quik-start', views.QuickStart.as_view(), name='quick_start'),
     path('companies', views.CompanyListView.as_view(), name='companies_list'),
     path('company/<uuid:pk>/', views.CompanyDetailView.as_view(), name='single_company'),
     path('create-company/', views.CompanyCreateView.as_view(), name='create_company'),
@@ -92,5 +92,37 @@ urlpatterns = [
     path('nav-forms-company', views.NavFormsCompany.as_view(), name='nav_forms_company'),
     path('nav-forms-targets', views.NavFormsTargets.as_view(), name='nav_forms_targets'),
     path('nav-forms-emissions', views.NavFormsEmissions.as_view(), name='nav_forms_emissions'),
+    path('nav-forms-taxonomy', views.NavFormsTaxonomy.as_view(), name='nav_forms_taxonomy'),
+
+
+    path('sectors/', views.TaxonomySectorListView.as_view(), name='sectors'),
+    path('sector/<uuid:pk>/', views.TaxonomySectorDetailView.as_view(), name='sector'),
+    path('create-sector/', views.TaxonomySectorCreateView.as_view(), name='create_sector'),
+    path('update-sector/<uuid:pk>/', views.TaxonomySectorUpdateView.as_view(), name='update_sector'),
+    path('delete-sector/<uuid:pk>/', views.TaxonomySectorDeleteView.as_view(), name='delete_sector'),
+
+    path('turnovers/', views.TaxonomyTurnoverListView.as_view(), name='sectors'),
+    path('turnover/<uuid:pk>/', views.TaxonomyTurnoverDetailView.as_view(), name='turnover'),
+    path('create-turnover/', views.TaxonomyTurnoverCreateView.as_view(), name='create_turnover'),
+    path('update-turnover/<uuid:pk>/', views.TaxonomyTurnoverUpdateView.as_view(), name='update_turnover'),
+    path('delete-turnover/<uuid:pk>/', views.TaxonomyTurnoverDeleteView.as_view(), name='delete_turnover'),
+
+    path('all-capex/', views.TaxonomyCapexListView.as_view(), name='all_capex'),
+    path('capex/<uuid:pk>/', views.TaxonomyCapexDetailView.as_view(), name='capex'),
+    path('create-capex/', views.TaxonomyCapexCreateView.as_view(), name='create_capex'),
+    path('update-capex/<uuid:pk>/', views.TaxonomyCapexUpdateView.as_view(), name='update_capex'),
+    path('delete-capex/<uuid:pk>/', views.TaxonomyCapexDeleteView.as_view(), name='delete_capex'),
+
+    path('all-opex/', views.TaxonomyOpexListView.as_view(), name='all_opex'),
+    path('opex/<uuid:pk>/', views.TaxonomyOpexDetailView.as_view(), name='opex'),
+    path('create-opex/', views.TaxonomyOpexCreateView.as_view(), name='create_opex'),
+    path('update-opex/<uuid:pk>/', views.TaxonomyOpexUpdateView.as_view(), name='update_opex'),
+    path('delete-opex/<uuid:pk>/', views.TaxonomyOpexDeleteView.as_view(), name='delete_opex'),
+
+    path('all-dnsh/', views.TaxonomyDnshListView.as_view(), name='all_dnsh'),
+    path('dnsh/<uuid:pk>/', views.TaxonomyDnshDetailView.as_view(), name='dnsh'),
+    path('create-dnsh/', views.TaxonomyDnshCreateView.as_view(), name='create_dnsh'),
+    path('update-dnsh/<uuid:pk>/', views.TaxonomyDnshUpdateView.as_view(), name='update_dnsh'),
+    path('delete-dnsh/<uuid:pk>/', views.TaxonomyDnshDeleteView.as_view(), name='delete_dnsh'),
 
 ]
