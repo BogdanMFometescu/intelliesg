@@ -36,7 +36,7 @@ class TaxonomyTurnoverUpdateView(LoginRequiredMixin, CompanyContextMixin, Update
     model = TaxonomyTurnover
     form_class = TaxonomyTurnoverForm
     template_name = 'envdata/taxonomy/turnover/form-turnover.html'
-    success_url = reverse_lazy('opexes')
+    success_url = reverse_lazy('turnovers')
 
 
 class TaxonomyTurnoverDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):

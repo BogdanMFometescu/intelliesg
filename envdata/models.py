@@ -401,8 +401,8 @@ class TaxonomyTurnover(models.Model):
     not_aligned_activity = models.CharField(blank=False, null=False, max_length=1000)
     not_aligned_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
 
-    climate_change_mitigation = models.CharField(blank=False, null=False, max_length=255,choices=CLIMATE_CHANGE_CHOICES)
-    climate_change_adaptation = models.CharField(blank=False, null=False, max_length=255,choices=CLIMATE_CHANGE_CHOICES)
+    climate_change_mitigation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
+    climate_change_adaptation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     created = models.DateField(auto_now_add=True)
@@ -413,20 +413,20 @@ class TaxonomyTurnover(models.Model):
         return (self.eligible_activity_amount / self.turnover) * 100
 
     @property
-    def get_aligned_revenue(self):
+    def get_aligned_turnover(self):
         return (self.aligned_activity_amount / self.turnover) * 100
 
     @property
-    def get_non_aligned_revenue(self):
+    def get_non_aligned_turnover(self):
         return (self.not_aligned_activity_amount / self.turnover) * 100
 
     @property
-    def get_total_aligned_revenue(self):
-        return self.get_eligible_turnover + self.get_aligned_revenue
+    def get_total_aligned_turnover(self):
+        return self.get_eligible_turnover + self.get_aligned_turnover
 
     @property
     def get_aligned_turnover_percent(self):
-        aligned_amount = self.get_total_aligned_revenue
+        aligned_amount = self.get_total_aligned_turnover
         return (aligned_amount / self.turnover) * 100
 
     def __str__(self):
@@ -448,8 +448,8 @@ class TaxonomyCapEx(models.Model):
     capex_c_activity = models.CharField(blank=False, null=False, max_length=1000)
     capex_c_amount = models.FloatField(blank=False, null=False, default=0.0)
 
-    climate_change_mitigation = models.CharField(blank=False, null=False, max_length=255)
-    climate_change_adaptation = models.CharField(blank=False, null=False, max_length=255)
+    climate_change_mitigation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
+    climate_change_adaptation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     created = models.DateField(auto_now_add=True)
@@ -496,8 +496,8 @@ class TaxonomyOpEx(models.Model):
     opex_c_activity = models.CharField(blank=False, null=False, max_length=1000)
     opex_c_amount = models.FloatField(blank=False, null=False, default=0.0)
 
-    climate_change_mitigation = models.CharField(blank=False, null=False, max_length=255)
-    climate_change_adaptation = models.CharField(blank=False, null=False, max_length=255)
+    climate_change_mitigation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
+    climate_change_adaptation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     created = models.DateField(auto_now_add=True)
