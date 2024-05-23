@@ -101,7 +101,7 @@ urlpatterns = [
     path('update-sector/<uuid:pk>/', views.TaxonomySectorUpdateView.as_view(), name='update_sector'),
     path('delete-sector/<uuid:pk>/', views.TaxonomySectorDeleteView.as_view(), name='delete_sector'),
 
-    path('turnovers/', views.TaxonomyTurnoverListView.as_view(), name='sectors'),
+    path('turnovers/', views.TaxonomyTurnoverListView.as_view(), name='turnovers'),
     path('turnover/<uuid:pk>/', views.TaxonomyTurnoverDetailView.as_view(), name='turnover'),
     path('create-turnover/', views.TaxonomyTurnoverCreateView.as_view(), name='create_turnover'),
     path('update-turnover/<uuid:pk>/', views.TaxonomyTurnoverUpdateView.as_view(), name='update_turnover'),
@@ -113,7 +113,7 @@ urlpatterns = [
     path('update-capex/<uuid:pk>/', views.TaxonomyCapexUpdateView.as_view(), name='update_capex'),
     path('delete-capex/<uuid:pk>/', views.TaxonomyCapexDeleteView.as_view(), name='delete_capex'),
 
-    path('all-opex/', views.TaxonomyOpexListView.as_view(), name='all_opex'),
+    path('opexs/', views.TaxonomyOpexListView.as_view(), name='opexs'),
     path('opex/<uuid:pk>/', views.TaxonomyOpexDetailView.as_view(), name='opex'),
     path('create-opex/', views.TaxonomyOpexCreateView.as_view(), name='create_opex'),
     path('update-opex/<uuid:pk>/', views.TaxonomyOpexUpdateView.as_view(), name='update_opex'),
