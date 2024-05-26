@@ -80,16 +80,70 @@ MONTH = [('January', 'January'),
          ('November', 'November'),
          ('December', 'December')]
 
-TAXONOMY_SECTOR_CHOICES = [('Accommodation activities', 'Accommodation activities'),
-                           ('Arts, entertainment and recreation', 'Arts, entertainment and recreation')]
+TAXONOMY_SECTOR_CHOICES = [('Construction and real estate activities', 'Construction and real estate activities'),
+                           ('Energy', 'Energy'),
+                           ('Environmental protection and restoration activities',
+                            'Environmental protection and restoration activities'),
+                           ('Forestry', 'Forestry'),
+                           ('Information and communication', 'Information and communication'),
+                           ('Manufacturing', 'Manufacturing'),
+                           ('Professional, scientific and technical activities','Professional, scientific and technical activities'),
+                           ('Transport','Transport'),
+                           ('Water supply, sewerage, waste management and remediation','Water supply, sewerage, waste management and remediation')
+                           ]
 
 TAXONOMY_ACTIVITY_CHOICES = [
-    ('Transmission and distribution of electricity', 'Transmission and distribution of electricity')]
+    ('Acquisition and ownership of buildings', 'Acquisition and ownership of buildings'),
+    ('Construction of new buildings','Construction of new buildings'),
+    ('Installation, maintenance and repair of charging stations for electric vehicles in buildings (and parking spaces attached to buildings)',
+     'Installation, maintenance and repair of charging stations for electric vehicles in buildings (and parking spaces attached to buildings)'),
+    ('Installation, maintenance and repair of energy efficiency equipment','Installation, maintenance and repair of energy efficiency equipment'),
+    ('Installation, maintenance and repair of instruments and devices for measuring, regulation and controlling energy performance of buildings',
+     'Installation, maintenance and repair of instruments and devices for measuring, regulation and controlling energy performance of buildings'),
+    ('Installation, maintenance and repair of renewable energy technologies', 'Installation, maintenance and repair of renewable energy technologies'),
+    ('Renovation of existing buildings', 'Renovation of existing buildings'),
+    ('Cogeneration of heat/cool and power from bioenergy', 'Cogeneration of heat/cool and power from bioenergy'),
+    ('Cogeneration of heat/cool and power from geothermal energy', 'Cogeneration of heat/cool and power from geothermal energy'),
+    ('Cogeneration of heat/cool and power from renewable non-fossil gaseous and liquid fuels',
+     'Cogeneration of heat/cool and power from renewable non-fossil gaseous and liquid fuels'),
+    ('Cogeneration of heat/cool and power from solar energy', 'Cogeneration of heat/cool and power from solar energy'),
+    ('Construction and safe operation of new nuclear power plants, for the generation of electricity and/or heat, including for hydrogen production, using best-available technologies',
+     'Construction and safe operation of new nuclear power plants, for the generation of electricity and/or heat, including for hydrogen production, using best-available technologies'),
+    ('District heating/cooling distribution', 'District heating/cooling distribution'),
+    ('Electricity generation from bioenergy', 'Electricity generation from bioenergy'),
+    ('Electricity generation from fossil gaseous fuels', 'Electricity generation from fossil gaseous fuels'),
+    ('Electricity generation from geothermal energy', 'Electricity generation from geothermal energy'),
+    ('Electricity generation from geothermal energy', 'Electricity generation from geothermal energy'),
+    ('Electricity generation from hydropower', 'Electricity generation from hydropower'),
+    ('Electricity generation from nuclear energy in existing installations', 'Electricity generation from nuclear energy in existing installations'),
+    ('Electricity generation from ocean energy technologies', 'Electricity generation from ocean energy technologies'),
+    ('Electricity generation from renewable non-fossil gaseous and liquid fuels', 'Electricity generation from renewable non-fossil gaseous and liquid fuels'),
+    ('Electricity generation from wind power', 'Electricity generation from wind power'),
+    ('Electricity generation using concentrated solar power (CSP) technology', 'Electricity generation using concentrated solar power (CSP) technology'),
+    ('Electricity generation using solar photovoltaic technology', 'Electricity generation using solar photovoltaic technology'),
+    ('High-efficiency co-generation of heat/cool and power from fossil gaseous fuels', 'High-efficiency co-generation of heat/cool and power from fossil gaseous fuels'),
+    ('Installation and operation of electric heat pumps', 'Installation and operation of electric heat pumps'),
+    ('Manufacture of biogas and biofuels for use in transport and of bioliquids', 'Manufacture of biogas and biofuels for use in transport and of bioliquids'),
+    ('Pre-commercial stages of advanced technologies to produce energy from nuclear processes with minimal waste from the fuel cycle',
+     'Pre-commercial stages of advanced technologies to produce energy from nuclear processes with minimal waste from the fuel cycle'),
+    ('Production of heat/cool from bioenergy', 'Production of heat/cool from bioenergy'),
+    ('Production of heat/cool from fossil gaseous fuels in an efficient district heating and cooling system',
+     'Production of heat/cool from fossil gaseous fuels in an efficient district heating and cooling system'),
+    ('Production of heat/cool from geothermal energy', 'Production of heat/cool from geothermal energy'),
+    ('Production of heat/cool from renewable non-fossil gaseous and liquid fuels', 'Production of heat/cool from renewable non-fossil gaseous and liquid fuels'),
+    ('Production of heat/cool from solar thermal heating', 'Production of heat/cool from solar thermal heating'),
+    ('Production of heat/cool using waste heat', 'Production of heat/cool using waste heat'),
+    ('Storage of electricity', 'Storage of electricity'),
+    ('Storage of hydrogen', 'Storage of hydrogen'),
+    ('Storage of thermal energy', 'Storage of thermal energy'),
+    ('Transmission and distribution networks for renewable and low-carbon gases', 'Transmission and distribution networks for renewable and low-carbon gases'),
+    ('Transmission and distribution of electricity', 'Transmission and distribution of electricity'),
+]
 
 TAXONOMY_ACTIVITY_TYPE_CHOICES = [
     ('Eligible', 'Eligible'),
     ('Aligned', 'Aligned'),
-    ('Not Aligned', 'Not Aligned')
+    ('Non-Eligible', 'Non-Eligible')
 
 ]
 
