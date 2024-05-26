@@ -1,5 +1,5 @@
 import django_filters
-from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Waste, NaturalGas)
+from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Waste, NaturalGas, TaxonomyTurnover,TaxonomySector)
 from envdata.constants import *
 
 
@@ -71,3 +71,12 @@ class NaturalGasTypeFilter(django_filters.FilterSet):
     class Meta:
         model = NaturalGas
         fields = ['company', 'year', 'month', ]
+
+
+class TaxonomyTurnoverFilter(django_filters.FilterSet):
+    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
+    turnover_activity = django_filters.ModelChoiceFilter(queryset=TaxonomySector.objects.all(),label='Activity')
+
+    class Meta:
+        model = TaxonomyTurnover
+        fields = ['company','turnover_activity' ]

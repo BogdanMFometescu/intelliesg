@@ -81,7 +81,7 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>{{ turnover.company }}</td>
-                                    <td>{{ turnover.turnover_activity}}</td>
+                                    <td>{{ turnover.turnover_activity }}</td>
                                     <td>{{ turnover.turnover_aligned }}</td>
                                     <td>{{ turnover.currency }}</td>
                                     <td>{{ turnover.get_aligned_percent }} %</td>
@@ -111,8 +111,6 @@
                                 </tr>
 
                             {% endfor %}
-
-
                             </tbody>
                         </table>
                         <br>
@@ -163,7 +161,11 @@
                                 </tr>
 
                             {% endfor %}
-
+                            <tr class="table-primary">
+                                <th scope="row" colspan="14" class="text-right">Total eligible turnover:
+                                </th>
+                                <td>{{ total_eligible_display }} </td>
+                            </tr>
                             </tbody>
                         </table>
                         <br>
@@ -213,7 +215,11 @@
                                 </tr>
 
                             {% endfor %}
-
+                             <tr class="table-primary">
+                                <th scope="row" colspan="14" class="text-right">Total non-eligible turnover:
+                                </th>
+                                <td>{{ total_non_eligible }} </td>
+                            </tr>
 
                             </tbody>
                         </table>

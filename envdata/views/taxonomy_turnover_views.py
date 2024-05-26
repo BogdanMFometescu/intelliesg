@@ -4,12 +4,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from envdata.models import TaxonomyTurnover
 from envdata.forms import TaxonomyTurnoverForm
 from envdata.mixins import CompanyContextMixin, UpdateModeMixin
+from .filters import TaxonomyTurnoverFilter
+from django_filters.views import FilterView
+from django.db.models import Sum, F
 
 
-class TaxonomyTurnoverListView(LoginRequiredMixin, CompanyContextMixin, ListView):
+class TaxonomyTurnoverListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     model = TaxonomyTurnover
+    filterset_class = TaxonomyTurnoverFilter
     template_name = 'envdata/taxonomy/turnover/turnovers.html'
     context_object_name = 'turnovers'
+
+    def get_queryset(self):
+        return super().get_queryset().order_by('company')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        filtered_qs = self.filterset.qs.annotate(total_eligible_turnover=F('turnover_eligible')+F('turnover_aligned')).aggregate(total_eligible=Sum('total_eligible_turnover'))['total_eligible'] or 0
+        filtered_not_eligible = self.filterset.qs.annotate(total_non_eligible_turnover=F('turnover_non_eligible')).aggregate(total_non_eligible=Sum('total_non_eligible_turnover'))['total_non_eligible'] or 0
+        context['total_eligible_display'] =filtered_qs
+        context['total_non_eligible'] = filtered_not_eligible
+        return context
+
 
 
 class TaxonomyTurnoverDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
