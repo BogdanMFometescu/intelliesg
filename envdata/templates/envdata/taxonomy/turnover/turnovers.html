@@ -223,13 +223,11 @@
 
                             </tbody>
                         </table>
-
-
                         {% include 'paginator.html' with page_obj=fuel_emissions %}
                         <br>
                     </div>
-                    <div class="text-right">
-                        <a href="{% url 'esg_nav_risks_list' %}" class="btn btn-tertiary me-3 animate-up-2"> <span
+                    <div class="text-center">
+                        <a href="{% url 'sectors' %}" class="btn btn-tertiary me-3 animate-up-2"> <span
                                 class="ms-2">
                             <span class="fas fa-arrow-left"></span></span></a>
                         <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
