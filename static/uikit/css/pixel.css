@@ -29517,4 +29517,21 @@ blockquote {
             padding-right: 15px;
         }
 
+.card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-body .mt-auto {
+    margin-top: auto;
+}
+
+.card {
+    height: 100%;
+}
+
+
+
+
 /*# sourceMappingURL=pixel.css.map */

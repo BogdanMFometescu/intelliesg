@@ -30,7 +30,7 @@
 
     {% if not refrigerants_emissions %}
         <section class="section section-lg">
-            <div class="container">
+            <div class="container-fluid">
                 <H4>No Refrigerant Emissions registered.<br>Click the 'add' button bellow to add refrigerant emissions.</H4>
                 <a href="{% url 'create_refrigerant_emissions' %}" class="btn btn-tertiary animate-up-2">
                     Add
@@ -122,7 +122,7 @@
                             </tbody>
                         </table>
                         {% include 'paginator.html' with page_obj=refrigerants %}
-                        <div class="text-right">
+                        <div class="text-center">
                             <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span
                                     class="ms-2">
                             <span class="fas fa-arrow-left"></span></span></a>
