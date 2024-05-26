@@ -119,10 +119,5 @@ urlpatterns = [
     path('update-opex/<uuid:pk>/', views.TaxonomyOpexUpdateView.as_view(), name='update_opex'),
     path('delete-opex/<uuid:pk>/', views.TaxonomyOpexDeleteView.as_view(), name='delete_opex'),
 
-    path('all-dnsh/', views.TaxonomyDnshListView.as_view(), name='all_dnsh'),
-    path('dnsh/<uuid:pk>/', views.TaxonomyDnshDetailView.as_view(), name='dnsh'),
-    path('create-dnsh/', views.TaxonomyDnshCreateView.as_view(), name='create_dnsh'),
-    path('update-dnsh/<uuid:pk>/', views.TaxonomyDnshUpdateView.as_view(), name='update_dnsh'),
-    path('delete-dnsh/<uuid:pk>/', views.TaxonomyDnshDeleteView.as_view(), name='delete_dnsh'),
 
 ]

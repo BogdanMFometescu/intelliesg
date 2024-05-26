@@ -372,188 +372,87 @@ class Target(models.Model):
 class TaxonomySector(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     sector = models.CharField(blank=False, null=False, choices=TAXONOMY_SECTOR_CHOICES, max_length=2000)
-    activity = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_CHOICES, max_length=2000)
+    activity = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_CHOICES, )
+    type = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_TYPE_CHOICES, max_length=255,default='selection')
     nace_code = models.FloatField(blank=False, null=False, default=0.0)
+
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 
     def __str__(self):
         return f'{self.sector}'
-
-    class Meta:
-        verbose_name = 'Taxonomy Sector'
-        verbose_name_plural = 'Taxonomy Sectors'
 
 
 class TaxonomyTurnover(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    sector = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
+    activity = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
     currency = models.CharField(blank=False, null=False, choices=CURRENCY_CHOICES, max_length=10)
-    turnover = models.FloatField(blank=False, null=False, default=0.0)
 
-    eligible_activity = models.CharField(blank=False, null=False, max_length=1000)
-    eligible_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
+    total_turnover = models.FloatField(blank=True, null=True, default=0.0)
+    turnover_eligible = models.FloatField(blank=True, null=True, default=0.0)
+    turnover_aligned = models.FloatField(blank=True, null=True, default=0.0)
+    turnover_non_aligned = models.FloatField(blank=True, null=True, default=0.0)
 
-    aligned_activity = models.CharField(blank=False, null=False, max_length=1000)
-    aligned_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
-
-    not_aligned_activity = models.CharField(blank=False, null=False, max_length=1000)
-    not_aligned_activity_amount = models.FloatField(blank=False, null=False, default=0.0)
-
-    climate_change_mitigation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
-    climate_change_adaptation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
+    climate_change_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    marine_resources_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    circular_economy_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    pollution_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    biodiversity_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 
-    @property
-    def get_eligible_turnover(self):
-        return (self.eligible_activity_amount / self.turnover) * 100
-
-    @property
-    def get_aligned_turnover(self):
-        return (self.aligned_activity_amount / self.turnover) * 100
-
-    @property
-    def get_non_aligned_turnover(self):
-        return (self.not_aligned_activity_amount / self.turnover) * 100
-
-    @property
-    def get_total_aligned_turnover(self):
-        return self.get_eligible_turnover + self.get_aligned_turnover
-
-    @property
-    def get_aligned_turnover_percent(self):
-        aligned_amount = self.get_total_aligned_turnover
-        return (aligned_amount / self.turnover) * 100
-
     def __str__(self):
-        return f'{self.turnover}'
+        return f'{self.total_turnover}'
 
 
 class TaxonomyCapEx(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    sector = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
+    activity = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
     currency = models.CharField(blank=False, null=False, choices=CURRENCY_CHOICES, max_length=10)
-    capex = models.FloatField(blank=False, null=False, default=0.0)
 
-    capex_a_activity = models.CharField(blank=False, null=False, max_length=1000)
-    capex_a_amount = models.FloatField(blank=False, null=False, default=0.0)
+    total_capex = models.FloatField(blank=True, null=True, default=0.0)
+    capex_eligible = models.FloatField(blank=True, null=True, default=0.0)
+    capex_aligned = models.FloatField(blank=True, null=True, default=0.0)
+    capex_non_aligned = models.FloatField(blank=True, null=True, default=0.0)
 
-    capex_b_activity = models.CharField(blank=False, null=False, max_length=1000)
-    capex_b_amount = models.FloatField(blank=False, null=False, default=0.0)
-
-    capex_c_activity = models.CharField(blank=False, null=False, max_length=1000)
-    capex_c_amount = models.FloatField(blank=False, null=False, default=0.0)
-
-    climate_change_mitigation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
-    climate_change_adaptation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
+    climate_change_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    marine_resources_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    circular_economy_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    pollution_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    biodiversity_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 
-    @property
-    def get_aligned_capex_a(self):
-        return (self.capex_a_amount / self.capex) * 100
-
-    @property
-    def get_aligned_capex_b(self):
-        return (self.capex_b_amount / self.capex) * 100
-
-    @property
-    def get_aligned_capex_c(self):
-        return (self.capex_c_amount / self.capex) * 100
-
-    @property
-    def get_aligned_total_capex(self):
-        return self.get_aligned_capex_a + self.get_aligned_capex_b + self.get_aligned_capex_c
-
-    @property
-    def get_aligned_capex_percent(self):
-        aligned_amount = self.get_aligned_total_capex
-        return (aligned_amount / self.capex) * 100
-
-
-def __str__(self):
-    return f'{self.capex}'
+    def __str__(self):
+        return f'{self.total_capex}'
 
 
 class TaxonomyOpEx(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    sector = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
+    activity = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
     currency = models.CharField(blank=False, null=False, choices=CURRENCY_CHOICES, max_length=10)
-    opex = models.FloatField(blank=False, null=False, default=0.0)
 
-    opex_a_activity = models.CharField(blank=False, null=False, max_length=1000)
-    opex_a_amount = models.FloatField(blank=False, null=False, default=0.0)
+    total_opex = models.FloatField(blank=True, null=True, default=0.0)
+    opex_eligible = models.FloatField(blank=True, null=True, default=0.0)
+    opex_aligned = models.FloatField(blank=True, null=True, default=0.0)
+    opex_non_aligned = models.FloatField(blank=True, null=True, default=0.0)
 
-    opex_b_activity = models.CharField(blank=False, null=False, max_length=1000)
-    opex_b_amount = models.FloatField(blank=False, null=False, default=0.0)
-
-    opex_c_activity = models.CharField(blank=False, null=False, max_length=1000)
-    opex_c_amount = models.FloatField(blank=False, null=False, default=0.0)
-
-    climate_change_mitigation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
-    climate_change_adaptation = models.FloatField(blank=False, null=False, max_length=255, default=0.0)
-
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-
-    @property
-    def get_aligned_opex_a(self):
-        return (self.opex_a_amount / self.opex) * 100
-
-    @property
-    def get_aligned_opex_b(self):
-        return (self.opex_b_amount / self.opex) * 100
-
-    @property
-    def get_aligned_opex_c(self):
-        return (self.opex_c_amount / self.opex) * 100
-
-    @property
-    def get_aligned_total_opex(self):
-        return self.get_aligned_opex_a + self.get_aligned_opex_b + self.get_aligned_opex_c
-
-    @property
-    def get_aligned_opex_percent(self):
-        aligned_amount = self.get_aligned_total_opex
-        return (aligned_amount / self.opex) * 100
-
-    def __str__(self):
-        return f'{self.opex}'
-
-
-class DoNotSeriousHarm(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    sector = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
-    climate_change_turnover = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    climate_change_capex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    climate_change_opex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-
-    marine_resources_turnover = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    marine_resources_capex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    marine_resources_opex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-
-    circular_economy_turnover = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    circular_economy_capex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    circular_economy_opex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-
-    pollution_turnover = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    pollution_capex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    pollution_opex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-
-    biodiversity_turnover = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    biodiversity_capex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-    biodiversity_opex = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
+    climate_change_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    marine_resources_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    circular_economy_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    pollution_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
+    biodiversity_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES,default='selection')
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f'{self.sector}'
+        return f'{self.total_opex}'
+
+

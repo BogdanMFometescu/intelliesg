@@ -14,5 +14,4 @@ from .upload_excel_views import *
 from .taxonomy_sector_views import *
 from .taxonomy_capex_views import *
 from .taxonomy_opex_views import *
-from .taxonomy_dnsh_views import *
 from .taxonomy_turnover_views import *

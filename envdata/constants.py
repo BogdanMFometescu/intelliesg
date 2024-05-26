@@ -86,6 +86,13 @@ TAXONOMY_SECTOR_CHOICES = [('Accommodation activities', 'Accommodation activitie
 TAXONOMY_ACTIVITY_CHOICES = [
     ('Transmission and distribution of electricity', 'Transmission and distribution of electricity')]
 
+TAXONOMY_ACTIVITY_TYPE_CHOICES = [
+    ('Eligible', 'Eligible'),
+    ('Aligned', 'Aligned'),
+    ('Not Aligned', 'Not Aligned')
+
+]
+
 CURRENCY_CHOICES = [('EUR', 'EUR'), ('USD', 'USD'), ('RON', 'RON')]
 
 DNSH_CHOICES = [('Yes', 'Yes'),
