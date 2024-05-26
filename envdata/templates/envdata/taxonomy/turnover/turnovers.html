@@ -134,12 +134,7 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>{{ turnover.company }}</td>
-                                    <td>{{ turnover.aligned_activity }}</td>
-                                    <td>{{ turnover.aligned_activity_amount }}</td>
-                                    <td>{{ turnover.currency }}</td>
-                                    <td>{{ turnover.get_aligned_turnover }} %</td>
-                                    <td>{{ turnover.climate_change_mitigation }} %</td>
-                                    <td>{{ turnover.climate_change_adaptation }} %</td>
+
                                     <td>
                                         <div class="d-flex">
                                             <a href="{% url 'update_turnover' turnover.id %}" class="mr-3"
