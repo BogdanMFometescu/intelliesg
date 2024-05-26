@@ -38,7 +38,7 @@
 
     {% else %}
         <section class="section-header">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 text-center">
                         <div class="form-control">
@@ -54,9 +54,9 @@
                             </form>
                         </div>
                         <br>
-                        <h2 class="text-info mt-4">A. TAXONOMY-ELIGIBLE ACTIVITIES</h2>
+                        <h2 class="text-info mt-4" align="left">A. TAXONOMY-ELIGIBLE ACTIVITIES</h2>
                         <hr>
-                        <h4 class="text-secondary mt-3">A.1. Environmentally sustainable activities
+                        <h4 class="text-secondary mt-3" align="left">A.1. Environmentally sustainable activities
                             (Taxonomy-aligned)</h4>
                         <table class="table table-hover">
                             <thead>
@@ -67,8 +67,11 @@
                                 <th scope="col">Absolute turnover</th>
                                 <th scope="col">Currency</th>
                                 <th scope="col">Proportion of turnover</th>
-                                <th scope="col">Climate Change Mitigation</th>
-                                <th scope="col">Climate Change Adaptation</th>
+                                <th scope="col">DNSH-Climate Change</th>
+                                <th scope="col">DNSH-Water</th>
+                                <th scope="col">DNSH-Pollution</th>
+                                <th scope="col">DNSH-Circular Economy</th>
+                                <th scope="col">DNSH-Biodiversity</th>
 
 
                             </tr>
@@ -78,12 +81,15 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>{{ turnover.company }}</td>
-                                    <td>{{ turnover.eligible_activity }}</td>
-                                    <td>{{ turnover.eligible_activity_amount }}</td>
+                                    <td>{{ turnover.turnover_activity}}</td>
+                                    <td>{{ turnover.turnover_aligned }}</td>
                                     <td>{{ turnover.currency }}</td>
-                                    <td>{{ turnover.get_eligible_turnover }} %</td>
-                                    <td>{{ turnover.climate_change_mitigation }} %</td>
-                                    <td>{{ turnover.climate_change_adaptation }} %</td>
+                                    <td>{{ turnover.get_aligned_percent }} %</td>
+                                    <td>{{ turnover.climate_change_dnsh }} </td>
+                                    <td>{{ turnover.marine_resources_dnsh }} </td>
+                                    <td>{{ turnover.pollution_dnsh }} </td>
+                                    <td>{{ turnover.circular_economy_dnsh }} </td>
+                                    <td>{{ turnover.biodiversity_dnsh }} </td>
 
                                     <td>
                                         <div class="d-flex">
@@ -112,7 +118,8 @@
                         <br>
 
                         <br>
-                        <h4 class="text-secondary mt-3">A.2 Taxonomy-Eligible but not environmentally sustainable
+                        <h4 class="text-secondary mt-3" align="left">A.2 Taxonomy-Eligible but not environmentally
+                            sustainable
                             activities (not Taxonomy-aligned activities)</h4>
                         <table class="table table-hover">
                             <thead>
@@ -123,8 +130,6 @@
                                 <th scope="col">Absolute turnover</th>
                                 <th scope="col">Currency</th>
                                 <th scope="col">Proportion of turnover</th>
-                                <th scope="col">Climate Change Mitigation</th>
-                                <th scope="col">Climate Change Adaptation</th>
 
 
                             </tr>
@@ -134,7 +139,10 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>{{ turnover.company }}</td>
-
+                                    <td>{{ turnover.turnover_activity }}</td>
+                                    <td>{{ turnover.turnover_eligible }}</td>
+                                    <td>{{ turnover.currency }}</td>
+                                    <td>{{ turnover.get_eligible_percent }} %</td>
                                     <td>
                                         <div class="d-flex">
                                             <a href="{% url 'update_turnover' turnover.id %}" class="mr-3"
@@ -156,13 +164,12 @@
 
                             {% endfor %}
 
-
                             </tbody>
                         </table>
                         <br>
-                        <h2 class="text-danger mt-4">B. TAXONOMY-NON-ELIGIBLE ACTIVITIES</h2>
+                        <h2 class="text-danger mt-4" align="left">B. TAXONOMY-NON-ELIGIBLE ACTIVITIES</h2>
                         <hr>
-                        <h4 class="text-secondary mt-3">Turnover of Taxonomy-non-eligible activities</h4>
+                        <h4 class="text-secondary mt-3" align="left">Turnover of Taxonomy-non-eligible activities</h4>
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -172,8 +179,6 @@
                                 <th scope="col">Absolute turnover</th>
                                 <th scope="col">Currency</th>
                                 <th scope="col">Proportion of turnover</th>
-                                <th scope="col">Climate Change Mitigation</th>
-                                <th scope="col">Climate Change Adaptation</th>
 
 
                             </tr>
@@ -183,12 +188,11 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>{{ turnover.company }}</td>
-                                    <td>{{ turnover.not_aligned_activity }}</td>
-                                    <td>{{ turnover.not_aligned_activity_amount }}</td>
+                                    <td>{{ turnover.turnover_activity }}</td>
+                                    <td>{{ turnover.turnover_non_eligible }}</td>
                                     <td>{{ turnover.currency }}</td>
-                                    <td>{{ turnover.get_non_aligned_turnover }}%</td>
-                                    <td>{{ turnover.climate_change_mitigation }} %</td>
-                                    <td>{{ turnover.climate_change_adaptation }} %</td>
+                                    <td>{{ turnover.get_non_eligible_percent }} %</td>
+
                                     <td>
                                         <div class="d-flex">
                                             <a href="{% url 'update_turnover' turnover.id %}" class="mr-3"
@@ -236,4 +240,16 @@
         </section>
     {% endif %}
 
+
+    <style>
+
+        .table {
+            width: 100%;
+        }
+
+        .container-fluid {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    </style>
 {% endblock content %}

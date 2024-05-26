@@ -15,7 +15,7 @@ from envdata.models import (Company,
 
 from django.forms import ModelForm
 from django import forms
-
+from envdata.constants import *
 
 class CompanyForm(ModelForm):
     class Meta:
@@ -122,6 +122,8 @@ class ExcelUploadForm(forms.Form):
 
 
 class TaxonomySectorForm(ModelForm):
+    sector = forms.ChoiceField(choices=TAXONOMY_SECTOR_CHOICES)
+    activity = forms.ChoiceField(choices=TAXONOMY_ACTIVITY_CHOICES)
     class Meta:
         model = TaxonomySector
         fields = '__all__'
