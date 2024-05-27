@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from envdata.mixins import CompanyContextMixin
 from .filters import FuelTypeFilter, Sf6TypeFilter, RefrigerantTypeFilter, NaturalGasTypeFilter, EnergyTypeFilter, \
-    WasteTypeFilter, TravelTypeFilter
-from envdata.models import Fuel, Sf6, Refrigerant, NaturalGas, Energy, Waste, Travel
+    WasteTypeFilter, TravelTypeFilter, TaxonomyTurnoverFilter
+from envdata.models import Fuel, Sf6, Refrigerant, NaturalGas, Energy, Waste, Travel, TaxonomyTurnover
 from xhtml2pdf import pisa
 from django.http import HttpResponse
 from django.db.models import Sum, F
@@ -158,6 +158,26 @@ class TravelPdfView(LoginRequiredMixin, CompanyContextMixin, View):
                                        {'travel': filtered_travel,
                                         'total_co2': total_co2})
 
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment;filename=travel_report.pdf'
+
+        pisa_status = pisa.CreatePDF(html_string, dest=response)
+        if pisa_status.err:
+            return HttpResponse('We had some errors. Please try again' + html_string + '</pre>')
+        return response
+
+
+class TaxonomyTurnoverPdfView(LoginRequiredMixin, CompanyContextMixin, View):
+    def get(self, request, *args, **kwargs):
+        filter_set = TaxonomyTurnoverFilter(request.GET, queryset=TaxonomyTurnover.objects.all())
+        filtered_turnover = filter_set.qs
+        total_turnover = \
+            filtered_turnover.annotate(
+                total_eligible_turnover=F('turnover_eligible') + F('turnover_aligned')).aggregate(
+                total_eligible=Sum('total_eligible_turnover'))['total_eligible'] or 0
+        html_string = render_to_string('envdata/export_to_pdf/turnover_report.html',
+                                       {'taxonomy_turnover': filtered_turnover,
+                                        'total_turnover': total_turnover})
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment;filename=travel_report.pdf'
 

@@ -230,7 +230,7 @@
                         <a href="{% url 'sectors' %}" class="btn btn-tertiary me-3 animate-up-2"> <span
                                 class="ms-2">
                             <span class="fas fa-arrow-left"></span></span></a>
-                        <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
+                        <a href="{% url 'turnover_report' %}?{{ request.GET.urlencode }}"
                            class="btn btn-tertiary animate-up-2">
                             Download Report
                         </a>
@@ -245,15 +245,5 @@
     {% endif %}
 
 
-    <style>
 
-        .table {
-            width: 100%;
-        }
-
-        .container-fluid {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-    </style>
 {% endblock content %}
