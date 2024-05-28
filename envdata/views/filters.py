@@ -1,5 +1,6 @@
 import django_filters
-from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Waste, NaturalGas, TaxonomyTurnover,TaxonomySector)
+from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Waste, NaturalGas, TaxonomyTurnover,
+                            TaxonomySector,TaxonomyOpEx)
 from envdata.constants import *
 
 
@@ -80,3 +81,12 @@ class TaxonomyTurnoverFilter(django_filters.FilterSet):
     class Meta:
         model = TaxonomyTurnover
         fields = ['company','turnover_activity' ]
+
+class TaxonomyOpeExFilter(django_filters.FilterSet):
+    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
+    opex_activity = django_filters.ModelChoiceFilter(queryset=TaxonomySector.objects.all(),label='Activity')
+
+    class Meta :
+        model = TaxonomyOpEx
+        fields = ['company','opex_activity']
+

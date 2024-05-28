@@ -4,42 +4,59 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from envdata.models import TaxonomyOpEx
 from envdata.forms import TaxonomyOpexForm
 from envdata.mixins import CompanyContextMixin, UpdateModeMixin
+from .filters import TaxonomyOpeExFilter
+from django_filters.views import FilterView
+from django.db.models import Sum, F
 
 
-class TaxonomyOpexListView(LoginRequiredMixin, CompanyContextMixin, ListView):
+class TaxonomyOpexListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     model = TaxonomyOpEx
+    filterset_class = TaxonomyOpeExFilter
     template_name = 'envdata/taxonomy/opex/all-opex.html'
-    context_object_name = 'turnovers'
+    context_object_name = 'opexs'
+
+    def get_queryset(self):
+        return super().get_queryset().order_by('company')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        filtered_qs = self.filterset.qs.annotate(total_eligible_opex=F('opex_eligible') + F('opex_aligned')).aggregate(
+            total_opex=Sum('total_eligible_opex'))['total_opex'] or 0
+        filtered_not_eligible = self.filterset.qs.annotate(total_non_eligible_opex=F('opex_non_eligible')).aggregate(
+            total_non_eligiblex=Sum('total_non_eligible_opex'))['total_non_eligiblex'] or 0
+        context['total_eligible_display'] = filtered_qs
+        context['total_non_eligible'] = filtered_not_eligible
+        return context
 
 
 class TaxonomyOpexDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = TaxonomyOpEx
     template_name = 'envdata/taxonomy/opex/single-opex.html'
-    context_object_name = 'turnover'
+    context_object_name = 'opex'
 
 
 class TaxonomyOpexCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     model = TaxonomyOpEx
     form_class = TaxonomyOpexForm
     template_name = 'envdata/taxonomy/opex/form-opex.html'
-    success_url = reverse_lazy('turnovers')
+    success_url = reverse_lazy('opexs')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('turnovers')
+        return reverse_lazy('opexs')
 
 
 class TaxonomyOpexUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = TaxonomyOpEx
     form_class = TaxonomyOpexForm
     template_name = 'envdata/taxonomy/opex/form-opex.html'
-    success_url = reverse_lazy('turnovers')
+    success_url = reverse_lazy('opexs')
 
 
 class TaxonomyOpexDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):
     model = TaxonomyOpEx
     template_name = 'envdata/delete-universal.html'
-    success_url = reverse_lazy('turnovers')
+    success_url = reverse_lazy('opexs')

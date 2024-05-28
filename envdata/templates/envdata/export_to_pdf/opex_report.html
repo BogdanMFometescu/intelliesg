@@ -1,0 +1,156 @@
+<style>
+    @page {
+        size: landscape;
+        margin: 10px; /* Add margin to the page */
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        margin-left: 10px;
+        color: #205067;
+    }
+
+    small {
+        margin-left: 10px;
+    }
+
+    table {
+        width: 100%; /* Use 100% width for the table */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .form-row label {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .form-row input, .form-row select {
+        margin-bottom: 2px;
+    }
+</style>
+
+<h2 style="color: #205067;"><b>REPORT ON TRAVEL EMISSIONS </b></h2>
+
+<h2 style="margin-left: 10px">Valid records as of : {% now "d.m.Y" %}</h2>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th >#</th>
+        <th >Company</th>
+        <th >Economic Activities</th>
+        <th >Absolute OpEx</th>
+        <th >Currency</th>
+        <th >Proportion of OpEx</th>
+        <th >DNSH-Climate Change</th>
+        <th >DNSH-Water</th>
+        <th >DNSH-Pollution</th>
+        <th >DNSH-Circular Economy</th>
+        <th >DNSH-Biodiversity</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for opex in taxonomy_opex %}
+        <tr>
+            <th style="width: 80px">{{ forloop.counter }}</th>
+            <td>{{ opex.company }}</td>
+            <td>{{ opex.turnover_activity }}</td>
+            <td>{{ opex.turnover_aligned }}</td>
+            <td>{{ opex.currency }}</td>
+            <td>{{ opex.get_aligned_percent }} %</td>
+            <td>{{ opex.climate_change_dnsh }} </td>
+            <td>{{ opex.marine_resources_dnsh }} </td>
+            <td>{{ opex.pollution_dnsh }} </td>
+            <td>{{ opex.circular_economy_dnsh }} </td>
+            <td>{{ opex.biodiversity_dnsh }} </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<br>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th >#</th>
+        <th >Company</th>
+        <th >Economic Activities</th>
+        <th >Absolute turnover</th>
+        <th >Currency</th>
+        <th >Proportion of turnover</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for opex in taxonomy_opex %}
+        <tr>
+            <th style="width: 80px">{{ forloop.counter }}</th>
+            <td>{{ opex.company }}</td>
+            <td>{{ opex.turnover_activity }}</td>
+            <td>{{ opex.turnover_eligible }}</td>
+            <td>{{ opex.currency }}</td>
+            <td>{{ opex.get_eligible_percent }} %</td>
+
+        </tr>
+
+    {% endfor %}
+    <tr class="table-primary">
+        <th scope="row" colspan="14" class="text-right">Total eligible turnover:
+        </th>
+        <td>{{ total_opex}} </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th >#</th>
+        <th >Company</th>
+        <th >Economic Activities</th>
+        <th >Absolute turnover</th>
+        <th >Currency</th>
+        <th >Proportion of turnover</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for opex in taxonomy_opex %}
+        <tr>
+            <th style="width: 80px">{{ forloop.counter }}</th>
+            <td>{{ opex.company }}</td>
+            <td>{{ opex.turnover_activity }}</td>
+            <td>{{ opex.turnover_non_eligible }}</td>
+            <td>{{ opex.currency }}</td>
+            <td>{{ opex.get_non_eligible_percent }} %</td>
+
+
+        </tr>
+
+    {% endfor %}
+    <tr class="table-primary">
+        <th scope="row" colspan="14" class="text-right">Total non-eligible OpEx:
+        </th>
+        <td>{{ total_opex }} </td>
+    </tr>
+
+    </tbody>
+</table>
