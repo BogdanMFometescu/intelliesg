@@ -81,6 +81,7 @@ urlpatterns = [
     path('waste-pdf-report', views.WastePdfView.as_view(), name='waste_report'),
     path('travel-pdf-report', views.TravelPdfView.as_view(), name='travel_report'),
     path('turnover-pdf-report', views.TaxonomyTurnoverPdfView.as_view(), name='turnover_report'),
+    path('opex-pdf-report', views.TaxonomyOpExPdfView.as_view(), name='opex_report'),
 
     path('upload-fuel-data', views.ExcelUploadView.as_view(), name='upload_fuel_data'),
     path('upload-ng-data', views.ExcelUploadViewForNaturalGas.as_view(), name='upload_ng_data'),
@@ -94,7 +95,6 @@ urlpatterns = [
     path('nav-forms-targets', views.NavFormsTargets.as_view(), name='nav_forms_targets'),
     path('nav-forms-emissions', views.NavFormsEmissions.as_view(), name='nav_forms_emissions'),
     path('nav-forms-taxonomy', views.NavFormsTaxonomy.as_view(), name='nav_forms_taxonomy'),
-
 
     path('sectors/', views.TaxonomySectorListView.as_view(), name='sectors'),
     path('sector/<uuid:pk>/', views.TaxonomySectorDetailView.as_view(), name='sector'),
@@ -119,6 +119,5 @@ urlpatterns = [
     path('create-opex/', views.TaxonomyOpexCreateView.as_view(), name='create_opex'),
     path('update-opex/<uuid:pk>/', views.TaxonomyOpexUpdateView.as_view(), name='update_opex'),
     path('delete-opex/<uuid:pk>/', views.TaxonomyOpexDeleteView.as_view(), name='delete_opex'),
-
 
 ]

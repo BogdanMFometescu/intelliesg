@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from envdata.mixins import CompanyContextMixin
 from .filters import FuelTypeFilter, Sf6TypeFilter, RefrigerantTypeFilter, NaturalGasTypeFilter, EnergyTypeFilter, \
-    WasteTypeFilter, TravelTypeFilter, TaxonomyTurnoverFilter
-from envdata.models import Fuel, Sf6, Refrigerant, NaturalGas, Energy, Waste, Travel, TaxonomyTurnover
+    WasteTypeFilter, TravelTypeFilter, TaxonomyTurnoverFilter, TaxonomyOpeExFilter
+from envdata.models import Fuel, Sf6, Refrigerant, NaturalGas, Energy, Waste, Travel, TaxonomyTurnover, TaxonomyOpEx
 from xhtml2pdf import pisa
 from django.http import HttpResponse
 from django.db.models import Sum, F
@@ -179,7 +179,27 @@ class TaxonomyTurnoverPdfView(LoginRequiredMixin, CompanyContextMixin, View):
                                        {'taxonomy_turnover': filtered_turnover,
                                         'total_turnover': total_turnover})
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment;filename=travel_report.pdf'
+        response['Content-Disposition'] = 'attachment;filename=turnover_report.pdf'
+
+        pisa_status = pisa.CreatePDF(html_string, dest=response)
+        if pisa_status.err:
+            return HttpResponse('We had some errors. Please try again' + html_string + '</pre>')
+        return response
+
+
+class TaxonomyOpExPdfView(LoginRequiredMixin, CompanyContextMixin, View):
+    def get(self, request, *args, **kwargs):
+        filter_set = TaxonomyOpeExFilter(request.GET, queryset=TaxonomyOpEx.objects.all())
+        filtered_opex = filter_set.qs
+        total_opex = \
+            filtered_opex.annotate(
+                total_eligible_opex=F('opex_eligible') + F('opex_aligned')).aggregate(
+                total_eligible=Sum('total_eligible_opex'))['total_eligible'] or 0
+        html_string = render_to_string('envdata/export_to_pdf/opex_report.html',
+                                       {'taxonomy_opex': filtered_opex,
+                                        'total_opex': total_opex})
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment;filename=opex_report.pdf'
 
         pisa_status = pisa.CreatePDF(html_string, dest=response)
         if pisa_status.err:
