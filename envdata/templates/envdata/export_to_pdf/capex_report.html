@@ -53,9 +53,9 @@
         <th >#</th>
         <th >Company</th>
         <th >Economic Activities</th>
-        <th >Absolute OpEx</th>
+        <th >Absolute CapEx</th>
         <th >Currency</th>
-        <th >Proportion of OpEx</th>
+        <th >Proportion of CapEx</th>
         <th >DNSH-Climate Change</th>
         <th >DNSH-Water</th>
         <th >DNSH-Pollution</th>
@@ -66,19 +66,19 @@
     </tr>
     </thead>
     <tbody>
-    {% for opex in taxonomy_opex %}
+    {% for capex in taxonomy_capex %}
         <tr>
             <th style="width: 80px">{{ forloop.counter }}</th>
-            <td>{{ opex.company }}</td>
-            <td>{{ opex.opex_activity }}</td>
-            <td>{{ opex.opex_aligned }}</td>
-            <td>{{ opex.currency }}</td>
-            <td>{{ opex.get_aligned_percent }} %</td>
-            <td>{{ opex.climate_change_dnsh }} </td>
-            <td>{{ opex.marine_resources_dnsh }} </td>
-            <td>{{ opex.pollution_dnsh }} </td>
-            <td>{{ opex.circular_economy_dnsh }} </td>
-            <td>{{ opex.biodiversity_dnsh }} </td>
+            <td>{{ capex.company }}</td>
+            <td>{{ capex.opex_activity }}</td>
+            <td>{{ capex.opex_aligned }}</td>
+            <td>{{ capex.currency }}</td>
+            <td>{{ capex.get_aligned_percent }} %</td>
+            <td>{{ capex.climate_change_dnsh }} </td>
+            <td>{{ capex.marine_resources_dnsh }} </td>
+            <td>{{ capex.pollution_dnsh }} </td>
+            <td>{{ capex.circular_economy_dnsh }} </td>
+            <td>{{ capex.biodiversity_dnsh }} </td>
         </tr>
     {% endfor %}
     </tbody>
@@ -91,30 +91,30 @@
         <th >#</th>
         <th >Company</th>
         <th >Economic Activities</th>
-        <th >Absolute turnover</th>
+        <th >Absolute CapEx</th>
         <th >Currency</th>
-        <th >Proportion of turnover</th>
+        <th >Proportion of CapEx</th>
 
 
     </tr>
     </thead>
     <tbody>
-    {% for opex in taxonomy_opex %}
+    {% for capex in taxonomy_capex %}
         <tr>
             <th style="width: 80px">{{ forloop.counter }}</th>
-            <td>{{ opex.company }}</td>
-            <td>{{ opex.opex_activity }}</td>
-            <td>{{ opex.opex_eligible }}</td>
-            <td>{{ opex.currency }}</td>
-            <td>{{ opex.get_eligible_percent }} %</td>
+            <td>{{ capex.company }}</td>
+            <td>{{ capex.opex_activity }}</td>
+            <td>{{ capex.opex_eligible }}</td>
+            <td>{{ capex.currency }}</td>
+            <td>{{ capex.get_eligible_percent }} %</td>
 
         </tr>
 
     {% endfor %}
     <tr class="table-primary">
-        <th scope="row" colspan="14" class="text-right">Total eligible turnover:
+        <th scope="row" colspan="14" class="text-right">Total eligible CapEx:
         </th>
-        <td>{{ total_opex}} </td>
+        <td>{{ total_capex}} </td>
     </tr>
     </tbody>
 </table>
@@ -126,30 +126,30 @@
         <th >#</th>
         <th >Company</th>
         <th >Economic Activities</th>
-        <th >Absolute turnover</th>
+        <th >Absolute CapEx</th>
         <th >Currency</th>
-        <th >Proportion of turnover</th>
+        <th >Proportion of CapEx</th>
 
     </tr>
     </thead>
     <tbody>
-    {% for opex in taxonomy_opex %}
+    {% for capex in taxonomy_capex %}
         <tr>
             <th style="width: 80px">{{ forloop.counter }}</th>
-            <td>{{ opex.company }}</td>
-            <td>{{ opex.opex_activity }}</td>
-            <td>{{ opex.opex_non_eligible }}</td>
-            <td>{{ opex.currency }}</td>
-            <td>{{ opex.get_non_eligible_percent }} %</td>
+            <td>{{ capex.company }}</td>
+            <td>{{ capex.opex_activity }}</td>
+            <td>{{ capex.opex_non_eligible }}</td>
+            <td>{{ capex.currency }}</td>
+            <td>{{ capex.get_non_eligible_percent }} %</td>
 
 
         </tr>
 
     {% endfor %}
     <tr class="table-primary">
-        <th scope="row" colspan="14" class="text-right">Total non-eligible OpEx:
+        <th scope="row" colspan="14" class="text-right">Total non-eligible CapEx:
         </th>
-        <td>{{ total_opex }} </td>
+        <td>{{ total_capex }} </td>
     </tr>
 
     </tbody>

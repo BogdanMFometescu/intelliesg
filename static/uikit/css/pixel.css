@@ -29512,26 +29512,6 @@ blockquote {
     opacity: 0.7; /* This will create a fade effect on hover or focus */
 }
 
-.container-fluid {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.card-body .mt-auto {
-    margin-top: auto;
-}
-
-.card {
-    height: 100%;
-}
-
-
 
 
 /*# sourceMappingURL=pixel.css.map */
