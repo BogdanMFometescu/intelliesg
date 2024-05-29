@@ -2,8 +2,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 from envdata.mixins import CompanyContextMixin
 from .filters import FuelTypeFilter, Sf6TypeFilter, RefrigerantTypeFilter, NaturalGasTypeFilter, EnergyTypeFilter, \
-    WasteTypeFilter, TravelTypeFilter, TaxonomyTurnoverFilter, TaxonomyOpeExFilter
-from envdata.models import Fuel, Sf6, Refrigerant, NaturalGas, Energy, Waste, Travel, TaxonomyTurnover, TaxonomyOpEx
+    WasteTypeFilter, TravelTypeFilter, TaxonomyTurnoverFilter, TaxonomyOpeExFilter, TaxonomyCapExFilter
+from envdata.models import (Fuel, Sf6, Refrigerant, NaturalGas, Energy, Waste, Travel, TaxonomyTurnover, TaxonomyOpEx,
+                            TaxonomyCapEx)
 from xhtml2pdf import pisa
 from django.http import HttpResponse
 from django.db.models import Sum, F
@@ -200,6 +201,26 @@ class TaxonomyOpExPdfView(LoginRequiredMixin, CompanyContextMixin, View):
                                         'total_opex': total_opex})
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = 'attachment;filename=opex_report.pdf'
+
+        pisa_status = pisa.CreatePDF(html_string, dest=response)
+        if pisa_status.err:
+            return HttpResponse('We had some errors. Please try again' + html_string + '</pre>')
+        return response
+
+
+class TaxonomyCapExPdfView(LoginRequiredMixin, CompanyContextMixin, View):
+    def get(self, request, *args, **kwargs):
+        filter_set = TaxonomyCapExFilter(request.GET, queryset=TaxonomyCapEx.objects.all())
+        filtered_capex = filter_set.qs
+        total_capex = \
+            filtered_capex.annotate(
+                total_eligible_capex=F('capex_eligible') + F('capex_aligned')).aggregate(
+                total_eligible=Sum('total_eligible_capex'))['total_eligible'] or 0
+        html_string = render_to_string('envdata/export_to_pdf/capex_report.html',
+                                       {'taxonomy_capex': filtered_capex,
+                                        'total_capex': total_capex})
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment;filename=capex_report.pdf'
 
         pisa_status = pisa.CreatePDF(html_string, dest=response)
         if pisa_status.err:

@@ -1,6 +1,6 @@
 import django_filters
 from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Waste, NaturalGas, TaxonomyTurnover,
-                            TaxonomySector,TaxonomyOpEx)
+                            TaxonomySector, TaxonomyOpEx, TaxonomyCapEx)
 from envdata.constants import *
 
 
@@ -76,17 +76,26 @@ class NaturalGasTypeFilter(django_filters.FilterSet):
 
 class TaxonomyTurnoverFilter(django_filters.FilterSet):
     company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
-    turnover_activity = django_filters.ModelChoiceFilter(queryset=TaxonomySector.objects.all(),label='Activity')
+    turnover_activity = django_filters.ModelChoiceFilter(queryset=TaxonomySector.objects.all(), label='Activity')
 
     class Meta:
         model = TaxonomyTurnover
-        fields = ['company','turnover_activity' ]
+        fields = ['company', 'turnover_activity']
+
 
 class TaxonomyOpeExFilter(django_filters.FilterSet):
     company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
-    opex_activity = django_filters.ModelChoiceFilter(queryset=TaxonomySector.objects.all(),label='Activity')
+    opex_activity = django_filters.ModelChoiceFilter(queryset=TaxonomySector.objects.all(), label='Activity')
 
-    class Meta :
+    class Meta:
         model = TaxonomyOpEx
-        fields = ['company','opex_activity']
+        fields = ['company', 'opex_activity']
 
+
+class TaxonomyCapExFilter(django_filters.FilterSet):
+    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
+    capex_activity = django_filters.ModelChoiceFilter(queryset=TaxonomySector.objects.all(), label='Activity')
+
+    class Meta:
+        model = TaxonomyCapEx
+        fields = ['company', 'capex_activity']

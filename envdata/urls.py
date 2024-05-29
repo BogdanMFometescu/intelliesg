@@ -82,6 +82,7 @@ urlpatterns = [
     path('travel-pdf-report', views.TravelPdfView.as_view(), name='travel_report'),
     path('turnover-pdf-report', views.TaxonomyTurnoverPdfView.as_view(), name='turnover_report'),
     path('opex-pdf-report', views.TaxonomyOpExPdfView.as_view(), name='opex_report'),
+    path('capex-pdf-report', views.TaxonomyCapExPdfView.as_view(), name='capex_report'),
 
     path('upload-fuel-data', views.ExcelUploadView.as_view(), name='upload_fuel_data'),
     path('upload-ng-data', views.ExcelUploadViewForNaturalGas.as_view(), name='upload_ng_data'),
@@ -108,7 +109,7 @@ urlpatterns = [
     path('update-turnover/<uuid:pk>/', views.TaxonomyTurnoverUpdateView.as_view(), name='update_turnover'),
     path('delete-turnover/<uuid:pk>/', views.TaxonomyTurnoverDeleteView.as_view(), name='delete_turnover'),
 
-    path('all-capex/', views.TaxonomyCapexListView.as_view(), name='all_capex'),
+    path('all-capex/', views.TaxonomyCapexListView.as_view(), name='capexs'),
     path('capex/<uuid:pk>/', views.TaxonomyCapexDetailView.as_view(), name='capex'),
     path('create-capex/', views.TaxonomyCapexCreateView.as_view(), name='create_capex'),
     path('update-capex/<uuid:pk>/', views.TaxonomyCapexUpdateView.as_view(), name='update_capex'),
