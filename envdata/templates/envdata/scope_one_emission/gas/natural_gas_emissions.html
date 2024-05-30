@@ -30,9 +30,15 @@
     {% if not gas_emissions %}
         <section class="section section-lg">
             <div class="container">
-                <H4>No Gas Emissions registered.<br>Click the 'add' button bellow to add gas emissions.</H4>
+                <H4>No Gas Emissions registered.<br><br>Click the 'Add' button bellow to add gas emissions or 'Upload data' button if you have excel
+                    files containing natural gas emissions data</H4>
+                <br>
                 <a href="{% url 'create_gas_emission' %}" class="btn btn-tertiary animate-up-2">
                     Add
+                </a>
+                <a href="{% url 'upload_ng_data' %}"
+                   class="btn btn-tertiary animate-up-2">
+                    Upload Data
                 </a>
             </div>
             <br>
