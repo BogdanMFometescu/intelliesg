@@ -30,10 +30,16 @@
 
     {% if not refrigerants_emissions %}
         <section class="section section-lg">
-            <div class="container-fluid">
-                <H4>No Refrigerant Emissions registered.<br>Click the 'add' button bellow to add refrigerant emissions.</H4>
+            <div class="container">
+                <H4>No Refrigerant Emissions registered.<br><br>Click the 'Add' button bellow to add refrigerant
+                    emissions or 'Upload data' button if you have excel
+                    files containing refrigerant emissions data</H4>
+                <br>
                 <a href="{% url 'create_refrigerant_emissions' %}" class="btn btn-tertiary animate-up-2">
                     Add
+                </a>
+                <a href="{% url 'upload_refrigerant_data' %}" class="btn btn-tertiary animate-up-2">
+                    Upload Data
                 </a>
             </div>
             <br>
@@ -47,7 +53,7 @@
     {% else %}
 
         <section class="section-header">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 text-center">
                         <div class="form-control">
