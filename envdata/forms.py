@@ -11,11 +11,12 @@ from envdata.models import (Company,
                             TaxonomySector,
                             TaxonomyOpEx,
                             TaxonomyCapEx,
-                           )
+                            )
 
 from django.forms import ModelForm
 from django import forms
 from envdata.constants import *
+
 
 class CompanyForm(ModelForm):
     class Meta:
@@ -110,6 +111,7 @@ class TargetForm(ModelForm):
     class Meta:
         model = Target
         fields = '__all__'
+        labels = {'co2e_base_year': 'CO2e quantity for base year'}
 
     def __init__(self, *args, **kwargs):
         super(TargetForm, self).__init__(*args, **kwargs)
@@ -124,6 +126,7 @@ class ExcelUploadForm(forms.Form):
 class TaxonomySectorForm(ModelForm):
     sector = forms.ChoiceField(choices=TAXONOMY_SECTOR_CHOICES)
     activity = forms.ChoiceField(choices=TAXONOMY_ACTIVITY_CHOICES)
+
     class Meta:
         model = TaxonomySector
         fields = '__all__'
@@ -138,6 +141,19 @@ class TaxonomyTurnoverForm(ModelForm):
     class Meta:
         model = TaxonomyTurnover
         fields = '__all__'
+        labels = {'turnover_activity': 'Activity',
+                  'total_turnover': 'Indicate your total turnover of the last financial period',
+                  'turnover_eligible': 'Eligible turnover amount',
+                  'turnover_aligned': 'Aligned turnover amount',
+                  'turnover_non_eligible': 'Non-Eligible turnover amount',
+                  'climate_change_adaptation': 'To what percentage does your activity fit with the substantial contribution criteria for climate change adaptation?',
+                  'climate_change_mitigation': 'To what percentage does your activity fit with the substantial contribution criteria for climate change mitigation?',
+                  'climate_change_dnsh': 'Do your activities comply with the DNSH criteria for climate change?',
+                  'marine_resources_dnsh': 'Do your activities comply with the DNSH criteria for marine resources?',
+                  'circular_economy_dnsh': 'Do your activities comply with the DNSH criteria for circular economy?',
+                  'pollution_dnsh': 'Do your activities comply with the DNSH criteria for pollution?',
+                  'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
+                  }
 
     def __init__(self, *args, **kwargs):
         super(TaxonomyTurnoverForm, self).__init__(*args, **kwargs)
@@ -149,6 +165,17 @@ class TaxonomyCapexForm(ModelForm):
     class Meta:
         model = TaxonomyCapEx
         fields = '__all__'
+        labels = {'capex_activity': 'Activity',
+                  'capex_turnover': 'Indicate your total CapEx of the last financial period',
+                  'capex_eligible': 'Eligible CapEx amount',
+                  'capex_aligned': 'Aligned CapEx amount',
+                  'capex_non_eligible': 'Non-Eligible CapEx amount',
+                  'climate_change_dnsh': 'Do your activities comply with the DNSH criteria for climate change?',
+                  'marine_resources_dnsh': 'Do your activities comply with the DNSH criteria for marine resources?',
+                  'circular_economy_dnsh': 'Do your activities comply with the DNSH criteria for circular economy?',
+                  'pollution_dnsh': 'Do your activities comply with the DNSH criteria for pollution?',
+                  'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
+                  }
 
     def __init__(self, *args, **kwargs):
         super(TaxonomyCapexForm, self).__init__(*args, **kwargs)
@@ -160,10 +187,19 @@ class TaxonomyOpexForm(ModelForm):
     class Meta:
         model = TaxonomyOpEx
         fields = '__all__'
+        labels = {'opex_activity': 'Activity',
+                  'opex_turnover': 'Indicate your total OpEx of the last financial period',
+                  'opex_eligible': 'Eligible OpEx amount',
+                  'opex_aligned': 'Aligned OpEx amount',
+                  'opex_non_eligible': 'Non-Eligible OpEx amount',
+                  'climate_change_dnsh': 'Do your activities comply with the DNSH criteria for climate change?',
+                  'marine_resources_dnsh': 'Do your activities comply with the DNSH criteria for marine resources?',
+                  'circular_economy_dnsh': 'Do your activities comply with the DNSH criteria for circular economy?',
+                  'pollution_dnsh': 'Do your activities comply with the DNSH criteria for pollution?',
+                  'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
+                  }
 
     def __init__(self, *args, **kwargs):
         super(TaxonomyOpexForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
-
-

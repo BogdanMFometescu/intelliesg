@@ -73,6 +73,14 @@ class ClimateChangeRisksForm(ModelForm):
     class Meta:
         model = ClimateChangeRisk
         fields = '__all__'
+        labels = {'cc_category': 'Category',
+                  'cc_risk': 'Risk',
+                  'cc_description': 'Description',
+                  'cc_probability': 'Probability',
+                  'cc_mitigation_measures': 'Mitigation Measures',
+                  'cc_opportunities': 'Opportunities',
+                  'cc_severity': 'Severity',
+                  'cc_responsible': 'Responsible'}
 
     def __init__(self, *args, **kwargs):
         super(ClimateChangeRisksForm, self).__init__(*args, **kwargs)
@@ -84,6 +92,15 @@ class SocialRisksForm(ModelForm):
     class Meta:
         model = SocialRisk
         fields = '__all__'
+        labels = {'soc_category': 'Category',
+                  'soc_risk': 'Risk',
+                  'soc_description': 'Description',
+                  'soc_probability': 'Probability',
+                  'soc_mitigation_measures': 'Mitigation Measures',
+                  'soc_opportunities': 'Opportunities',
+                  'soc_severity': 'Severity',
+                  'soc_responsible': 'Responsible'}
+
 
     def __init__(self, *args, **kwargs):
         super(SocialRisksForm, self).__init__(*args, **kwargs)
@@ -95,6 +112,14 @@ class GovernanceRisksForm(ModelForm):
     class Meta:
         model = GovernanceRisks
         fields = '__all__'
+        labels = {'gov_category': 'Category',
+                  'gov_risk': 'Risk',
+                  'gov_description': 'Description',
+                  'gov_probability': 'Probability',
+                  'gov_mitigation_measures': 'Mitigation Measures',
+                  'gov_opportunities': 'Opportunities',
+                  'gov_severity': 'Severity',
+                  'gov_responsible': 'Responsible'}
 
     def __init__(self, *args, **kwargs):
         super(GovernanceRisksForm, self).__init__(*args, **kwargs)
