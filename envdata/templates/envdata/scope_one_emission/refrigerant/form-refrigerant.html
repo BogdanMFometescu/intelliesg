@@ -2,20 +2,26 @@
 {% load static %}
 
 {% block content %}
-    <main class="col-lg-7 py-md-3 px-lg-5 bd-content" role="main">
-    <h1 class="bd-title" id="content">Forms </h1>
-    <h2 id="form-example">Refrigerant Emissions</h2>
-    <p>Fill in your company's refrigerant emissions information</p>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="form-group">
-            <label for="exampleInputEmail1">{{ field.label }}</label>
-            {{ field }}
-        </div>
-        {% endfor %}
-        <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    </main>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="d-flex justify-content-center">
+        <main class="col-lg-7 py-md-3 px-lg-5 bd-content" role="main">
+            <h1 class="bd-title" id="content">Forms </h1>
+            <h2 id="form-example">Refrigerant Emissions</h2>
+            <p>Fill in your company's refrigerant emissions information</p>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </main>
+    </div>
 {% endblock content %}
