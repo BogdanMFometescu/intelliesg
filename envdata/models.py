@@ -7,7 +7,7 @@ from users.models import Profile
 
 class Company(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='companies', null=True, blank=True)
-    name = models.CharField(max_length=255, unique=True, blank=False, null=False)
+    name = models.CharField( unique=True, blank=False, null=False)
     address = models.CharField(max_length=255, blank=False, null=False)
     city = models.CharField(max_length=255, blank=False, null=False)
     country = models.CharField(max_length=255, blank=False, null=False)
