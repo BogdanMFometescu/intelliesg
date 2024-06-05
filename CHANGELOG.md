@@ -2,6 +2,16 @@
 
 - Changelog for the intelliesg app
 
+[05.06.2024]
+
+Version 0.9.2
+-
+- created new model : ESGStrategy
+- finished urls, views,templates, forms for the new model
+- refactored all the forms
+- refactored the navbar and starter html
+
+
 
 [11.05.2024]
 

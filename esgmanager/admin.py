@@ -1,6 +1,6 @@
 from django.contrib import admin
 from esgmanager.models import ESGPillars, ESGActionPlan, ESGActionPlanObjectives, ESGActionPlanActions, \
-    NetZeroBusinessPlan, EnvironmentalRisk, GovernanceRisks, ClimateChangeRisk, SocialRisk
+    NetZeroBusinessPlan, EnvironmentalRisk, GovernanceRisks, ClimateChangeRisk, SocialRisk,ESGStrategy
 
 admin.site.register(ESGPillars)
 admin.site.register(ESGActionPlan)
@@ -11,3 +11,4 @@ admin.site.register(EnvironmentalRisk)
 admin.site.register(GovernanceRisks)
 admin.site.register(ClimateChangeRisk)
 admin.site.register(SocialRisk)
+admin.site.register(ESGStrategy)

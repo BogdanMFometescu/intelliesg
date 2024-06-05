@@ -5,7 +5,22 @@ import uuid
 from esgmanager.constants import *
 
 
-# Create your models here.
+class ESGStrategy(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    introduction = models.TextField(blank=False, null=False, max_length=1000)
+    pillar_description = models.TextField(blank=False, null=False, max_length=2000)
+    objectives_description = models.TextField(blank=False, null=False, max_length=2000)
+    action_plan_description = models.TextField(blank=False, null=False, max_length=2000)
+    actions_description = models.TextField(blank=False, null=False, max_length=2000)
+    risks_description = models.TextField(blank=False, null=False, max_length=2000)
+
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
+
+    def __str__(self):
+        return f'{self.introduction}'
+
 
 class ESGPillars(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)

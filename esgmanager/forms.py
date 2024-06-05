@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from esgmanager.models import ESGPillars, ESGActionPlan, ESGActionPlanObjectives, ESGActionPlanActions, \
-    NetZeroBusinessPlan, EnvironmentalRisk, ClimateChangeRisk, SocialRisk, GovernanceRisks
+    NetZeroBusinessPlan, EnvironmentalRisk, ClimateChangeRisk, SocialRisk, GovernanceRisks, ESGStrategy
 
 
 class ESGPillarsForm(ModelForm):
@@ -101,7 +101,6 @@ class SocialRisksForm(ModelForm):
                   'soc_severity': 'Severity',
                   'soc_responsible': 'Responsible'}
 
-
     def __init__(self, *args, **kwargs):
         super(SocialRisksForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
@@ -123,5 +122,22 @@ class GovernanceRisksForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(GovernanceRisksForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class StrategyForm(ModelForm):
+    class Meta:
+        model = ESGStrategy
+        fields = '__all__'
+        labels = {'introduction': 'Describe how you defined your ESG Strategy',
+                  'pillar_description': 'Describe how you defined your ESG Pillars',
+                  'objectives_description': 'Describe how you set your ESG Objectives',
+                  'action_plan_description': 'Describe how you set your ESG Action Plan',
+                  'actions_description': 'Describe how you defined your ESG actions',
+                  'risks_description': 'Describe how you defined your ESG risks'}
+
+    def __init__(self, *args, **kwargs):
+        super(StrategyForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
