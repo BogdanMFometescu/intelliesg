@@ -8,3 +8,4 @@ from .cc_risks_views import *
 from .env_risks_views import *
 from .soc_risks_views import *
 from .gov_risks_views import *
+from .esg_strategy import *
