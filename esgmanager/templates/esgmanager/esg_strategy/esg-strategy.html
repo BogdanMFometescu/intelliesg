@@ -1,10 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4">ESG Strategy {{ strategy.company }}<br class="d-none d-md-inline"></h1>
+                    <p class="lead mb-4 text-muted">
+                        In the quest for sustainability
+                    </p>
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img src="" alt=""></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-lg bg-primary-app pb-0">
+        <div class="container">
+            <div class="row justify-content-center mb-0 mb-md-6">
+                <div class="col-12 col-md-4 text-center mb-5 mb-md-0">
+                    <h2 class="h4">Introduction</h2>
+                </div>
+                <div class="col-12 col-md-4 text-center mb-5 mb-md-0">
+                    <h2 class="h4">Pillars</h2>
+                </div>
+                <div class="col-12 col-md-4 text-center mb-5 mb-md-0">
+                    <h2 class="h4">Objectives</h2>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <p class="lead fw-bold text-dark">{{ strategy.introduction }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p>{{ strategy.pillar_description }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p>{{ strategy.objectives_description }}</p>
+                </div>
+            </div>
+            <div class="row justify-content-center mb-0 mb-md-6 mt-5">
+                <div class="col-12 col-md-4 text-center mb-5 mb-md-0">
+                    <h2 class="h4">Action Plans</h2>
+                </div>
+                <div class="col-12 col-md-4 text-center mb-5 mb-md-0">
+                    <h2 class="h4">Actions</h2>
+                </div>
+                <div class="col-12 col-md-4 text-center mb-5 mb-md-0">
+                    <h2 class="h4">ESG Risks</h2>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <p>{{ strategy.action_plan_description }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p>{{ strategy.actions_description }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p>{{ strategy.risks_description }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
