@@ -42,15 +42,14 @@
             <div class="row mb-5 mb-lg-6">
                 {% for strategy in strategies %}
                     <div class="col-12 col-md-6 col-lg-4 mb-5 ">
+                    <a href="{% url 'strategy' strategy.id %}" class="card-link">
                         <div class="card shadow border-gray-300">
                             <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
                                  alt="Pillar">
 
                             <div class="card-body">
-                                <h3 class="h4 card-title mb-2">{{ strategy.introduction }}</h3>
-                                <span class="card-subtitle text-gray fw-normal">{{ strategy.company }}</span>
-                                <p class="card-text my-3">{{ strategy.pillar_description }}</p>
-
+                                <h3 class="h4 card-title mb-2">ESG Strategy {{ strategy.company }}</h3>
+                                <span class="card-subtitle text-gray fw-normal">{{ strategy.introduction }}</span>
                                 <ul class="list-unstyled d-flex mt-3 mb-0">
                                     <li style="margin-right: 10px;">
                                         <a href="{% url 'update_strategy' strategy.id %}" class="mr-3"
@@ -71,9 +70,11 @@
                                 </ul>
                             </div>
                         </div>
+                    </a>
                     </div>
                 {% endfor %}
             </div>
+        </div>
         <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
                             <span class="fas fa-arrow-left"></span></span></a>
         </div>
