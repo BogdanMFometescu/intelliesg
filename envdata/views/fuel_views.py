@@ -5,9 +5,10 @@ from django.db.models import Sum, F
 from envdata.models import Fuel
 from envdata.forms import FuelForm
 from .filters import FuelTypeFilter
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django_filters.views import FilterView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import PermissionDenied
 
 
 class FuelListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
@@ -73,3 +74,15 @@ class FuelDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):
     model = Fuel
     template_name = 'envdata/delete-universal.html'
     success_url = reverse_lazy('fuel_emissions')
+
+    def test_funct(self):
+        return self.request.user.groups.filter(name='Staff Users').exists()
+
+    def handle_no_permission(self):
+        raise PermissionDenied
+
+    def dispatch(self, request, *args, **kwargs):
+        fuel = self.get_object()
+        if not self.test_funct():
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
