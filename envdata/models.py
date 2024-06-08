@@ -7,7 +7,7 @@ from users.models import Profile
 
 class Company(models.Model):
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='companies', null=True, blank=True)
-    name = models.CharField( unique=True, blank=False, null=False)
+    name = models.CharField(unique=True, blank=False, null=False)
     address = models.CharField(max_length=255, blank=False, null=False)
     city = models.CharField(max_length=255, blank=False, null=False)
     country = models.CharField(max_length=255, blank=False, null=False)
@@ -372,8 +372,8 @@ class Target(models.Model):
 class TaxonomySector(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     sector = models.CharField(blank=False, null=False, choices=TAXONOMY_SECTOR_CHOICES, max_length=2000)
-    activity = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_CHOICES )
-    activity_type = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_TYPE_CHOICES, max_length=255,)
+    activity = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_CHOICES)
+    activity_type = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_TYPE_CHOICES, max_length=255, )
     nace_code = models.FloatField(blank=False, null=False, default=0.0)
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
@@ -394,7 +394,7 @@ class TaxonomyTurnover(models.Model):
     turnover_aligned = models.FloatField(blank=True, null=True, default=0.0)
     turnover_non_eligible = models.FloatField(blank=True, null=True, default=0.0)
 
-    climate_change_adaptation = models.FloatField(blank=False,null=False,max_length=10)
+    climate_change_adaptation = models.FloatField(blank=False, null=False, max_length=10)
     climate_change_mitigation = models.FloatField(blank=False, null=False, max_length=10)
 
     climate_change_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
@@ -454,7 +454,6 @@ class TaxonomyCapEx(models.Model):
     @property
     def get_non_eligible_percent(self):
         return ((self.capex_non_eligible / self.total_capex) * 100).__round__(2)
-
 
     def __str__(self):
         return f'{self.total_capex}'
