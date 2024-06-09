@@ -495,9 +495,10 @@
                                 <a href="{% url 'logout' %}" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                                    id="accountDropdown"
                                    aria-expanded="false">
-                                    Users
+                                    User ({{ request.user.profile.name}})
                                     <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
                                 </a>
+
                                 <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="accountDropdown">
                                     <div class="col-auto px-0">
                                         <div class="list-group list-group-flush">
@@ -526,12 +527,10 @@
                                             </a>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </li>
-
                         </ul>
+
                     {% else %}
 
 
