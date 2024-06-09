@@ -117,22 +117,25 @@
 
 
                                     <td>
+
                                         <div class="d-flex">
                                             <a href="{% url 'update_fuel_emission' fuel.id %}" class="mr-3"
                                                data-toggle="tooltip" data-placement="top" title="Edit item">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             <a href="{% url 'delete_fuel_emission' fuel.id %}" class="text-danger"
-                                               >
+                                            >
                                                 <i class="fas fa-trash"></i>
                                             </a>
-                                            <a href="{% url 'create_action' %}" class="text-danger">
+                                            <a href="{% url 'create_fuel_emission' %}" class="text-danger">
                                                 <i class="fas fa-plus"></i>
                                             </a>
                                         </div>
-                                    </td>
-                                </tr>
 
+                                    </td>
+                               
+
+                                </tr>
                             {% endfor %}
                             <tr class="table-primary">
                                 <th scope="row" colspan="14" class="text-right">Total CO2e:</th>

@@ -3,7 +3,7 @@ from envdata.models import Company
 from datetime import date
 import uuid
 from esgmanager.constants import *
-
+from users.models import Profile
 
 class ESGStrategy(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)

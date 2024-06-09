@@ -6,7 +6,7 @@ from users.models import Profile
 
 
 class Company(models.Model):
-    owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='companies', null=True, blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     name = models.CharField(unique=True, blank=False, null=False)
     address = models.CharField(max_length=255, blank=False, null=False)
     city = models.CharField(max_length=255, blank=False, null=False)
@@ -68,6 +68,7 @@ class Company(models.Model):
 
 # SCOPE 1 emissions
 class Fuel(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH)
     year = models.CharField(blank=False, null=False, max_length=4)
@@ -109,6 +110,7 @@ class Fuel(models.Model):
 
 
 class NaturalGas(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH)
     year = models.CharField(blank=False, null=False, max_length=4)
@@ -145,6 +147,7 @@ class NaturalGas(models.Model):
 
 
 class Sf6(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH)
     year = models.CharField(blank=False, null=False, max_length=4)
@@ -178,6 +181,7 @@ class Sf6(models.Model):
 
 
 class Refrigerant(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH)
     year = models.CharField(blank=False, null=False, max_length=4)
@@ -216,6 +220,7 @@ class Refrigerant(models.Model):
 
 
 class Energy(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH)
     year = models.CharField(blank=False, null=False, max_length=4)
@@ -258,6 +263,7 @@ class Energy(models.Model):
 
 
 class Travel(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH)
     year = models.CharField(blank=False, null=False, max_length=4)
@@ -296,6 +302,7 @@ class Travel(models.Model):
 
 
 class Waste(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH)
     year = models.CharField(blank=False, null=False, max_length=4)
@@ -333,6 +340,7 @@ class Waste(models.Model):
 
 
 class Target(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     base_year = models.IntegerField(null=True, blank=True, default=2019)
     net_zero_year = models.IntegerField(null=True, blank=True, default=2050)
@@ -370,6 +378,7 @@ class Target(models.Model):
 
 
 class TaxonomySector(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     sector = models.CharField(blank=False, null=False, choices=TAXONOMY_SECTOR_CHOICES, max_length=2000)
     activity = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_CHOICES)
@@ -385,6 +394,7 @@ class TaxonomySector(models.Model):
 
 
 class TaxonomyTurnover(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     turnover_activity = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
     currency = models.CharField(blank=False, null=False, choices=CURRENCY_CHOICES, max_length=10)
@@ -424,6 +434,7 @@ class TaxonomyTurnover(models.Model):
 
 
 class TaxonomyCapEx(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     capex_activity = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
     currency = models.CharField(blank=False, null=False, choices=CURRENCY_CHOICES, max_length=10)
@@ -460,6 +471,7 @@ class TaxonomyCapEx(models.Model):
 
 
 class TaxonomyOpEx(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     opex_activity = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
     currency = models.CharField(blank=False, null=False, choices=CURRENCY_CHOICES, max_length=10)
