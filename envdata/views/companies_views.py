@@ -20,6 +20,11 @@ class CompanyListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     template_name = 'envdata/companies.html'
     context_object_name = 'companies_list'
 
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return super().get_queryset()
+        return Company.objects.filter(profile__user=self.request.user)
+
 
 class CompanyDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = Company

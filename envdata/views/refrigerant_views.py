@@ -18,7 +18,9 @@ class RefrigerantView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     paginate_by = 50
 
     def get_queryset(self):
-        return super().get_queryset()
+        if self.request.user.is_staff:
+            return super().get_queryset()
+        return Refrigerant.objects.filter(profile__user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
