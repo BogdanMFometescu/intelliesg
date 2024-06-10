@@ -11,6 +11,12 @@ class TaxonomySectorListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     template_name = 'envdata/taxonomy/sector/sectors.html'
     context_object_name = 'sectors'
 
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return super().get_queryset()
+        return TaxonomySector.objects.filter(profile__user=self.request.user)
+
+
 
 class TaxonomySectorDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = TaxonomySector

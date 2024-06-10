@@ -16,7 +16,9 @@ class TaxonomyCapexListView(LoginRequiredMixin, CompanyContextMixin, FilterView)
     context_object_name = 'capexs'
 
     def get_queryset(self):
-        return super().get_queryset()
+        if self.request.user.is_staff:
+            return super().get_queryset()
+        return TaxonomyCapEx.objects.filter(profile__user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

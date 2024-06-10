@@ -18,6 +18,8 @@ class FuelListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     paginate_by = 50
 
     def get_queryset(self):
+        if self.request.user.is_staff:
+            return super().get_queryset()
         return Fuel.objects.filter(profile__user=self.request.user)
 
     def get_context_data(self, **kwargs):

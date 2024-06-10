@@ -12,7 +12,13 @@ class TargetListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     context_object_name = 'targets'
 
     def get_queryset(self):
-        return Target.objects.all().order_by('base_year', 'intermediate_year', 'net_zero_year')
+        if self.request.user.is_staff:
+            Target.objects.all().order_by('base_year', 'intermediate_year', 'net_zero_year')
+            return super().get_queryset()
+        Target.objects.all().order_by('base_year', 'intermediate_year', 'net_zero_year')
+        return Target.objects.filter(profile__user=self.request.user)
+
+
 
 
 class TargetDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
