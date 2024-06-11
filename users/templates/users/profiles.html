@@ -21,45 +21,47 @@
     </section>
 
 
- <section class="section section-lg">
+    <section class="section section-lg">
         <div class="container">
             <div class="row mb-5 mb-lg-6">
                 {% for profile  in profiles %}
                     <div class="col-12 col-md-6 col-lg-4 mb-5 ">
-                     <a href="{% url 'profile' profile.id %}" class="card-link">
-                        <div class="card shadow border-gray-300">
-                            <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
-                                 alt="Pillar">
+                        <a href="{% url 'profile' profile.id %}" class="card-link">
+                            <div class="card shadow border-gray-300">
+                                <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
+                                     alt="Pillar">
 
-                            <div class="card-body">
-                                <h3 class="h4 card-title mb-2" style="color:green;">{{ profile.name }}</h3>
-                                <h3 class="h4 card-title mb-2">{{ profile.job_title }}</h3>
-                                <p><strong>Location:</strong> {{ profile.location }}</p>
-                                <p><strong>Member since:</strong> {{ profile.created|date:"F d, Y" }}</p>
+                                <div class="card-body">
+                                    <h3 class="h4 card-title mb-2" style="color:green;">{{ profile.name }}</h3>
+                                    <h3 class="h4 card-title mb-2">{{ profile.job_title }}</h3>
+                                    <p><strong>Location:</strong> {{ profile.location }}</p>
+                                    <p><strong>Member since:</strong> {{ profile.created|date:"F d, Y" }}</p>
 
-                                {% if profile.user == request.user %}
-                                <ul class="list-unstyled d-flex mt-3 mb-0">
-                                    <li style="margin-right: 10px;">
-                                        <a href="{% url 'update_profile' profile.id %}" class="mr-3"
-                                           data-toggle="tooltip" data-placement="top" title="Edit item">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                    </li>
-                                    <li style="margin-right: 10px;">
-                                        <a href="{% url 'delete_profile' profile.id %}" class="text-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </li>
-                                    <li style="margin-right: 10px;">
-                                        <a href="{% url 'create_profile' %}" class="text-danger">
-                                            <i class="fas fa-plus"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                                {% endif %}
+
+                                    {% if profile.user == request.user %}
+                                        <ul class="list-unstyled d-flex mt-3 mb-0">
+                                            <li style="margin-right: 10px;">
+                                                <a href="{% url 'update_profile' profile.id %}" class="mr-3"
+                                                   data-toggle="tooltip" data-placement="top" title="Edit item">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            </li>
+                                            <li style="margin-right: 10px;">
+                                                <a href="{% url 'delete_profile' profile.id %}" class="text-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </li>
+                                            <li style="margin-right: 10px;">
+                                                <a href="{% url 'create_profile' %}" class="text-danger">
+                                                    <i class="fas fa-plus"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
-                     </a>
+                        </a>
                     </div>
                 {% endfor %}
             </div>

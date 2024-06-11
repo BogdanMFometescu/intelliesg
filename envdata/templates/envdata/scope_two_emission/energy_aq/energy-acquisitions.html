@@ -86,6 +86,10 @@
                                 <th scope="col">E.Factor</th>
                                 <th scope="col">Method</th>
                                 <th scope="col">CO2e</th>
+                                 {% if user.is_staff %}
+                                    <th scope="col">Submitter</th>
+                                {% endif %}
+                                <th scope="col">Actions</th>
 
                             </tr>
                             </thead>
@@ -110,6 +114,9 @@
                                     <td>{{ acquisition.emission_factor }}</td>
                                     <td>{{ acquisition.calculation_method }}</td>
                                     <td>{{ acquisition.co2e_for_energy_emission }}</td>
+                                     {% if user.is_staff %}
+                                        <td>{{ acquisition.profile.user }}</td>
+                                    {% endif %}
 
 
                                     <td>
@@ -122,14 +129,21 @@
                                                class="text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
+                                            <a href="{% url 'create_energy_eq_emissions' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
 
                             {% endfor %}
-                            <tr class="table-primary">
-                                <th scope="row" colspan="14" class="text-right">Total CO2e:</th>
-                                <td>{{ total_co2 }}</td>
+                               <tr class="table-primary">
+                                {% if user.is_staff %}
+                                <th scope="row" colspan="13" class="text-right">Total CO2e:</th>
+                                 {% else %}
+                                     <th scope="row" colspan="12" class="text-right">Total CO2e:</th>
+                                 {% endif %}
+                                <td>{{ total_co2 }} </td>
                             </tr>
                             </tbody>
                         </table>

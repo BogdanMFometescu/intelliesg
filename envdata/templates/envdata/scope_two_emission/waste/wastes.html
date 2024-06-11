@@ -83,6 +83,10 @@
                                 <th scope="col">Disposed</th>
                                 <th scope="col">Landfill</th>
                                 <th scope="col">CO2e</th>
+                                {% if user.is_staff %}
+                                    <th scope="col">Submitter</th>
+                                {% endif %}
+                                <th scope="col">Actions</th>
 
                             </tr>
                             </thead>
@@ -105,6 +109,9 @@
                                     <td>{{ waste.quantity_disposed }}</td>
                                     <td>{{ waste.quantity_land_filled }}</td>
                                     <td>{{ waste.total_waste_quantity }}</td>
+                                    {% if user.is_staff %}
+                                        <td>{{ waste.profile.user }}</td>
+                                    {% endif %}
                                     <td>
                                         <div class="d-flex">
                                             <a href="{% url 'update_waste' waste.id %}" class="mr-3"
@@ -114,14 +121,21 @@
                                             <a href="{% url 'delete_waste' waste.id %}" class="text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
+                                              <a href="{% url 'create_waste' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
 
                             {% endfor %}
                             <tr class="table-primary">
-                                <th scope="row" colspan="14" class="text-right">Total CO2e:</th>
-                                <td>{{ total_co2 }}</td>
+                                {% if user.is_staff %}
+                                <th scope="row" colspan="11" class="text-right">Total CO2e:</th>
+                                 {% else %}
+                                     <th scope="row" colspan="10" class="text-right">Total CO2e:</th>
+                                 {% endif %}
+                                <td>{{ total_co2 }} </td>
                             </tr>
                             </tbody>
                         </table>

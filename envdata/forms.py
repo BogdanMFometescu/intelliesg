@@ -36,6 +36,7 @@ class FuelForm(ModelForm):
         fields = '__all__'
 
 
+
     def __init__(self, *args, **kwargs):
         super(FuelForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
