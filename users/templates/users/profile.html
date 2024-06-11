@@ -38,7 +38,7 @@
                             <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
                             <p><strong>Member since:</strong> {{ profile.created|date:"F d, Y" }}</p>
 
-
+                             {% if profile.user == request.user %}
                             <ul class="list-unstyled d-flex mt-3 mb-0">
                                 <li style="margin-right: 10px;">
                                     <a href="{% url 'update_profile' profile.id %}" class="mr-3"
@@ -57,6 +57,7 @@
                                     </a>
                                 </li>
                             </ul>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

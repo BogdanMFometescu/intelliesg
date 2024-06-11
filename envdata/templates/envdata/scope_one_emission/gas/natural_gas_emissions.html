@@ -54,7 +54,7 @@
 
 
         <section class="section-header">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 text-center">
                         <div class="form-control">
@@ -83,6 +83,11 @@
                                 <th scope="col">Unit</th>
                                 <th scope="col">Factor</th>
                                 <th scope="col">CO2e</th>
+                                {% if user.is_staff %}
+                                    <th scope="col">Submitter</th>
+                                {% endif %}
+                                <th scope="col">Actions</th>
+
 
                             </tr>
                             </thead>
@@ -105,7 +110,9 @@
                                     <td>{{ gas.measure_unit }}</td>
                                     <td>{{ gas.emission_factor }}</td>
                                     <td>{{ gas.co2_for_natural_gas_emission }}</td>
-
+                                    {% if user.is_staff %}
+                                        <td>{{ gas.profile.user }}</td>
+                                    {% endif %}
 
                                     <td>
                                         <div class="d-flex">
@@ -116,14 +123,21 @@
                                             <a href="{% url 'delete_gas_emission' gas.id %}" class="text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
+                                            <a href="{% url 'create_gas_emission' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
 
                             {% endfor %}
                             <tr class="table-primary">
-                                <th scope="row" colspan="14" class="text-right">Total CO2e:</th>
-                                <td>{{ total_co2 }}</td>
+                                {% if user.is_staff %}
+                                    <th scope="row" colspan="11" class="text-right">Total CO2e:</th>
+                                {% else %}
+                                    <th scope="row" colspan="10" class="text-right">Total CO2e:</th>
+                                {% endif %}
+                                <td>{{ total_co2 }} </td>
                             </tr>
                             </tbody>
                         </table>

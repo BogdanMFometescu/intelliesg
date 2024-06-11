@@ -317,6 +317,7 @@ class Waste(models.Model):
     updated = models.DateField(auto_now=True)
     id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
 
+    #TODO fix formulas for waste CO2e
     @property
     def total_waste_quantity(self):
         total_co2 = (self.quantity_disposed + self.quantity_land_filled - self.quantity_recycled) * 1

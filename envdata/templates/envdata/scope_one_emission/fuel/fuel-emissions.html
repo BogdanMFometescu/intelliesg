@@ -87,7 +87,10 @@
                                 <th scope="col">Unit</th>
                                 <th scope="col">Factor</th>
                                 <th scope="col">CO2e</th>
-
+                                {% if user.is_staff %}
+                                    <th scope="col">Submitter</th>
+                                {% endif %}
+                                <th scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -114,8 +117,9 @@
                                     <td>{{ fuel.measure_unit }}</td>
                                     <td>{{ fuel.emission_factor }}</td>
                                     <td>{{ fuel.co2e_for_fuel_emission }}</td>
-
-
+                                     {% if user.is_staff %}
+                                        <td>{{ fuel.profile.user }}</td>
+                                    {% endif %}
                                     <td>
 
                                         <div class="d-flex">
@@ -133,12 +137,16 @@
                                         </div>
 
                                     </td>
-                               
+
 
                                 </tr>
                             {% endfor %}
                             <tr class="table-primary">
-                                <th scope="row" colspan="14" class="text-right">Total CO2e:</th>
+                                {% if user.is_staff %}
+                                <th scope="row" colspan="16" class="text-right">Total CO2e:</th>
+                                 {% else %}
+                                     <th scope="row" colspan="15" class="text-right">Total CO2e:</th>
+                                 {% endif %}
                                 <td>{{ total_co2 }} </td>
                             </tr>
 

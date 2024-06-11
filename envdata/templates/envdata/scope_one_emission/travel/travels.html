@@ -84,6 +84,10 @@
                                 <th scope="col">Distance</th>
                                 <th scope="col">Consumption</th>
                                 <th scope="col">CO2e</th>
+                                  {% if user.is_staff %}
+                                    <th scope="col">Submitter</th>
+                                {% endif %}
+                                <th scope="col">Actions</th>
 
 
                             </tr>
@@ -107,7 +111,9 @@
                                     <td>{{ travel.distance }}</td>
                                     <td>{{ travel.fuel_consumption }}</td>
                                     <td>{{ travel.co2_for_distance_calculation }}</td>
-
+                                      {% if user.is_staff %}
+                                        <td>{{ travel.profile.user }}</td>
+                                    {% endif %}
 
                                     <td>
                                         <div class="d-flex">
@@ -118,14 +124,22 @@
                                             <a href="{% url 'delete_travel' travel.id %}" class="text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
+                                              <a href="{% url 'create_travel' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+
                                         </div>
                                     </td>
                                 </tr>
 
                             {% endfor %}
-                            <tr class="table-primary">
-                                <th scope="row" colspan="14" class="text-right">Total CO2e:</th>
-                                <td>{{ total_co2 }}</td>
+                              <tr class="table-primary">
+                                {% if user.is_staff %}
+                                <th scope="row" colspan="11" class="text-right">Total CO2e:</th>
+                                 {% else %}
+                                     <th scope="row" colspan="9" class="text-right">Total CO2e:</th>
+                                 {% endif %}
+                                <td>{{ total_co2 }} </td>
                             </tr>
                             </tbody>
                         </table>
