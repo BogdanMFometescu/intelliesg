@@ -34,20 +34,26 @@ class FuelForm(ModelForm):
     class Meta:
         model = Fuel
         fields = '__all__'
-
-
+        exclude = ['profile']
 
     def __init__(self, *args, **kwargs):
         super(FuelForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
 
+    def save(self, commit=True, user=None):
+        instance = super(FuelForm, self).save(commit=False)
+        if user:
+            instance.profile = user.profile  # Automatically set the profile to the current user's profile
+        if commit:
+            instance.save()
+        return instance
+
 
 class Sf6Form(ModelForm):
     class Meta:
         model = Sf6
         fields = '__all__'
-
 
     def __init__(self, *args, **kwargs):
         super(Sf6Form, self).__init__(*args, **kwargs)
@@ -60,7 +66,6 @@ class RefrigerantForm(ModelForm):
         model = Refrigerant
         fields = '__all__'
 
-
     def __init__(self, *args, **kwargs):
         super(RefrigerantForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
@@ -71,7 +76,6 @@ class NaturalGasForm(ModelForm):
     class Meta:
         model = NaturalGas
         fields = '__all__'
-
 
     def __init__(self, *args, **kwargs):
         super(NaturalGasForm, self).__init__(*args, **kwargs)
@@ -84,7 +88,6 @@ class EnergyForm(ModelForm):
         model = Energy
         fields = '__all__'
 
-
     def __init__(self, *args, **kwargs):
         super(EnergyForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
@@ -95,7 +98,6 @@ class TravelForm(ModelForm):
     class Meta:
         model = Travel
         fields = '__all__'
-
 
     def __init__(self, *args, **kwargs):
         super(TravelForm, self).__init__(*args, **kwargs)
@@ -108,7 +110,6 @@ class WasteForm(ModelForm):
         model = Waste
         fields = '__all__'
 
-
     def __init__(self, *args, **kwargs):
         super(WasteForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
@@ -120,7 +121,6 @@ class TargetForm(ModelForm):
         model = Target
         fields = '__all__'
         labels = {'co2e_base_year': 'CO2e quantity for base year'}
-
 
     def __init__(self, *args, **kwargs):
         super(TargetForm, self).__init__(*args, **kwargs)
@@ -139,7 +139,6 @@ class TaxonomySectorForm(ModelForm):
     class Meta:
         model = TaxonomySector
         fields = '__all__'
-
 
     def __init__(self, *args, **kwargs):
         super(TaxonomySectorForm, self).__init__(*args, **kwargs)
@@ -165,7 +164,6 @@ class TaxonomyTurnoverForm(ModelForm):
                   'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
                   }
 
-
     def __init__(self, *args, **kwargs):
         super(TaxonomyTurnoverForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
@@ -188,7 +186,6 @@ class TaxonomyCapexForm(ModelForm):
                   'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
                   }
 
-
     def __init__(self, *args, **kwargs):
         super(TaxonomyCapexForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
@@ -210,7 +207,6 @@ class TaxonomyOpexForm(ModelForm):
                   'pollution_dnsh': 'Do your activities comply with the DNSH criteria for pollution?',
                   'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
                   }
-
 
     def __init__(self, *args, **kwargs):
         super(TaxonomyOpexForm, self).__init__(*args, **kwargs)

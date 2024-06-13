@@ -38,26 +38,49 @@
                             <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
                             <p><strong>Member since:</strong> {{ profile.created|date:"F d, Y" }}</p>
 
-                             {% if profile.user == request.user %}
-                            <ul class="list-unstyled d-flex mt-3 mb-0">
-                                <li style="margin-right: 10px;">
-                                    <a href="{% url 'update_profile' profile.id %}" class="mr-3"
-                                       data-toggle="tooltip" data-placement="top" title="Edit item">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </li>
-                                <li style="margin-right: 10px;">
-                                    <a href="{% url 'delete_profile' profile.id %}" class="text-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </li>
-                                <li style="margin-right: 10px;">
-                                    <a href="{% url 'create_profile' %}" class="text-danger">
-                                        <i class="fas fa-plus"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                            {% if user.is_staff %}
+                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'update_profile' profile.id %}" class="mr-3"
+                                           data-toggle="tooltip" data-placement="top" title="Edit item">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </li>
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'delete_profile' profile.id %}" class="text-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </li>
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'create_profile' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            {% elif profile.user == request.user%}
+
+                                  <ul class="list-unstyled d-flex mt-3 mb-0">
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'update_profile' profile.id %}" class="mr-3"
+                                           data-toggle="tooltip" data-placement="top" title="Edit item">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </li>
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'delete_profile' profile.id %}" class="text-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </li>
+                                    <li style="margin-right: 10px;">
+                                        <a href="{% url 'create_profile' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             {% endif %}
+
+
                         </div>
                     </div>
                 </div>

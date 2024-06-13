@@ -57,7 +57,7 @@ class FuelCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     success_url = reverse_lazy('fuel_emissions')
 
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -69,6 +69,10 @@ class FuelUpdateView(LoginRequiredMixin, UpdateModeMixin, CompanyContextMixin, U
     form_class = FuelForm
     template_name = 'envdata/scope_one_emission/fuel/form-fuel.html'
     success_url = reverse_lazy('fuel_emissions')
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile  # Ensure the profile is set to the current user's profile
+        return super().form_valid(form)
 
 
 class FuelDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):
