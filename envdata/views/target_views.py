@@ -19,8 +19,6 @@ class TargetListView(LoginRequiredMixin, CompanyContextMixin, ListView):
         return Target.objects.filter(profile__user=self.request.user)
 
 
-
-
 class TargetDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = Target
     template_name = 'envdata/targets/target.html'
@@ -33,8 +31,13 @@ class TargetCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     form_class = TargetForm
     success_url = reverse_lazy('targets')
 
+    def get_form_kwargs(self):
+        kwargs = super(TargetCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -46,6 +49,16 @@ class TargetUpdateView(LoginRequiredMixin, UpdateModeMixin, CompanyContextMixin,
     template_name = 'envdata/targets/form-target.html'
     form_class = TargetForm
     success_url = reverse_lazy('targets')
+
+
+    def get_form_kwargs(self):
+        kwargs = super(TargetUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
 
 
 class TargetDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):

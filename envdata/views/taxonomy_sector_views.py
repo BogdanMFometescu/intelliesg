@@ -17,7 +17,6 @@ class TaxonomySectorListView(LoginRequiredMixin, CompanyContextMixin, ListView):
         return TaxonomySector.objects.filter(profile__user=self.request.user)
 
 
-
 class TaxonomySectorDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = TaxonomySector
     template_name = 'envdata/taxonomy/sector/sector.html'
@@ -30,8 +29,13 @@ class TaxonomySectorCreateView(LoginRequiredMixin, CompanyContextMixin, CreateVi
     template_name = 'envdata/taxonomy/sector/form-sector.html'
     success_url = reverse_lazy('sectors')
 
+    def get_form_kwargs(self):
+        kwargs = super(TaxonomySectorCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -43,6 +47,15 @@ class TaxonomySectorUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateMo
     form_class = TaxonomySectorForm
     template_name = 'envdata/taxonomy/sector/form-sector.html'
     success_url = reverse_lazy('sectors')
+
+    def get_form_kwargs(self):
+        kwargs = super(TaxonomySectorUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
 
 
 class TaxonomySectorDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):

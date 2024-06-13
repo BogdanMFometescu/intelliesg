@@ -43,8 +43,13 @@ class TaxonomyOpexCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView
     template_name = 'envdata/taxonomy/opex/form-opex.html'
     success_url = reverse_lazy('opexs')
 
+    def get_form_kwargs(self):
+        kwargs = super(TaxonomyOpexCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -56,6 +61,15 @@ class TaxonomyOpexUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateMode
     form_class = TaxonomyOpexForm
     template_name = 'envdata/taxonomy/opex/form-opex.html'
     success_url = reverse_lazy('opexs')
+
+    def get_form_kwargs(self):
+        kwargs = super(TaxonomyOpexUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
 
 
 class TaxonomyOpexDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):

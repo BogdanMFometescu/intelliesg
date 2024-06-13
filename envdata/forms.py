@@ -30,123 +30,95 @@ class CompanyForm(ModelForm):
             field.widget.attrs.update({'class': 'form-control'})
 
 
-class FuelForm(ModelForm):
-    class Meta:
-        model = Fuel
-        fields = '__all__'
-        exclude = ['profile']
-
+class BaseProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):
-        super(FuelForm, self).__init__(*args, **kwargs)
+        self.user = kwargs.pop('user', None)
+        super(BaseProfileForm, self).__init__(*args, **kwargs)
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'form-control'})
 
-    def save(self, commit=True, user=None):
-        instance = super(FuelForm, self).save(commit=False)
-        if user:
-            instance.profile = user.profile  # Automatically set the profile to the current user's profile
+    def save(self, commit=True):
+        instance = super(BaseProfileForm, self).save(commit=False)
+        if self.user:
+            instance.profile = self.user.profile
         if commit:
             instance.save()
         return instance
 
 
-class Sf6Form(ModelForm):
+class FuelForm(BaseProfileForm):
+    class Meta:
+        model = Fuel
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class Sf6Form(BaseProfileForm):
     class Meta:
         model = Sf6
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(Sf6Form, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
-class RefrigerantForm(ModelForm):
+class RefrigerantForm(BaseProfileForm):
     class Meta:
         model = Refrigerant
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(RefrigerantForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
-class NaturalGasForm(ModelForm):
+class NaturalGasForm(BaseProfileForm):
     class Meta:
         model = NaturalGas
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(NaturalGasForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
-class EnergyForm(ModelForm):
+class EnergyForm(BaseProfileForm):
     class Meta:
         model = Energy
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(EnergyForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
-class TravelForm(ModelForm):
+class TravelForm(BaseProfileForm):
     class Meta:
         model = Travel
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(TravelForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
-class WasteForm(ModelForm):
+class WasteForm(BaseProfileForm):
     class Meta:
         model = Waste
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(WasteForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
-class TargetForm(ModelForm):
+class TargetForm(BaseProfileForm):
     class Meta:
         model = Target
         fields = '__all__'
         labels = {'co2e_base_year': 'CO2e quantity for base year'}
-
-    def __init__(self, *args, **kwargs):
-        super(TargetForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
 class ExcelUploadForm(forms.Form):
     excel_file = forms.FileField(label='Upload Excel File')
 
 
-class TaxonomySectorForm(ModelForm):
+class TaxonomySectorForm(BaseProfileForm):
     sector = forms.ChoiceField(choices=TAXONOMY_SECTOR_CHOICES)
     activity = forms.ChoiceField(choices=TAXONOMY_ACTIVITY_CHOICES)
 
     class Meta:
         model = TaxonomySector
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super(TaxonomySectorForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
-class TaxonomyTurnoverForm(ModelForm):
+
+class TaxonomyTurnoverForm(BaseProfileForm):
     class Meta:
         model = TaxonomyTurnover
         fields = '__all__'
@@ -163,14 +135,12 @@ class TaxonomyTurnoverForm(ModelForm):
                   'pollution_dnsh': 'Do your activities comply with the DNSH criteria for pollution?',
                   'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
                   }
-
-    def __init__(self, *args, **kwargs):
-        super(TaxonomyTurnoverForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
-class TaxonomyCapexForm(ModelForm):
+
+
+class TaxonomyCapexForm(BaseProfileForm):
     class Meta:
         model = TaxonomyCapEx
         fields = '__all__'
@@ -185,14 +155,12 @@ class TaxonomyCapexForm(ModelForm):
                   'pollution_dnsh': 'Do your activities comply with the DNSH criteria for pollution?',
                   'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
                   }
-
-    def __init__(self, *args, **kwargs):
-        super(TaxonomyCapexForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
+        exclude = ['profile']
 
 
-class TaxonomyOpexForm(ModelForm):
+
+
+class TaxonomyOpexForm(BaseProfileForm):
     class Meta:
         model = TaxonomyOpEx
         fields = '__all__'
@@ -207,8 +175,5 @@ class TaxonomyOpexForm(ModelForm):
                   'pollution_dnsh': 'Do your activities comply with the DNSH criteria for pollution?',
                   'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
                   }
+        exclude = ['profile']
 
-    def __init__(self, *args, **kwargs):
-        super(TaxonomyOpexForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})

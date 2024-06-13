@@ -56,8 +56,13 @@ class EnergyCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     template_name = 'envdata/scope_two_emission/energy_aq/form-energy-acquisition.html'
     success_url = reverse_lazy('energy_acquisitions')
 
+    def get_form_kwargs(self):
+        kwargs = super(EnergyCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
