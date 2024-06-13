@@ -55,8 +55,13 @@ class Sf6CreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     template_name = 'envdata/scope_one_emission/sf6/form-sf6.html'
     success_url = reverse_lazy('sf6_emissions')
 
+    def get_form_kwargs(self):
+        kwargs = super(Sf6CreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -68,6 +73,15 @@ class Sf6UpdateView(LoginRequiredMixin, UpdateModeMixin, CompanyContextMixin, Up
     form_class = Sf6Form
     template_name = 'envdata/scope_one_emission/sf6/form-sf6.html'
     success_url = reverse_lazy('sf6_emissions')
+
+    def get_form_kwargs(self):
+        kwargs = super(Sf6UpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
 
 
 class Sf6DeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):

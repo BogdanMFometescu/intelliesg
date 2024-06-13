@@ -56,8 +56,13 @@ class RefrigerantCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView)
     template_name = 'envdata/scope_one_emission/refrigerant/form-refrigerant.html'
     success_url = reverse_lazy('refrigerant_emissions')
 
+    def get_form_kwargs(self):
+        kwargs = super(RefrigerantCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -69,6 +74,15 @@ class RefrigerantUpdateView(LoginRequiredMixin, UpdateModeMixin, CompanyContextM
     form_class = RefrigerantForm
     template_name = 'envdata/scope_one_emission/refrigerant/form-refrigerant.html'
     success_url = reverse_lazy('refrigerant_emissions')
+
+    def get_form_kwargs(self):
+        kwargs = super(RefrigerantUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
 
 
 class RefrigerantDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):

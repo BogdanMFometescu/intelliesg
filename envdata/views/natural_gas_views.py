@@ -55,8 +55,13 @@ class NaturalGasCreateView(CompanyContextMixin, LoginRequiredMixin, CreateView):
     template_name = 'envdata/scope_one_emission/gas/form-natural-gas.html'
     success_url = reverse_lazy('gas_emissions')
 
+    def get_form_kwargs(self):
+        kwargs = super(NaturalGasCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -68,6 +73,15 @@ class NaturalGasUpdateView(CompanyContextMixin, LoginRequiredMixin, UpdateView, 
     template_name = 'envdata/scope_one_emission/gas/form-natural-gas.html'
     form_class = NaturalGasForm
     success_url = reverse_lazy('gas_emissions')
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile  # Ensure the profile is set to the current user's profile
+        return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super(NaturalGasUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class NaturalGasDeleteView(CompanyContextMixin, LoginRequiredMixin, DeleteView):

@@ -56,8 +56,13 @@ class TravelCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     template_name = 'envdata/scope_one_emission/travel/form-travel.html'
     success_url = reverse_lazy('travels')
 
+    def get_form_kwargs(self):
+        kwargs = super(TravelCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -69,6 +74,15 @@ class TravelUpdateView(LoginRequiredMixin, UpdateModeMixin, CompanyContextMixin,
     form_class = TravelForm
     template_name = 'envdata/scope_one_emission/travel/form-travel.html'
     success_url = reverse_lazy('travels')
+
+    def get_form_kwargs(self):
+        kwargs = super(TravelUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
 
 
 class TravelDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):

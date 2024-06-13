@@ -21,6 +21,7 @@ class WasteListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
         if self.request.user.is_staff:
             return super().get_queryset()
         return Waste.objects.filter(profile__user=self.request.user)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         filtered_qs = \
@@ -54,8 +55,13 @@ class WasteCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     template_name = 'envdata/scope_two_emission/waste/form-waste.html'
     success_url = reverse_lazy('wastes')
 
+    def get_form_kwargs(self):
+        kwargs = super(WasteCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -67,6 +73,15 @@ class WasteUpdateView(LoginRequiredMixin, UpdateModeMixin, CompanyContextMixin, 
     form_class = WasteForm
     template_name = 'envdata/scope_two_emission/waste/form-waste.html'
     success_url = reverse_lazy('wastes')
+
+    def get_form_kwargs(self):
+        kwargs = super(WasteUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form):
+        form.instance.profile = self.request.user.profile
+        return super().form_valid(form)
 
 
 class WasteDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):
