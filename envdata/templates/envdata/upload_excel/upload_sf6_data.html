@@ -16,6 +16,13 @@
             <h1 class="bd-title" id="content">Forms </h1>
             <h2 id="form-example">Upload SF6 Emissions Data</h2>
             <p>..........</p>
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% for field in form %}
