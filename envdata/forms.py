@@ -104,7 +104,7 @@ class TargetForm(BaseProfileForm):
 
 
 class ExcelUploadForm(forms.Form):
-    excel_file = forms.FileField(label='Upload Excel File')
+    excel_file = forms.FileField()
 
 
 class TaxonomySectorForm(BaseProfileForm):
@@ -115,7 +115,6 @@ class TaxonomySectorForm(BaseProfileForm):
         model = TaxonomySector
         fields = '__all__'
         exclude = ['profile']
-
 
 
 class TaxonomyTurnoverForm(BaseProfileForm):
@@ -138,8 +137,6 @@ class TaxonomyTurnoverForm(BaseProfileForm):
         exclude = ['profile']
 
 
-
-
 class TaxonomyCapexForm(BaseProfileForm):
     class Meta:
         model = TaxonomyCapEx
@@ -158,8 +155,6 @@ class TaxonomyCapexForm(BaseProfileForm):
         exclude = ['profile']
 
 
-
-
 class TaxonomyOpexForm(BaseProfileForm):
     class Meta:
         model = TaxonomyOpEx
@@ -176,4 +171,3 @@ class TaxonomyOpexForm(BaseProfileForm):
                   'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
                   }
         exclude = ['profile']
-

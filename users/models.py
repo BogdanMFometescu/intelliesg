@@ -4,8 +4,12 @@ import uuid
 
 
 class Profile(models.Model):
+    PROFILE_ROLE_CHOICES = [('Data Admin','Data Admin'),
+                            ('Data Entry','Data Entry')]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, blank=False, null=False)
+    role = models.CharField(max_length=250,blank=False,null=False,choices=PROFILE_ROLE_CHOICES)
     bio = models.CharField(max_length=500,blank=False,null=False)
     phone_number = models.IntegerField(blank=True, null=True)
     department = models.CharField(max_length=255, blank=True, null=True)
