@@ -18,18 +18,6 @@ from django import forms
 from envdata.constants import *
 
 
-class CompanyForm(ModelForm):
-    class Meta:
-        model = Company
-        fields = '__all__'
-        exclude = ['owner']
-
-    def __init__(self, *args, **kwargs):
-        super(CompanyForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
-
-
 class BaseProfileForm(ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -44,6 +32,17 @@ class BaseProfileForm(ModelForm):
         if commit:
             instance.save()
         return instance
+
+
+class CompanyForm(BaseProfileForm):
+    class Meta:
+        model = Company
+        fields = '__all__'
+        exclude = ['profile']
+
+
+
+
 
 
 class FuelForm(BaseProfileForm):
