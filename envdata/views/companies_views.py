@@ -11,7 +11,7 @@ class HomePageView(TemplateView, CompanyContextMixin):
     template_name = 'starter.html'
 
 
-class QuickStart(TemplateView,CompanyContextMixin):
+class QuickStart(TemplateView, CompanyContextMixin):
     template_name = 'envdata/quik_start.html'
 
 
@@ -75,8 +75,13 @@ class CompanyCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     template_name = 'envdata/form-company.html'
     success_url = reverse_lazy('companies_list')
 
+    def get_form_kwargs(self):
+        kwargs = super(CompanyCreateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user  # Pass the user to the form
+        return kwargs
+
     def form_valid(self, form):
-        form.instance.owner = self.request.user.profile
+        form.instance.profile = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -88,6 +93,11 @@ class CompanyUpdateView(LoginRequiredMixin, UpdateModeMixin, CompanyContextMixin
     form_class = CompanyForm
     template_name = 'envdata/form-company.html'
     success_url = reverse_lazy('companies_list')
+
+    def get_form_kwargs(self):
+        kwargs = super(CompanyUpdateView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user  # Pass the user to the form
+        return kwargs
 
 
 class CompanyDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):
