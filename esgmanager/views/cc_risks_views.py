@@ -9,36 +9,36 @@ from django.urls import reverse_lazy
 class ClimateRiskListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     model = ClimateChangeRisk
     template_name = 'esgmanager/risks/climate_change/cc-risks.html'
-    context_object_name = 'climate_risks'
+    context_object_name = 'cc_risks'
 
 
 class ClimateRiskDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = ClimateChangeRisk
     template_name = 'esgmanager/risks/climate_change/cc-risk.html'
-    context_object_name = 'climate_risk'
+    context_object_name = 'cc_risk'
 
 
 class ClimateRiskCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     form_class = ClimateChangeRisksForm
     template_name = 'esgmanager/risks/climate_change/form-cc-risk.html'
-    success_url = reverse_lazy('climate_risks')
+    success_url = reverse_lazy('cc_risks')
 
     def form_valid(self, form):
         form.instance.owner = self.request.user.profile
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('climate_risks')
+        return reverse_lazy('cc_risks')
 
 
 class ClimateRiskUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateView, UpdateModeMixin):
     model = ClimateChangeRisk
     form_class = ClimateChangeRisksForm
     template_name = 'esgmanager/risks/climate_change/form-cc-risk.html'
-    success_url = reverse_lazy('climate_risks')
+    success_url = reverse_lazy('cc_risks')
 
 
 class ClimateRiskDeleteView(LoginRequiredMixin, CompanyContextMixin, DeleteView):
     model = ClimateChangeRisk
     template_name = 'envdata/delete-universal.html'
-    success_url = reverse_lazy('climate_risks')
+    success_url = reverse_lazy('cc_risks')

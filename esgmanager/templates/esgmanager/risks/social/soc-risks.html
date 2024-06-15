@@ -23,7 +23,7 @@
     </section>
 
 
-    {% if not social_risks %}
+    {% if not soc_risks %}
         <section class="section section-lg">
             <div class="container">
                 <H4>No Social risks registered.<br>Click the 'add' button bellow to add social risks.</H4>
@@ -41,21 +41,9 @@
 
     {% else %}
         <section class="section-header">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 text-center">
-                        <div class="form-control">
-                            <form method="get"
-                                  class="w-100 d-flex flex-column flex-md-row align-items-center justify-content-between">
-                                {% for field in filter.form %}
-                                    <div class="mb-2 mb-md-0">
-                                        {{ field.label_tag }} {{ field }}
-                                    </div>
-                                {% endfor %}
-
-                                <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
-                            </form>
-                        </div>
                         <br>
                         <table class="table table-hover">
                             <thead>
@@ -70,18 +58,19 @@
                                 <th scope="col">Opportunities</th>
                                 <th scope="col">Risk Owner</th>
                                 <th scope="col">Impact</th>
+                                <th scope="col">Actions</th>
 
                             </tr>
                             </thead>
                             <tbody>
-                            {% for risk in social_risks %}
+                            {% for risk in soc_risks %}
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             {{ risk.company }}<span
                                                 class="badge badge-primary ml-2"
-                                                style="color: #0b5ed7">{{ fuel.emission_scope }}</span>
+                                                style="color: #0b5ed7">....</span>
                                         </div>
                                     </td>
                                     <td>{{ risk.soc_category }}</td>
@@ -101,6 +90,10 @@
                                             <a href="{% url 'delete_soc_risk' risk.id %}" class="text-danger">
                                                 <i class="fas fa-trash"></i>
                                             </a>
+                                            <a href="{% url 'create_soc_risk' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+
                                         </div>
                                     </td>
                                 </tr>
@@ -111,21 +104,16 @@
                             </tbody>
                         </table>
                         {% include 'paginator.html' with page_obj=fuel_emissions %}
+                        <div class="text-left">
+                            <a href="{% url 'esg_nav_risks_list' %}" class="btn btn-tertiary me-3 animate-up-2"> <span
+                                    class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+
+
+                        </div>
                         <br>
                     </div>
-                    <div class="text-right">
-                        <a href="{% url 'esg_nav_risks_list' %}" class="btn btn-tertiary me-3 animate-up-2"> <span
-                                class="ms-2">
-                            <span class="fas fa-arrow-left"></span></span></a>
-                        <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
-                           class="btn btn-tertiary animate-up-2">
-                            Download Report
-                        </a>
-                        <a href="{% url 'upload_fuel_data' %}" class="btn btn-tertiary animate-up-2">
-                            Upload Data
-                        </a>
 
-                    </div>
                 </div>
             </div>
         </section>
