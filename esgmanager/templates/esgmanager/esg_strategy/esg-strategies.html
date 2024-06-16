@@ -43,14 +43,14 @@
                 {% for strategy in strategies %}
                     <div class="col-12 col-md-6 col-lg-4 mb-5 ">
                     <a href="{% url 'strategy' strategy.id %}" class="card-link">
-                        <div class="card shadow border-gray-300">
+                        <div class="card h-100">
                             <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
                                  alt="Pillar">
 
-                            <div class="card-body">
+                            <div class="card-body d-flex flex-column">
                                 <h3 class="h4 card-title mb-2">ESG Strategy {{ strategy.company }}</h3>
                                 <span class="card-subtitle text-gray fw-normal">{{ strategy.introduction }}</span>
-                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                <ul class="list-unstyled d-flex mt-auto">
                                     <li style="margin-right: 10px;">
                                         <a href="{% url 'update_strategy' strategy.id %}" class="mr-3"
                                            data-toggle="tooltip" data-placement="top" title="Edit item">
@@ -83,3 +83,30 @@
     {% endif %}
 
 {% endblock content %}
+
+{% block extra_css %}
+    <style>
+        .card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .list-unstyled {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+{% endblock extra_css %}
