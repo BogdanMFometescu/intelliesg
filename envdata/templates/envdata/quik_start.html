@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-  <section class="section section-md">
+    <section class="section section-md">
         <div class="container">
             <div class="row align-items-center justify-content-around">
                 <div class="col-md-6 col-xl-6 mb-5">
@@ -23,7 +23,7 @@
 
 
 
- <section class="section section-lg bg-gray-200">
+    <section class="section section-lg bg-gray-200">
         <figure class="position-absolute top-0 left-0 w-100 d-none d-md-block mt-n3">
             <svg class="fill-gray-200" version="1.1" xmlns="http://www.w3.org/2000/svg"
                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1920 43.4"
@@ -86,17 +86,6 @@
                             <!-- Timeline Item 5 -->
                             <div class="timeline-item">
                                 <h2>Step 5 </h2>
-                                <h3 class="h4 mb-4">Set up each pillar's objectives</h3>
-                                <p>To begin your journey with IntelliESG, start by registering your company. This
-                                    initial step unlocks access to our comprehensive suite of tools designed to
-                                    streamline your ESG reporting, strategy planning, and performance tracking
-                                    processes.</p>
-                                <a href="{% url 'create_objective' %}" class="btn btn-primary">Add Objective</a>
-                            </div>
-
-                            <!-- Timeline Item 6 -->
-                            <div class="timeline-item">
-                                <h2>Step6 </h2>
                                 <h3 class="h4 mb-4">Define your Action Plan</h3>
 
                                 <p>Setting ambitious yet achievable Net Zero targets is crucial in today’s ESG
@@ -106,6 +95,18 @@
                                 <a href="{% url 'create_action_plan' %}" class="btn btn-primary">Create</a>
                             </div>
 
+                            <!-- Timeline Item 6 -->
+
+
+                            <div class="timeline-item">
+                                <h2>Step 6 </h2>
+                                <h3 class="h4 mb-4">Set up each pillar's objectives</h3>
+                                <p>To begin your journey with IntelliESG, start by registering your company. This
+                                    initial step unlocks access to our comprehensive suite of tools designed to
+                                    streamline your ESG reporting, strategy planning, and performance tracking
+                                    processes.</p>
+                                <a href="{% url 'create_objective' %}" class="btn btn-primary">Add Objective</a>
+                            </div>
 
                             <!-- Timeline Item 7 -->
                             <div class="timeline-item">
@@ -125,7 +126,7 @@
                                 <p>Monitoring progress towards your ESG goals is key to ensuring success. IntelliESG’s
                                     dashboard provides real-time insights into your performance, allowing you to make
                                     informed decisions and adjust strategies as needed to meet your targets.</p>
-                                <a href="{% url 'companies_list' %}" class="btn btn-primary">View progress</a>
+                                <a href="{% url 'action_plans' %}" class="btn btn-primary">View progress</a>
 
                             </div>
                         </div>
