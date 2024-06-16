@@ -21,62 +21,98 @@
     </section>
 
     {% if not pillars %}
-     <section class="section section-lg">
+        <section class="section section-lg">
             <div class="container">
-                <H4>No pillars available.<br>Click the  'add'  button  bellow to add a pillar.</H4>
+                <h4>No pillars available.<br>Click the 'add' button below to add a pillar.</h4>
                 <a href="{% url 'create_pillar' %}" class="btn btn-tertiary animate-up-2">
-                        Add
-                    </a>
+                    Add
+                </a>
             </div>
             <br>
             <br>
             <div class="container">
-            <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
-                            <span class="fas fa-arrow-left"></span></span></a>
+                <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                    <span class="fas fa-arrow-left"></span></span>
+                </a>
             </div>
         </section>
 
     {% else %}
-    <section class="section section-lg">
-        <div class="container">
-            <div class="row mb-5 mb-lg-6">
-                {% for pillar in pillars %}
-                    <div class="col-12 col-md-6 col-lg-4 mb-5 ">
-                        <div class="card shadow border-gray-300">
-                            <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
-                                 alt="Pillar">
-
-                            <div class="card-body">
-                                <h3 class="h4 card-title mb-2">{{ pillar.pillar }}</h3>
-                                <span class="card-subtitle text-gray fw-normal">{{ pillar.company }}</span>
-                                <p class="card-text my-3">{{ pillar.description }}</p>
-                                <ul class="list-unstyled d-flex mt-3 mb-0">
-                                    <li style="margin-right: 10px;">
-                                        <a href="{% url 'update_pillar' pillar.id %}" class="mr-3"
-                                           data-toggle="tooltip" data-placement="top" title="Edit item">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                    </li>
-                                    <li style="margin-right: 10px;">
-                                        <a href="{% url 'delete_pillar' pillar.id %}" class="text-danger">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
-                                    </li>
-                                    <li style="margin-right: 10px;">
-                                        <a href="{% url 'create_pillar' %}" class="text-danger">
-                                            <i class="fas fa-plus"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+        <section class="section section-lg">
+            <div class="container">
+                <div class="row mb-5 mb-lg-6">
+                    <div class="col-12">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                            {% for pillar in pillars %}
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <img src="{% static 'images/default-image.jpg' %}"
+                                             class="card-img-top rounded-top"
+                                             alt="Pillar">
+                                        <div class="card-body d-flex flex-column">
+                                            <h3 class="h4 card-title mb-2" style="color:darkgreen">{{ pillar.company }}</h3>
+                                            <h3 class="h4 card-title mb-2">{{ pillar.pillar }}</h3>
+                                            <p class="card-text my-3">{{ pillar.description }}</p>
+                                            <ul class="list-unstyled d-flex mt-auto">
+                                                <li style="margin-right: 10px;">
+                                                    <a href="{% url 'update_pillar' pillar.id %}" class="mr-3"
+                                                       data-toggle="tooltip" data-placement="top" title="Edit item">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                </li>
+                                                <li style="margin-right: 10px;">
+                                                    <a href="{% url 'delete_pillar' pillar.id %}" class="text-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </a>
+                                                </li>
+                                                <li style="margin-right: 10px;">
+                                                    <a href="{% url 'create_pillar' %}" class="text-danger">
+                                                        <i class="fas fa-plus"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
-                {% endfor %}
+                </div>
+                <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                <span class="fas fa-arrow-left"></span></span>
+                </a>
             </div>
-        <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
-                            <span class="fas fa-arrow-left"></span></span></a>
-        </div>
-    </section>
+        </section>
     {% endif %}
 
 {% endblock content %}
+
+{% block extra_css %}
+    <style>
+        .card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .card-text {
+            flex-grow: 1;
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .list-unstyled {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+{% endblock extra_css %}
