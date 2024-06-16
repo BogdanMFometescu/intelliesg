@@ -43,7 +43,7 @@
             <div class="row mb-5 mb-lg-6">
                 <div class="col-12 col-md-6 col-lg-4 mb-5">
                     <a href="{% url 'strategies' %}" class="card-link">
-                        <div class="card shadow border-gray-300">
+                        <div class="card h-100">
                             <img src="{% static 'images/strategy.jpg' %}" class="card-img-top rounded-top" alt="">
                             <div class="card-body d-flex flex-column">
                                 <h3 class="h4 card-title mb-2">ESG Strategy</h3>
@@ -51,7 +51,7 @@
                                 <p class="card-text my-3">Discover our overarching ESG strategy that integrates
                                     environmental, social, and governance principles into every aspect of our
                                     operations.</p>
-                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                <ul class="list-unstyled d-flex mt-auto">
                                     <li>
                                         <a href="#" target="_blank" aria-label="facebook social link"
                                            class="icon-facebook me-3">
@@ -66,14 +66,14 @@
 
                 <div class="col-12 col-md-6 col-lg-4 mb-5">
                     <a href="{% url 'pillars' %}" class="card-link">
-                        <div class="card shadow border-gray-300">
+                        <div class="card h-100">
                             <img src="{% static 'images/pillars_01.png' %}" class="card-img-top rounded-top" alt="">
                             <div class="card-body d-flex flex-column">
                                 <h3 class="h4 card-title mb-2">ESG Pillars</h3>
                                 <span class="card-subtitle text-gray fw-normal">Foundational Elements</span>
                                 <p class="card-text my-3">Learn about the fundamental pillars that support our ESG
                                     framework, including key focus areas and initiatives.</p>
-                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                <ul class="list-unstyled d-flex mt-auto">
                                     <li>
                                         <a href="#" target="_blank" aria-label="facebook social link"
                                            class="icon-facebook me-3">
@@ -88,14 +88,14 @@
 
                 <div class="col-12 col-md-6 col-lg-4 mb-5">
                     <a href="{% url 'objectives' %}" class="card-link">
-                        <div class="card shadow border-gray-300">
+                        <div class="card h-100">
                             <img src="{% static 'images/objectives_01.jpg' %}" class="card-img-top rounded-top" alt="">
                             <div class="card-body d-flex flex-column">
                                 <h3 class="h4 card-title mb-2">ESG Objectives</h3>
                                 <span class="card-subtitle text-gray fw-normal">Clear Goals & Metrics</span>
                                 <p class="card-text my-3">A brief description of the performance metrics and outcomes
                                     related to your ESG strategies and objectives.</p>
-                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                <ul class="list-unstyled d-flex mt-auto">
                                     <li>
                                         <a href="#" target="_blank" aria-label="linkedin social link"
                                            class="icon-linkedin me-3">
@@ -122,14 +122,14 @@
 
                 <div class="col-12 col-md-6 col-lg-4 mb-5">
                     <a href="{% url 'action_plans' %}" class="card-link">
-                        <div class="card shadow border-gray-300">
+                        <div class="card h-100">
                             <img src="{% static 'images/action_plan_01.jpg' %}" class="card-img-top rounded-top" alt="">
                             <div class="card-body d-flex flex-column">
                                 <h3 class="h4 card-title mb-2">ESG Action Plans</h3>
                                 <span class="card-subtitle text-gray fw-normal">Detailed Roadmaps</span>
                                 <p class="card-text my-3">Explore our action plans that outline specific steps and
                                     initiatives designed to achieve our ESG goals.</p>
-                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                <ul class="list-unstyled d-flex mt-auto">
                                     <li>
                                         <a href="#" target="_blank" aria-label="facebook social link"
                                            class="icon-facebook me-3">
@@ -144,14 +144,14 @@
 
                 <div class="col-12 col-md-6 col-lg-4 mb-5">
                     <a href="{% url 'actions' %}" class="card-link">
-                        <div class="card shadow border-gray-300">
+                        <div class="card h-100">
                             <img src="{% static 'images/action_01.jpg' %}" class="card-img-top rounded-top" alt="">
                             <div class="card-body d-flex flex-column">
                                 <h3 class="h4 card-title mb-2">ESG Actions</h3>
                                 <span class="card-subtitle text-gray fw-normal">Ongoing Efforts</span>
                                 <p class="card-text my-3">Stay updated on the ongoing actions and initiatives we are
                                     taking to continuously improve our ESG performance.</p>
-                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                <ul class="list-unstyled d-flex mt-auto">
                                     <li>
                                         <a href="#" target="_blank" aria-label="facebook social link"
                                            class="icon-facebook me-3">
@@ -166,14 +166,14 @@
 
                 <div class="col-12 col-md-6 col-lg-4 mb-5">
                     <a href="{% url 'esg_nav_risks_list' %}" class="card-link">
-                        <div class="card shadow border-gray-300">
+                        <div class="card h-100">
                             <img src="{% static 'images/egs-risk.png' %}" class="card-img-top rounded-top" alt="">
                             <div class="card-body d-flex flex-column">
                                 <h3 class="h4 card-title mb-2">ESG Risks</h3>
                                 <span class="card-subtitle text-gray fw-normal">Mitigation & Management</span>
                                 <p class="card-text my-3">Understand the potential risks associated with our ESG
                                     initiatives and the measures we are implementing to mitigate them.</p>
-                                <ul class="list-unstyled d-flex mt-3 mb-0">
+                                <ul class="list-unstyled d-flex mt-auto">
                                     <li>
                                         <a href="#" target="_blank" aria-label="facebook social link"
                                            class="icon-facebook me-3">
@@ -279,3 +279,32 @@
 </section>
 
 {% endblock content %}
+{% block extra_css %}
+    <style>
+        .card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .card-text {
+            flex-grow: 1;
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .list-unstyled {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+{% endblock extra_css %}
