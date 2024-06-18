@@ -3,73 +3,50 @@ from esgmanager.models import ESGPillars, ESGActionPlan, ESGActionPlanObjectives
     NetZeroBusinessPlan, EnvironmentalRisk, ClimateChangeRisk, SocialRisk, GovernanceRisks, ESGStrategy
 
 
-class ESGPillarsForm(ModelForm):
+class BaseEsGManagerForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(BaseEsGManagerForm, self).__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control'})
+
+
+class ESGPillarsForm(BaseEsGManagerForm):
     class Meta:
         model = ESGPillars
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(ESGPillarsForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
 
-
-class ESGActionPlanForm(ModelForm):
+class ESGActionPlanForm(BaseEsGManagerForm):
     class Meta:
         model = ESGActionPlan
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(ESGActionPlanForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
 
-
-class ESGActionPlanObjectivesForm(ModelForm):
+class ESGActionPlanObjectivesForm(BaseEsGManagerForm):
     class Meta:
         model = ESGActionPlanObjectives
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(ESGActionPlanObjectivesForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
 
-
-class ESGActionPlanActionsForm(ModelForm):
+class ESGActionPlanActionsForm(BaseEsGManagerForm):
     class Meta:
         model = ESGActionPlanActions
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(ESGActionPlanActionsForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
 
-
-class NetZeroBusinessPlanForm(ModelForm):
+class NetZeroBusinessPlanForm(BaseEsGManagerForm):
     class Meta:
         model = NetZeroBusinessPlan
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(NetZeroBusinessPlanForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
 
-
-class EnvironmentalRisksForm(ModelForm):
+class EnvironmentalRisksForm(BaseEsGManagerForm):
     class Meta:
         model = EnvironmentalRisk
         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(EnvironmentalRisksForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
 
-
-class ClimateChangeRisksForm(ModelForm):
+class ClimateChangeRisksForm(BaseEsGManagerForm):
     class Meta:
         model = ClimateChangeRisk
         fields = '__all__'
@@ -82,13 +59,8 @@ class ClimateChangeRisksForm(ModelForm):
                   'cc_severity': 'Severity',
                   'cc_responsible': 'Responsible'}
 
-    def __init__(self, *args, **kwargs):
-        super(ClimateChangeRisksForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
 
-
-class SocialRisksForm(ModelForm):
+class SocialRisksForm(BaseEsGManagerForm):
     class Meta:
         model = SocialRisk
         fields = '__all__'
@@ -101,13 +73,8 @@ class SocialRisksForm(ModelForm):
                   'soc_severity': 'Severity',
                   'soc_responsible': 'Responsible'}
 
-    def __init__(self, *args, **kwargs):
-        super(SocialRisksForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
 
-
-class GovernanceRisksForm(ModelForm):
+class GovernanceRisksForm(BaseEsGManagerForm):
     class Meta:
         model = GovernanceRisks
         fields = '__all__'
@@ -120,13 +87,8 @@ class GovernanceRisksForm(ModelForm):
                   'gov_severity': 'Severity',
                   'gov_responsible': 'Responsible'}
 
-    def __init__(self, *args, **kwargs):
-        super(GovernanceRisksForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
 
-
-class StrategyForm(ModelForm):
+class StrategyForm(BaseEsGManagerForm):
     class Meta:
         model = ESGStrategy
         fields = '__all__'
@@ -136,8 +98,3 @@ class StrategyForm(ModelForm):
                   'action_plan_description': 'Describe how you set your ESG Action Plan',
                   'actions_description': 'Describe how you defined your ESG actions',
                   'risks_description': 'Describe how you defined your ESG risks'}
-
-    def __init__(self, *args, **kwargs):
-        super(StrategyForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})

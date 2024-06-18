@@ -40,7 +40,7 @@
                                     <h4>{{ action.description }}</h4>
                                     <p class="card-text my-3">Phone: {{ company.phone }}</p>
                                     <p class="card-text my-3">Email: {{ company.email }}</p>
-
+                                    {% if request.user.is_staff %}
                                     <ul class="list-unstyled d-flex mt-3 mb-0">
                                         <li style="margin-right: 10px;">
                                             <a href="{% url 'update_company' company.id %}" class="mr-3"
@@ -59,6 +59,7 @@
                                             </a>
                                         </li>
                                     </ul>
+                                    {% endif %}
                                 </div>
                             </div>
                             </a>
