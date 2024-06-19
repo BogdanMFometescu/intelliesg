@@ -15,6 +15,7 @@ class Company(models.Model):
     email = models.EmailField(max_length=255, blank=False, null=False)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
+    logo = models.ImageField(blank=True,null=True)
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
 
     @property
