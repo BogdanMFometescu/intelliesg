@@ -36,90 +36,81 @@
             </div>
         </section>
     {% else %}
-        <section class="section section-lg">
-            <div class="container">
-                <div class="row mb-5 mb-lg-6">
-                    <div class="col-12">
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                            {% for action in actions %}
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top" alt="Action">
-                                        <div class="card-body d-flex flex-column">
-                                            <h3 class="h4 card-title mb-2" style="color:darkgreen">{{ action.company }}</h3>
-                                            <h3 class="h4 card-title mb-2">{{ action.pillar }}</h3>
-                                            <h3 class="h4 card-title mb-2">{{ action.objective }}</h3>
-                                            <h3 class="h4 card-title mb-2" style="color: #0b5ed7">{{ action.action }}</h3>
-                                            <span class="card-subtitle text-gray fw-normal">{{ action.company }}</span>
-                                            <span class="card-subtitle text-gray fw-normal">{{ action.description }}</span>
-                                            <p class="card-text my-3">Start date: {{ action.start_date }}</p>
-                                            <p class="card-text my-3">End date: {{ action.end_date }}</p>
-                                            <p class="card-text my-3">Responsible: {{ action.responsible }}</p>
-                                            {% if action.current_status == 'On track' %}
-                                                <p class="card-text my-3" style="color:green;">Status: {{ action.current_status }}</p>
-                                            {% else %}
-                                                <p class="card-text my-3" style="color:red;">Status: {{ action.current_status }}</p>
-                                            {% endif %}
-                                            <p style="color: #0a53be">Progress: {{ action.completion }}%</p>
-                                            <ul class="list-unstyled d-flex mt-auto">
-                                                <li style="margin-right: 10px;">
-                                                    <a href="{% url 'update_action' action.id %}" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit item">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                </li>
-                                                <li style="margin-right: 10px;">
-                                                    <a href="{% url 'delete_action' action.id %}" class="text-danger">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
-                                                </li>
-                                                <li style="margin-right: 10px;">
-                                                    <a href="{% url 'create_action' %}" class="text-danger">
-                                                        <i class="fas fa-plus"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+        <section class="section-header">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+
+                    <br>
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Pillar</th>
+                            <th scope="col">Objective</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Start</th>
+                            <th scope="col">End</th>
+                            <th scope="col">Responsible</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Progress</th>
+                            <th scope="col">Actions</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for action in actions %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="{% url 'action' action.id %}">{{ action.company }}</a>
                                     </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
+                                </td>
+                                <td style="color: dodgerblue">{{ action.pillar }}</td>
+                                <td style="color:dodgerblue;">{{ action.objective }}</td>
+                                <td style="color:darkgreen;">{{ action.action }}</td>
+                                <td>{{ action.start_date }}</td>
+                                <td>{{ action.end_date }}</td>
+                                <td>{{ action.responsible }}</td>
+                                {% if action.current_status == 'On track' %}
+                                    <td style="color:green;">{{ action.current_status }}</td>
+                                {% else %}
+                                    <td style="color: red">{{ action.current_status }}</td>
+                                {% endif %}
+                                <td>{{ action.completion }}</td>
+
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{% url 'update_action' action.id %}" class="mr-3"
+                                           data-toggle="tooltip" data-placement="top" title="Edit item">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'delete_action' action.id %}"
+                                           class="text-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <a href="{% url 'create_action' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
                 </div>
-                <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2">
-                    <span class="ms-2"><span class="fas fa-arrow-left"></span></span>
-                </a>
+                <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
             </div>
+
         </section>
+
     {% endif %}
 
 {% endblock content %}
-
-{% block extra_css %}
-    <style>
-        .card {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-        }
-
-        .card-text {
-            flex-grow: 1;
-        }
-
-        .card-img-top {
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .list-unstyled {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
-{% endblock extra_css %}

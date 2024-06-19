@@ -36,88 +36,81 @@
             </div>
         </section>
     {% else %}
-        <section class="section section-lg">
-            <div class="container">
-                <div class="row mb-5 mb-lg-6">
-                    <div class="col-12">
-                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                            {% for objective in objectives %}
-                                <div class="col">
-                                    <div class="card h-100">
-                                        <img src="{% static 'images/objectives.webp' %}" class="card-img-top rounded-top" alt="Objective">
-                                        <div class="card-body d-flex flex-column">
-                                            <h3 class="h4 card-title mb-2" style="color:darkgreen">{{ objective.company }}</h3>
-                                            <h3 class="h4 card-title mb-2">{{ objective.pillar }}</h3>
-                                            <h3 class="h4 card-title mb-2">{{ objective.objective }}</h3>
-                                            <span class="card-subtitle text-gray fw-normal">{{ objective.description }}</span>
-                                            <p class="card-text my-3">Start date: {{ objective.start_date }}</p>
-                                            <p class="card-text my-3">End date: {{ objective.end_date }}</p>
-                                            <p class="card-text my-3">Responsible: {{ objective.responsible }}</p>
-                                            {% if objective.current_status == 'On track' %}
-                                                <p class="card-text my-3" style="color:green;">Status: {{ objective.current_status }}</p>
-                                            {% else %}
-                                                <p class="card-text my-3" style="color:red;">Status: {{ objective.current_status }}</p>
-                                            {% endif %}
-                                            <p style="color: #0a53be">Progress: {{ objective.completion }}%</p>
-                                            <ul class="list-unstyled d-flex mt-auto">
-                                                <li style="margin-right: 10px;">
-                                                    <a href="{% url 'update_objective' objective.id %}" class="mr-3" data-toggle="tooltip" data-placement="top" title="Edit item">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                </li>
-                                                <li style="margin-right: 10px;">
-                                                    <a href="{% url 'delete_objective' objective.id %}" class="text-danger">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
-                                                </li>
-                                                <li style="margin-right: 10px;">
-                                                    <a href="{% url 'create_objective' %}" class="text-danger">
-                                                        <i class="fas fa-plus"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
+        <section class="section-header">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+
+                    <br>
+                    <br>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Pillar</th>
+                            <th scope="col">Objective</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Start</th>
+                            <th scope="col">End</th>
+                            <th scope="col">Responsible</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Progress</th>
+                             <th scope="col">Actions</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for objective in objectives %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="{% url 'objective' objective.id %}">{{ objective.company }}</a>
                                     </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
+                                </td>
+                                <td style="color: dodgerblue">{{ objective.pillar }}</td>
+                                <td style="color:darkgreen;">{{ objective.objective }}</td>
+                                <td style="color: orangered">{{ objective.description }}</td>
+                                <td>{{ objective.start_date }}</td>
+                                <td>{{ objective.end_date }}</td>
+                                <td>{{ objective.responsible }}</td>
+                                {% if objective.current_status == 'On track' %}
+                                    <td style="color:green;">{{ objective.current_status }}</td>
+                                {% else %}
+                                    <td style="color: red">{{ objective.current_status }}</td>
+                                {% endif %}
+                                <td>{{ objective.completion }}</td>
+
+                                <td>
+                                    <div class="d-flex">
+                                        <a href="{% url 'update_objective' objective.id %}" class="mr-3"
+                                           data-toggle="tooltip" data-placement="top" title="Edit item">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'delete_objective' objective.id %}"
+                                           class="text-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <a href="{% url 'create_objective' %}" class="text-danger">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
                 </div>
-                <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2">
-                    <span class="ms-2"><span class="fas fa-arrow-left"></span></span>
-                </a>
+                <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
             </div>
+
         </section>
     {% endif %}
 
+
 {% endblock content %}
-
-{% block extra_css %}
-    <style>
-        .card {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-body {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-        }
-
-        .card-text {
-            flex-grow: 1;
-        }
-
-        .card-img-top {
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .list-unstyled {
-            display: flex;
-            justify-content: center;
-        }
-    </style>
-{% endblock extra_css %}

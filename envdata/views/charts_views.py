@@ -159,7 +159,7 @@ class EnergyEmissionsView(TemplateView):
         context['years'] = years
         context['months'] = months
         context['data'] = json.dumps(data)
-        context['chart_title'] = 'Refrigerant Emissions by Year and Month'
+        context['chart_title'] = 'Energy Emissions by Year and Month'
 
         return context
 

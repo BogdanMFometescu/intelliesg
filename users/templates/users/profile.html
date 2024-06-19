@@ -26,8 +26,10 @@
             <div class="row mb-5 mb-lg-6">
                 <div class="col-12 col-md-6 col-lg-4 mb-5 mb-lg-0">
                     <div class="card shadow border-gray-300">
-                        <img src="{% static 'images/default-image.jpg' %}" class="card-img-top rounded-top"
-                             alt="Pillar">
+                         {% if profile.profile_image %}
+                                    <img src="{{ profile.profile_image.url }}" class="card-img-top rounded-top"
+                                         alt="Pillar">
+                                {% endif %}
 
                         <div class="card-body">
 
