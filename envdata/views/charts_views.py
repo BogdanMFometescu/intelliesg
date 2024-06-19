@@ -11,7 +11,7 @@ class Charts(TemplateView, CompanyContextMixin):
 
 
 class FuelEmissionsView(TemplateView):
-    template_name = 'envdata/charts/fuel_chart.html'
+    template_name = 'envdata/charts/display_charts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,7 +45,7 @@ class FuelEmissionsView(TemplateView):
 
 
 class NaturalGasEmissionsView(TemplateView):
-    template_name = 'envdata/charts/natural_gas_chart.html'
+    template_name = 'envdata/charts/display_charts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -75,7 +75,7 @@ class NaturalGasEmissionsView(TemplateView):
 
 
 class Sf6EmissionsView(TemplateView):
-    template_name = 'envdata/charts/sf6_chart.html'
+    template_name = 'envdata/charts/display_charts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -105,7 +105,7 @@ class Sf6EmissionsView(TemplateView):
 
 
 class RefrigerantEmissionsView(TemplateView):
-    template_name = 'envdata/charts/refrigerant_chart.html'
+    template_name = 'envdata/charts/display_charts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -135,7 +135,7 @@ class RefrigerantEmissionsView(TemplateView):
 
 
 class EnergyEmissionsView(TemplateView):
-    template_name = 'envdata/charts/energy_chart.html'
+    template_name = 'envdata/charts/display_charts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -165,7 +165,7 @@ class EnergyEmissionsView(TemplateView):
 
 
 class TravelEmissionsView(TemplateView):
-    template_name = 'envdata/charts/travel_chart.html'
+    template_name = 'envdata/charts/display_charts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -195,7 +195,7 @@ class TravelEmissionsView(TemplateView):
 
 
 class WasteEmissionsView(TemplateView):
-    template_name = 'envdata/charts/waste_chart.html'
+    template_name = 'envdata/charts/display_charts.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

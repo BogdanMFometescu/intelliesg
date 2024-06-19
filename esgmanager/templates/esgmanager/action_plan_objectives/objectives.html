@@ -70,7 +70,7 @@
                                 </td>
                                 <td style="color: dodgerblue">{{ objective.pillar }}</td>
                                 <td style="color:darkgreen;">{{ objective.objective }}</td>
-                                <td style="color: orangered">{{ objective.description }}</td>
+                                <td >{{ objective.description }}</td>
                                 <td>{{ objective.start_date }}</td>
                                 <td>{{ objective.end_date }}</td>
                                 <td>{{ objective.responsible }}</td>
@@ -79,7 +79,7 @@
                                 {% else %}
                                     <td style="color: red">{{ objective.current_status }}</td>
                                 {% endif %}
-                                <td>{{ objective.completion }}</td>
+                                <td>{{ objective.completion }} %</td>
 
                                 <td>
                                     <div class="d-flex">

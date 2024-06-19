@@ -57,6 +57,7 @@
                             <th scope="col">Net Zero Year</th>
                             <th scope="col">Target [CO2e]</th>
                             <th scope="col">Percentage [%]</th>
+                             <th scope="col">Actions</th>
 
                         </tr>
                         </thead>
@@ -84,6 +85,9 @@
                                         <a href="{% url 'delete_target' target.id %}" class="text-danger">
                                             <i class="fas fa-trash"></i>
                                         </a>
+                                         <a href="{% url 'create_target' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
                                     </div>
                                 </td>
                             </tr>
