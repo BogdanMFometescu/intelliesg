@@ -5,7 +5,6 @@ import os
 ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
 CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]
 DEBUG = False
-# CORS_ALLOWED_ORIGINS = []
 SECRET_KEY = os.environ['SECRET_KEY']
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
