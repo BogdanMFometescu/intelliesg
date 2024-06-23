@@ -41,10 +41,6 @@ class CompanyForm(BaseProfileForm):
         exclude = ['profile']
 
 
-
-
-
-
 class FuelForm(BaseProfileForm):
     class Meta:
         model = Fuel
