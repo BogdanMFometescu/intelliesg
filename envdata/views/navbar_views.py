@@ -17,3 +17,5 @@ class NavFormsEmissions(LoginRequiredMixin, TemplateView, CompanyContextMixin):
 
 class NavFormsTaxonomy(LoginRequiredMixin, TemplateView, CompanyContextMixin):
     template_name = 'envdata/env_nav_forms/nav-forms-taxonomy.html'
+
+
