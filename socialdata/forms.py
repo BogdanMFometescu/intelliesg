@@ -22,4 +22,20 @@ class HealthAndSafetyForm(BaseSocialForm):
     class Meta:
         model = HealthAndSafety
         fields = '__all__'
-        exclude =['profile']
+        exclude = ['profile']
+        labels = {'total_working_hours': 'Total Working Hours',
+                  'fatality_rate': 'Fatality Rate',
+                  'high_consequence_rate': 'High Consequence Rate',
+                  'recordable_rate': 'Recordable Rate',
+                  'ep_total_working_hours': 'External Provider Total Working Hours',
+                  'ep_fatality_rate': 'External Provider Fatality Rate',
+                  'ep_high_consequence_rate': 'External Provider High Consequence Rate',
+                  'ep_recordable_rate': 'External Provider Recordable Rate',
+                  'total_training_hours': 'Total Training Hours',
+                  'management_training_hours': 'Total Training Hours for Management Positions',
+                  'operational_training_hours': 'Total Training Hours for Operational Positions',
+                  'women_management_training_hours': 'Training Hours for Women with Management Positions',
+                  'women_operational_training_hours': 'Training Hours for Women with Operational Positions',
+                  'man_management_training_hours': 'Training Hours for Man with Management Positions',
+                  'man_operational_training_hours': 'Training Hours for Man with Operational Positions'
+                  }
