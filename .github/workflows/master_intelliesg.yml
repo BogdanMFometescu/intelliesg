@@ -29,9 +29,6 @@ jobs:
       
       - name: Install dependencies
         run: pip install -r requirements.txt
-
-      - name: Collect static files
-        run: python manage.py collectstatic --no-input
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
@@ -69,4 +66,4 @@ jobs:
         with:
           app-name: 'intelliesg'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C34B909AB2E549BE933FF46748E2F22B }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_62E49A3CE9874AB6BFC6C503506AF7F6 }}
