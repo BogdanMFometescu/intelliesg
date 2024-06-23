@@ -2,8 +2,8 @@ from settings import *
 from settings import BASE_DIR
 import os
 
-ALLOWED_HOSTS = [os.environ['WEBSITE_HOSTNAME']]
-CSRF_TRUSTED_ORIGINS = ['https://' + os.environ['WEBSITE_HOSTNAME']]
+ALLOWED_HOSTS = ['intelliesg.azurewebsites.net']
+CSRF_TRUSTED_ORIGINS = ['https://intelliesg.azurewebsites.net']
 DEBUG = False
 SECRET_KEY = os.environ['SECRET_KEY']
 
