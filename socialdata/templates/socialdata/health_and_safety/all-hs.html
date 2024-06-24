@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4">Health & Safety <br class="d-none d-md-inline">...</h1>
+                    <p class="lead mb-4 text-muted">
+                       Some placeholder here
+                    </p>
+
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img src=" " alt=""></div>
+            </div>
+        </div>
+    </section>
+
+
+    {% if not hss %}
+        <section class="section section-lg">
+            <div class="container">
+                <H4>No Health and Safety Indicators recorded.<br>
+                    <br>Click the 'Add' button bellow to add H&S Indicators</H4>
+                <br>
+                <a href="{% url 'create_hs' %}" class="btn btn-tertiary animate-up-2">
+                    Add
+                </a>
+
+            </div>
+            <br>
+            <br>
+            <div class="container">
+                <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+
+            </div>
+        </section>
+
+    {% else %}
+
+        <section class="section-header">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-8 text-center">
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Company</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Month</th>
+
+                                {% if user.is_staff %}
+                                    <th scope="col">Submitter</th>
+                                {% endif %}
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for hs in hss %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            {{ hs.company }}<span
+                                                class="badge badge-primary ml-2"
+                                                style="color: #0b5ed7">.........</span>
+                                        </div>
+                                    </td>
+                                    <td>{{ hs.year }}</td>
+                                    <td>{{ hs.month }}</td>
+
+                                     {% if user.is_staff %}
+                                        <td>{{ hs.profile.user }}</td>
+                                    {% endif %}
+                                    <td>
+
+                                        <div class="d-flex">
+                                            <a href="{% url 'update_hs' hs.id %}" class="mr-3"
+                                               data-toggle="tooltip" data-placement="top" title="Edit item">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{% url 'delete_hs' hs.id %}" class="text-danger"
+                                            >
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <a href="{% url 'create_hs' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </div>
+
+                                    </td>
+
+
+                                </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                        {% include 'paginator.html' with page_obj=fuel_emissions %}
+                        <br>
+                    </div>
+                    <div class="text-center">
+                        <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+                        <a href="{% url 'fuel_report' %}?{{ request.GET.urlencode }}"
+                           class="btn btn-tertiary animate-up-2">
+                            Download Report
+                        </a>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+
+
+
+
+{% endblock content %}
