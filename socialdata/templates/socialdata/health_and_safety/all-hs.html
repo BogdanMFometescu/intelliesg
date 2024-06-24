@@ -9,11 +9,13 @@
         <div class="container">
             <div class="row justify-content-between align-items-center">
                 <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
-                    <h1 class="display-2 mb-4">Health & Safety <br class="d-none d-md-inline">...</h1>
+                    <h1 class="display-2 mb-4">Health and Safety<br class="d-none d-md-inline">Indicators</h1>
                     <p class="lead mb-4 text-muted">
-                       Some placeholder here
+                        Some placeholder here
                     </p>
 
+                    <a href="{% url 'charts' %}" class="btn btn-tertiary me-3 animate-up-2">Detailed Charts <span
+                            class="ms-2"><span class="fas fa-arrow-right"></span></span></a>
                 </div>
                 <div class="col-12 col-md-5 d-none d-md-block text-center"><img src=" " alt=""></div>
             </div>
@@ -24,10 +26,10 @@
     {% if not hss %}
         <section class="section section-lg">
             <div class="container">
-                <H4>No Health and Safety Indicators recorded.<br>
-                    <br>Click the 'Add' button bellow to add H&S Indicators</H4>
+                <H4>No Health and Safety Indicators registered.<br>
+                    <br>Click the 'Add' button bellow to add Health and Safety Indicators </H4>
                 <br>
-                <a href="{% url 'create_hs' %}" class="btn btn-tertiary animate-up-2">
+                <a href="{% url 'create_fuel_emission' %}" class="btn btn-tertiary animate-up-2">
                     Add
                 </a>
 
@@ -47,6 +49,20 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-8 text-center">
+                        <div class="form-control">
+                            <form method="get"
+                                  class="w-100 d-flex flex-column flex-md-row align-items-center justify-content-between">
+                                {% for field in filter.form %}
+                                    <div class="mb-2 mb-md-0">
+                                        {{ field.label_tag }} {{ field }}
+                                    </div>
+                                {% endfor %}
+
+                                <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary">Filter</button>
+                            </form>
+                        </div>
+                        <br>
+                        <h2 align="left" style="color: blue">A.Health and Safety Indicators for Own Personnel</h2>
                         <br>
                         <table class="table table-hover">
                             <thead>
@@ -55,7 +71,10 @@
                                 <th scope="col">Company</th>
                                 <th scope="col">Year</th>
                                 <th scope="col">Month</th>
-
+                                <th scope="col">TWH</th>
+                                <th scope="col">FR</th>
+                                <th scope="col">HQR</th>
+                                <th scope="col">RR</th>
                                 {% if user.is_staff %}
                                     <th scope="col">Submitter</th>
                                 {% endif %}
@@ -68,15 +87,16 @@
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            {{ hs.company }}<span
-                                                class="badge badge-primary ml-2"
-                                                style="color: #0b5ed7">.........</span>
+                                            {{ hs.company }}
                                         </div>
                                     </td>
                                     <td>{{ hs.year }}</td>
                                     <td>{{ hs.month }}</td>
-
-                                     {% if user.is_staff %}
+                                    <td>{{ hs.total_working_hours }}</td>
+                                    <td>{{ hs.fatality_rate }}</td>
+                                    <td>{{ hs.high_consequence_rate }}</td>
+                                    <td>{{ hs.recordable_rate }}</td>
+                                    {% if user.is_staff %}
                                         <td>{{ hs.profile.user }}</td>
                                     {% endif %}
                                     <td>
@@ -97,13 +117,173 @@
 
                                     </td>
 
+                                </tr>
+                            {% endfor %}
+                            <tr class="table-primary">
+                                {% if user.is_staff %}
+                                    <th scope="row" colspan="16" class="text-right">Total working hours:</th>
+                                {% else %}
+                                    <th scope="row" colspan="15" class="text-right">Total working hours:</th>
+                                {% endif %}
+                                <td>{{ total_working_hours_display }} </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p align="left"><b>TWH</b>-Total Working Hours, <b>FR</b>-Fatality Rate, <b>HQR</b>-High
+                            Consequence Rate , <b>RR</b>-Recordable Rate </p>
+                        <br>
+                        <h2 align="left" style="color: red">B.Health and Safety Indicators for External Provider
+                            Personnel</h2>
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Company</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Month</th>
+                                <th scope="col">TWH</th>
+                                <th scope="col">FR</th>
+                                <th scope="col">HQR</th>
+                                <th scope="col">RR</th>
+                                {% if user.is_staff %}
+                                    <th scope="col">Submitter</th>
+                                {% endif %}
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for hs in hss %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            {{ hs.company }}
+                                        </div>
+                                    </td>
+                                    <td>{{ hs.year }}</td>
+                                    <td>{{ hs.month }}</td>
+                                    <td>{{ hs.ep_total_working_hours }}</td>
+                                    <td>{{ hs.ep_fatality_rate }}</td>
+                                    <td>{{ hs.ep_high_consequence_rate }}</td>
+                                    <td>{{ hs.ep_recordable_rate }}</td>
+                                    {% if user.is_staff %}
+                                        <td>{{ hs.profile.user }}</td>
+                                    {% endif %}
+                                    <td>
+
+                                        <div class="d-flex">
+                                            <a href="{% url 'update_hs' hs.id %}" class="mr-3"
+                                               data-toggle="tooltip" data-placement="top" title="Edit item">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{% url 'delete_hs' hs.id %}" class="text-danger"
+                                            >
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <a href="{% url 'create_hs' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </div>
+
+                                    </td>
 
                                 </tr>
                             {% endfor %}
-
+                            <tr class="table-primary">
+                                {% if user.is_staff %}
+                                    <th scope="row" colspan="16" class="text-right">Total working hours:</th>
+                                {% else %}
+                                    <th scope="row" colspan="15" class="text-right">Total working hours:</th>
+                                {% endif %}
+                                <td>{{ total_working_hours_display_ep }} </td>
+                            </tr>
 
                             </tbody>
                         </table>
+                        <p align="left"><b>TWH</b>-Total Working Hours, <b>FR</b>-Fatality Rate, <b>HQR</b>-High
+                            Consequence Rate , <b>RR</b>-Recordable Rate </p>
+                        <br>
+                        <h2 align="left" style="color: green">C.Total Training Hours</h2>
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Company</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Month</th>
+                                <th scope="col">TTH</th>
+                                <th scope="col">MTH</th>
+                                <th scope="col">OTH</th>
+                                <th scope="col">WMTH</th>
+                                <th scope="col">WOTH</th>
+                                <th scope="col">MMTH</th>
+                                <th scope="col">MOTH</th>
+
+                                {% if user.is_staff %}
+                                    <th scope="col">Submitter</th>
+                                {% endif %}
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for hs in hss %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            {{ hs.company }}
+                                        </div>
+                                    </td>
+                                    <td>{{ hs.year }}</td>
+                                    <td>{{ hs.month }}</td>
+                                    <td>{{ hs.total_training_hours }}</td>
+                                    <td>{{ hs.management_training_hours }}</td>
+                                    <td>{{ hs.operational_training_hours }}</td>
+                                    <td>{{ hs.women_management_training_hours }}</td>
+                                    <td>{{ hs.women_operational_training_hours }}</td>
+                                    <td>{{ hs.man_management_training_hours }}</td>
+                                    <td>{{ hs.man_operational_training_hours }}</td>
+
+                                    {% if user.is_staff %}
+                                        <td>{{ hs.profile.user }}</td>
+                                    {% endif %}
+                                    <td>
+
+                                        <div class="d-flex">
+                                            <a href="{% url 'update_hs' hs.id %}" class="mr-3"
+                                               data-toggle="tooltip" data-placement="top" title="Edit item">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{% url 'delete_hs' hs.id %}" class="text-danger"
+                                            >
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                            <a href="{% url 'create_hs' %}" class="text-danger">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                            <tr class="table-primary">
+                                {% if user.is_staff %}
+                                    <th scope="row" colspan="16" class="text-right">Total training hours:</th>
+                                {% else %}
+                                    <th scope="row" colspan="15" class="text-right">Total training hours:</th>
+                                {% endif %}
+                                <td>{{ total_training_hours_display }} </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <p align="left"><b>TTH</b>-Total Training Hours, <b>MTH</b>-Management Training Hours, <b>OTH</b>-Operational Training Hours ,
+                            <b>WMTH</b>-Women Management Training Hours,<b>WOTH</b>-Women Operational Training Hours,
+                            <b>MMTH</b>-Man Management Training Hours, <b>MOTH</b>-Man Operational Training Hours  </p>
+
                         {% include 'paginator.html' with page_obj=fuel_emissions %}
                         <br>
                     </div>
@@ -114,8 +294,6 @@
                            class="btn btn-tertiary animate-up-2">
                             Download Report
                         </a>
-
-
                     </div>
                 </div>
             </div>
