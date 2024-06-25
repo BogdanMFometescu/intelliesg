@@ -1,0 +1,189 @@
+<style>
+    @page {
+        size: landscape;
+        margin: 10px; /* Add margin to the page */
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        margin-left: 10px;
+        color: #205067;
+    }
+
+    small {
+        margin-left: 10px;
+    }
+
+    table {
+        width: 100%; /* Use 100% width for the table */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .form-row label {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .form-row input, .form-row select {
+        margin-bottom: 2px;
+    }
+</style>
+
+<h2 style="color: #205067;"><b>Health and Safety Indicators </b></h2>
+
+<h2 style="margin-left: 10px">Valid records as of : {% now "d.m.Y" %}</h2>
+<br>
+
+<h2 align="left" style="color: blue">A.Health and Safety Indicators for Own Personnel</h2>
+<br>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Company</th>
+        <th scope="col">Year</th>
+        <th scope="col">Month</th>
+        <th scope="col">TWH</th>
+        <th scope="col">FR</th>
+        <th scope="col">HQR</th>
+        <th scope="col">RR</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for hs in total_hs_hours %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+                <div class="d-flex align-items-center">
+                    {{ hs.company }}
+                </div>
+            </td>
+            <td>{{ hs.year }}</td>
+            <td>{{ hs.month }}</td>
+            <td>{{ hs.total_working_hours }}</td>
+            <td>{{ hs.fatality_rate }}</td>
+            <td>{{ hs.high_consequence_rate }}</td>
+            <td>{{ hs.recordable_rate }}</td>
+        </tr>
+    {% endfor %}
+    <tr class="table-primary">
+        <th scope="row" colspan="7" class="text-right">Total working hours for own personnel:</th>
+        <td>{{ total_hours }} </td>
+    </tr>
+    </tbody>
+</table>
+<p align="left"><b>TWH</b>-Total Working Hours, <b>FR</b>-Fatality Rate, <b>HQR</b>-High
+    Consequence Rate , <b>RR</b>-Recordable Rate </p>
+<br>
+<h2 align="left" style="color: red">B.Health and Safety Indicators for External Provider
+    Personnel</h2>
+<br>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Company</th>
+        <th scope="col">Year</th>
+        <th scope="col">Month</th>
+        <th scope="col">TWH</th>
+        <th scope="col">FR</th>
+        <th scope="col">HQR</th>
+        <th scope="col">RR</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for hs in total_hs_hours %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+                <div class="d-flex align-items-center">
+                    {{ hs.company }}
+                </div>
+            </td>
+            <td>{{ hs.year }}</td>
+            <td>{{ hs.month }}</td>
+            <td>{{ hs.ep_total_working_hours }}</td>
+            <td>{{ hs.ep_fatality_rate }}</td>
+            <td>{{ hs.ep_high_consequence_rate }}</td>
+            <td>{{ hs.ep_recordable_rate }}</td>
+        </tr>
+    {% endfor %}
+    <tr class="table-primary">
+        <th scope="row" colspan="7" class="text-right">Total working hours for external provider personnel:</th>
+        <td>{{ total_hs_hours_ep }} </td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+<p align="left"><b>TWH</b>-Total Working Hours, <b>FR</b>-Fatality Rate, <b>HQR</b>-High
+    Consequence Rate , <b>RR</b>-Recordable Rate </p>
+<br>
+<br>
+<h2 align="left" style="color: green">C.Total Training Hours</h2>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Company</th>
+        <th>Year</th>
+        <th>Month</th>
+        <th>TTH</th>
+        <th>MTH</th>
+        <th>OTH</th>
+        <th>WMTH</th>
+        <th>WOTH</th>
+        <th>MMTH</th>
+        <th>MOTH</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for hs in total_hs_hours %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+
+                {{ hs.company }}
+            </td>
+            <td>{{ hs.year }}</td>
+            <td>{{ hs.month }}</td>
+            <td>{{ hs.total_training_hours }}</td>
+            <td>{{ hs.management_training_hours }}</td>
+            <td>{{ hs.operational_training_hours }}</td>
+            <td>{{ hs.women_management_training_hours }}</td>
+            <td>{{ hs.women_operational_training_hours }}</td>
+            <td>{{ hs.man_management_training_hours }}</td>
+            <td>{{ hs.man_operational_training_hours }}</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        <th scope="row" colspan="7" class="text-right">Total training hours :</th>
+        <td>{{ total_training_hours }} </td>
+    </tr>
+
+    </tbody>
+</table>
+<p align="left"><b>TTH</b>-Total Training Hours, <b>MTH</b>-Management Training Hours, <b>OTH</b>-Operational Training
+    Hours ,
+    <b>WMTH</b>-Women Management Training Hours,<b>WOTH</b>-Women Operational Training Hours,
+    <b>MMTH</b>-Man Management Training Hours, <b>MOTH</b>-Man Operational Training Hours </p>
+
