@@ -13,9 +13,6 @@
                     <p class="lead mb-4 text-muted">
                         Some placeholder here
                     </p>
-
-                    <a href="{% url 'charts' %}" class="btn btn-tertiary me-3 animate-up-2">Detailed Charts <span
-                            class="ms-2"><span class="fas fa-arrow-right"></span></span></a>
                 </div>
                 <div class="col-12 col-md-5 d-none d-md-block text-center"><img src=" " alt=""></div>
             </div>
@@ -121,9 +118,9 @@
                             {% endfor %}
                             <tr class="table-primary">
                                 {% if user.is_staff %}
-                                    <th scope="row" colspan="16" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="9" class="text-right">Total working hours:</th>
                                 {% else %}
-                                    <th scope="row" colspan="15" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="8" class="text-right">Total working hours:</th>
                                 {% endif %}
                                 <td>{{ total_working_hours_display }} </td>
                             </tr>
@@ -192,9 +189,9 @@
                             {% endfor %}
                             <tr class="table-primary">
                                 {% if user.is_staff %}
-                                    <th scope="row" colspan="16" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="9" class="text-right">Total working hours:</th>
                                 {% else %}
-                                    <th scope="row" colspan="15" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="8" class="text-right">Total working hours:</th>
                                 {% endif %}
                                 <td>{{ total_working_hours_display_ep }} </td>
                             </tr>
@@ -271,9 +268,9 @@
                             {% endfor %}
                             <tr class="table-primary">
                                 {% if user.is_staff %}
-                                    <th scope="row" colspan="16" class="text-right">Total training hours:</th>
-                                {% else %}
                                     <th scope="row" colspan="15" class="text-right">Total training hours:</th>
+                                {% else %}
+                                    <th scope="row" colspan="14" class="text-right">Total training hours:</th>
                                 {% endif %}
                                 <td>{{ total_training_hours_display }} </td>
                             </tr>
@@ -282,12 +279,10 @@
                         </table>
                         <p align="left"><b>TTH</b>-Total Training Hours, <b>MTH</b>-Management Training Hours, <b>OTH</b>-Operational Training Hours ,
                             <b>WMTH</b>-Women Management Training Hours,<b>WOTH</b>-Women Operational Training Hours,
-                            <b>MMTH</b>-Man Management Training Hours, <b>MOTH</b>-Man Operational Training Hours  </p>
+                            <b>MMTH</b>-Men Management Training Hours, <b>MOTH</b>-Men Operational Training Hours  </p>
 
                         {% include 'paginator.html' with page_obj=fuel_emissions %}
-                        <br>
-                    </div>
-                    <div class="text-center">
+                         <div class="text-left">
                         <a href="{% url 'starter' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
                             <span class="fas fa-arrow-left"></span></span></a>
                         <a href="{% url 'soc_export_pdf' %}?{{ request.GET.urlencode }}"
@@ -295,6 +290,9 @@
                             Download Report
                         </a>
                     </div>
+                        <br>
+                    </div>
+
                 </div>
             </div>
         </section>

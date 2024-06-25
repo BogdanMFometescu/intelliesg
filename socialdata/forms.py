@@ -36,6 +36,6 @@ class HealthAndSafetyForm(BaseSocialForm):
                   'operational_training_hours': 'Total Training Hours for Operational Positions',
                   'women_management_training_hours': 'Training Hours for Women with Management Positions',
                   'women_operational_training_hours': 'Training Hours for Women with Operational Positions',
-                  'man_management_training_hours': 'Training Hours for Man with Management Positions',
-                  'man_operational_training_hours': 'Training Hours for Man with Operational Positions'
+                  'man_management_training_hours': 'Training Hours for Men with Management Positions',
+                  'man_operational_training_hours': 'Training Hours for Men with Operational Positions'
                   }
