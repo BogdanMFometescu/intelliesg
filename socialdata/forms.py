@@ -1,4 +1,5 @@
-from socialdata.models import HealthAndSafety
+from socialdata.models import HealthAndSafety, NewEmployeeByAge, EmployeeByContracts, RotationRateOfEmployeeByAge, \
+    RetirementRate
 from django.forms import ModelForm
 
 
@@ -39,3 +40,31 @@ class HealthAndSafetyForm(BaseSocialForm):
                   'man_management_training_hours': 'Training Hours for Men with Management Positions',
                   'man_operational_training_hours': 'Training Hours for Men with Operational Positions'
                   }
+
+
+class NewEmployeeByAgeForm(BaseSocialForm):
+    class Meta:
+        model = NewEmployeeByAge
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class EmployeeByContractsForm(BaseSocialForm):
+    class Meta:
+        model = EmployeeByContracts
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class RotationRateOfEmployeeByAgeForm(BaseSocialForm):
+    class Meta:
+        model = RotationRateOfEmployeeByAge
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class RetirementRateForm(BaseSocialForm):
+    class Meta:
+        model = RetirementRate
+        fields = '__all__'
+        exclude = ['profile']
