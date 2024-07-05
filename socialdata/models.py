@@ -73,9 +73,16 @@ class EmployeeByContracts(SocialBaseClass):
     part_time_men = models.IntegerField(blank=False, null=False)
 
     @property
-    def get_total_employees(self):
-        return (self.full_time_men + self.full_time_women + self.part_time_women + self.part_time_men +
-                self.fixed_term_contract_women + self.fixed_term_contract_men)
+    def get_total_full_time_contracts(self):
+        return self.full_time_men + self.full_time_women
+
+    @property
+    def get_total_fixed_term_contracts(self):
+        return self.fixed_term_contract_men + self.fixed_term_contract_women
+
+    @property
+    def get_total_part_time_contracts(self):
+        return self.part_time_men + self.part_time_women
 
 
 class NewEmployeeByAge(EmployeeAgeBaseClass, SocialBaseClass):
@@ -88,7 +95,7 @@ class RotationRateOfEmployeeByAge(EmployeeAgeBaseClass, SocialBaseClass):
 
 class RetirementRate(SocialBaseClass):
     county = models.CharField(blank=False, null=False, max_length=255)
-    retiring_next_10_years_management = models.IntegerField(blank=False, null=False )
+    retiring_next_10_years_management = models.IntegerField(blank=False, null=False)
     retiring_next_5_years_management = models.IntegerField(blank=False, null=False)
     retiring_next_10_years_operational = models.IntegerField(blank=False, null=False)
     retiring_next_5_years_operational = models.IntegerField(blank=False, null=False)
