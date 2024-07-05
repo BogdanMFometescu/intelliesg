@@ -165,3 +165,12 @@ DNSH_CRITERIA_CHOICES = [
      'Protection and restoration of biodiversity and ecosystems')
 
 ]
+
+
+COUNTY_CHOICES = [('Arges', 'Arges'),
+                  ('Dolj', 'Dolj'),
+                  ('Gorj', 'Gorj'),
+                  ('Olt', 'Olt'),
+                  ('Mehedinti', 'Mehedinti'),
+                  ('Teleorman', 'Teleorman'),
+                  ('Valcea', 'Valcea')]

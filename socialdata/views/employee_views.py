@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 
 class EmployeeByContractsListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     model = EmployeeByContracts
-    template_name = ''
+    template_name = 'socialdata/employees/contracts/contracts.html'
     context_object_name = 'contracts'
 
     def get_queryset(self):
@@ -20,14 +20,14 @@ class EmployeeByContractsListView(LoginRequiredMixin, CompanyContextMixin, ListV
 
 class EmployeeByContractsDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = EmployeeByContracts
-    template_name = ''
+    template_name = 'socialdata/employees/contracts/contract.html'
     context_object_name = 'contract'
 
 
 class EmployeeByContractsCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     model = EmployeeByContracts
     form_class = EmployeeByContractsForm
-    template_name = ''
+    template_name = 'socialdata/employees/contracts/form-contracts.html'
     success_url = reverse_lazy('contracts')
 
     def form_valid(self, form):
@@ -46,7 +46,7 @@ class EmployeeByContractsCreateView(LoginRequiredMixin, CompanyContextMixin, Cre
 class EmployeeByContractsUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = EmployeeByContracts
     form_class = EmployeeByContractsForm
-    template_name = ''
+    template_name = 'socialdata/employees/contracts/form-contracts.html'
     success_url = reverse_lazy('contracts')
 
     def form_valid(self, form):
@@ -67,7 +67,7 @@ class EmployeeByContractsDeleteView(LoginRequiredMixin, CompanyContextMixin, Del
 
 class NewEmployeeByAgeListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     model = NewEmployeeByAge
-    template_name = ''
+    template_name = 'socialdata/employees/age/employees-ages.html'
     context_object_name = 'employees'
 
     def get_queryset(self):
@@ -78,14 +78,14 @@ class NewEmployeeByAgeListView(LoginRequiredMixin, CompanyContextMixin, ListView
 
 class NewEmployeeByAgeDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = NewEmployeeByAge
-    template_name = ''
+    template_name = 'socialdata/employees/age/employees-age.html'
     context_object_name = 'employee'
 
 
 class NewEmployeeByAgeCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     model = NewEmployeeByAge
     form_class = NewEmployeeByAgeForm
-    template_name = ''
+    template_name = 'socialdata/employees/age/form-age.html'
     success_url = reverse_lazy('employees')
 
     def form_valid(self, form):
@@ -104,7 +104,7 @@ class NewEmployeeByAgeCreateView(LoginRequiredMixin, CompanyContextMixin, Create
 class NewEmployeeByAgeUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = NewEmployeeByAge
     form_class = NewEmployeeByAgeForm
-    template_name = ''
+    template_name = 'socialdata/employees/age/form-age.html'
     success_url = reverse_lazy('employees')
 
     def form_valid(self, form):
@@ -125,7 +125,7 @@ class NewEmployeeByAgeDeleteView(LoginRequiredMixin, CompanyContextMixin, Delete
 
 class RotationRateOfEmployeeByAgeListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     model = RotationRateOfEmployeeByAge
-    template_name = ''
+    template_name = 'socialdata/employees/rotations/rotations.html'
     context_object_name = 'rotations'
 
     def get_queryset(self):
@@ -136,14 +136,14 @@ class RotationRateOfEmployeeByAgeListView(LoginRequiredMixin, CompanyContextMixi
 
 class RotationRateOfEmployeeByAgeDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = RotationRateOfEmployeeByAge
-    template_name = ''
+    template_name = 'socialdata/employees/rotations/rotation.html'
     context_object_name = 'rotation'
 
 
 class RotationRateOfEmployeeByAgeCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     model = RotationRateOfEmployeeByAge
     form_class = RotationRateOfEmployeeByAgeForm
-    template_name = ''
+    template_name = 'socialdata/employees/rotations/form-rotations.html'
     success_url = reverse_lazy('rotations')
 
     def form_valid(self, form):
@@ -162,7 +162,7 @@ class RotationRateOfEmployeeByAgeCreateView(LoginRequiredMixin, CompanyContextMi
 class RotationRateOfEmployeeByAgeUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = RotationRateOfEmployeeByAge
     form_class = RotationRateOfEmployeeByAgeForm
-    template_name = ''
+    template_name = 'socialdata/employees/rotations/form-rotations.html'
     success_url = reverse_lazy('rotations')
 
     def form_valid(self, form):
@@ -183,7 +183,7 @@ class RotationRateOfEmployeeByAgeDeleteView(LoginRequiredMixin, CompanyContextMi
 
 class RetirementRateListView(LoginRequiredMixin, CompanyContextMixin, ListView):
     model = RetirementRate
-    template_name = ''
+    template_name = 'socialdata/employees/retirements/retirements.html'
     context_object_name = 'rotations'
 
     def get_queryset(self):
@@ -194,14 +194,14 @@ class RetirementRateListView(LoginRequiredMixin, CompanyContextMixin, ListView):
 
 class RetirementRateDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
     model = RetirementRate
-    template_name = ''
+    template_name = 'socialdata/employees/retirements/retirement.html'
     context_object_name = 'retirement'
 
 
 class RetirementRateCreateView(LoginRequiredMixin, CompanyContextMixin, CreateView):
     model = RetirementRate
     form_class = RetirementRateForm
-    template_name = ''
+    template_name = 'socialdata/employees/retirements/form-retirements.html'
     success_url = reverse_lazy('retirements')
 
     def form_valid(self, form):
@@ -220,7 +220,7 @@ class RetirementRateCreateView(LoginRequiredMixin, CompanyContextMixin, CreateVi
 class RetirementRateUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = RetirementRate
     form_class = RetirementRateForm
-    template_name = ''
+    template_name = 'socialdata/employees/retirements/form-retirements.html'
     success_url = reverse_lazy('retirements')
 
     def form_valid(self, form):
