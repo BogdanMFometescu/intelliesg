@@ -22,7 +22,7 @@ class SocialBaseClass(models.Model):
 
 
 class EmployeeAgeBaseClass(models.Model):
-    county = models.CharField(blank=False, null=False, max_length=255)
+    county = models.CharField(blank=False, null=False, choices=COUNTY_CHOICES)
     men_under_30 = models.IntegerField(blank=False, null=False)
     women_under_30 = models.IntegerField(blank=False, null=False)
     men_between_30_and_50 = models.IntegerField(blank=False, null=False)
@@ -64,6 +64,7 @@ class HealthAndSafety(SocialBaseClass):
 
 
 class EmployeeByContracts(SocialBaseClass):
+    county = models.CharField(blank=False, null=False, choices=COUNTY_CHOICES)
     full_time_women = models.IntegerField(blank=False, null=False)
     full_time_men = models.IntegerField(blank=False, null=False)
     fixed_term_contract_women = models.IntegerField(blank=False, null=False)
