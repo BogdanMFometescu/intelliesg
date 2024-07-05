@@ -43,7 +43,7 @@ class EmployeeByContractsCreateView(LoginRequiredMixin, CompanyContextMixin, Cre
         return reverse_lazy('contracts')
 
 
-class EmployeeByContractsUpdateView(LoginRequiredMixin, CompanyContextMixin, CreateView, UpdateView):
+class EmployeeByContractsUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = EmployeeByContracts
     form_class = EmployeeByContractsForm
     template_name = ''
@@ -101,7 +101,7 @@ class NewEmployeeByAgeCreateView(LoginRequiredMixin, CompanyContextMixin, Create
         return reverse_lazy('employees')
 
 
-class NewEmployeeByAgeUpdateView(LoginRequiredMixin, CompanyContextMixin, CreateView, UpdateView):
+class NewEmployeeByAgeUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = NewEmployeeByAge
     form_class = NewEmployeeByAgeForm
     template_name = ''
@@ -159,7 +159,7 @@ class RotationRateOfEmployeeByAgeCreateView(LoginRequiredMixin, CompanyContextMi
         return reverse_lazy('rotations')
 
 
-class RotationRateOfEmployeeByAgeUpdateView(LoginRequiredMixin, CompanyContextMixin, CreateView, UpdateView):
+class RotationRateOfEmployeeByAgeUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = RotationRateOfEmployeeByAge
     form_class = RotationRateOfEmployeeByAgeForm
     template_name = ''
@@ -217,7 +217,7 @@ class RetirementRateCreateView(LoginRequiredMixin, CompanyContextMixin, CreateVi
         return reverse_lazy('retirements')
 
 
-class RetirementRateUpdateView(LoginRequiredMixin, CompanyContextMixin, CreateView, UpdateView):
+class RetirementRateUpdateView(LoginRequiredMixin, CompanyContextMixin, UpdateModeMixin, UpdateView):
     model = RetirementRate
     form_class = RetirementRateForm
     template_name = ''
