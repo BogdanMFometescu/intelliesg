@@ -115,11 +115,11 @@
                             {% endfor %}
                             <tr class="table-primary">
                                 {% if user.is_staff %}
-                                    <th scope="row" colspan="9" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="9" class="text-right">Total full-time contracts:</th>
                                 {% else %}
-                                    <th scope="row" colspan="8" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="8" class="text-right">Total full-time contracts:</th>
                                 {% endif %}
-                                <td>{{ total_working_hours_display }} </td>
+                                <td>{{ full_time_contracts_display }} </td>
                             </tr>
                             </tbody>
                         </table>
@@ -180,11 +180,11 @@
                             {% endfor %}
                             <tr class="table-primary">
                                 {% if user.is_staff %}
-                                    <th scope="row" colspan="9" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="9" class="text-right">Total fixed-term contracts:</th>
                                 {% else %}
-                                    <th scope="row" colspan="8" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="8" class="text-right">Total fixed-term contracts:</th>
                                 {% endif %}
-                                <td>{{ total_working_hours_display }} </td>
+                                <td>{{ fixed_term_contracts_display }} </td>
                             </tr>
                             </tbody>
                         </table>
@@ -244,11 +244,11 @@
                             {% endfor %}
                             <tr class="table-primary">
                                 {% if user.is_staff %}
-                                    <th scope="row" colspan="9" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="9" class="text-right">Total part-time contracts:</th>
                                 {% else %}
-                                    <th scope="row" colspan="8" class="text-right">Total working hours:</th>
+                                    <th scope="row" colspan="8" class="text-right">TTotal part-time contracts:</th>
                                 {% endif %}
-                                <td>{{ total_working_hours_display }} </td>
+                                <td>{{ part_time_contracts_display}} </td>
                             </tr>
                             </tbody>
                         </table>
