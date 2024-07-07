@@ -16,7 +16,7 @@ class HealthAndSafetyFilter(django_filters.FilterSet):
 
 
 class EmployeeContractsFilter(django_filters.FilterSet):
-    year = django_filters.ChoiceFilter(field_name='year', lookup_expr='exact')
+    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
     company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
     county = django_filters.ChoiceFilter(choices=COUNTY_CHOICES, field_name='county')
 
@@ -26,7 +26,7 @@ class EmployeeContractsFilter(django_filters.FilterSet):
 
 
 class NewEmployeeByAgeFilter(django_filters.FilterSet):
-    year = django_filters.ChoiceFilter(field_name='year', lookup_expr='exact')
+    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
     company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
     county = django_filters.ChoiceFilter(choices=COUNTY_CHOICES, field_name='county')
 
@@ -36,7 +36,7 @@ class NewEmployeeByAgeFilter(django_filters.FilterSet):
 
 
 class RotationRateFilter(django_filters.FilterSet):
-    year = django_filters.ChoiceFilter(field_name='year', lookup_expr='exact')
+    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
     company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
     county = django_filters.ChoiceFilter(choices=COUNTY_CHOICES, field_name='county')
 
@@ -46,7 +46,7 @@ class RotationRateFilter(django_filters.FilterSet):
 
 
 class RetirementRateFilter(django_filters.FilterSet):
-    year = django_filters.ChoiceFilter(field_name='year', lookup_expr='exact')
+    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
     company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
     county = django_filters.ChoiceFilter(choices=COUNTY_CHOICES, field_name='county')
 

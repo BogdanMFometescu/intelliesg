@@ -66,6 +66,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Company</th>
+                                <th scope="col">Year</th>
                                 <th scope="col">County</th>
                                 <th scope="col">Women</th>
                                 <th scope="col">Men</th>
@@ -81,10 +82,9 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>
-
                                         {{ contract.company }}
-
                                     </td>
+                                    <td>{{ contract.year }}</td>
                                     <td>{{ contract.county }}</td>
                                     <td>{{ contract.full_time_women }}</td>
                                     <td>{{ contract.full_time_men }}</td>
@@ -131,6 +131,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Company</th>
+                                <th scope="col">Year</th>
                                 <th scope="col">County</th>
                                 <th scope="col">Women</th>
                                 <th scope="col">Men</th>
@@ -146,10 +147,9 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>
-
                                         {{ contract.company }}
-
                                     </td>
+                                    <td>{{ contract.year }}</td>
                                     <td>{{ contract.county }}</td>
                                     <td>{{ contract.fixed_term_contract_women }}</td>
                                     <td>{{ contract.fixed_term_contract_men }}</td>
@@ -195,6 +195,7 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Company</th>
+                                <th scope="col">Year</th>
                                 <th scope="col">County</th>
                                 <th scope="col">Women</th>
                                 <th scope="col">Men</th>
@@ -210,10 +211,9 @@
                                 <tr>
                                     <th scope="row">{{ forloop.counter }}</th>
                                     <td>
-
                                         {{ contract.company }}
-
                                     </td>
+                                    <td>{{ contract.year }}</td>
                                     <td>{{ contract.county }}</td>
                                     <td>{{ contract.part_time_women }}</td>
                                     <td>{{ contract.part_time_men }}</td>
@@ -246,12 +246,15 @@
                                 {% if user.is_staff %}
                                     <th scope="row" colspan="9" class="text-right">Total part-time contracts:</th>
                                 {% else %}
-                                    <th scope="row" colspan="8" class="text-right">TTotal part-time contracts:</th>
+                                    <th scope="row" colspan="8" class="text-right">Total part-time contracts:</th>
                                 {% endif %}
-                                <td>{{ part_time_contracts_display}} </td>
+                                <td>{{ part_time_contracts_display }} </td>
                             </tr>
                             </tbody>
                         </table>
+
+                        <h3 align="left" style="color: black">Total contracts :
+                            <b>{{ total_contracts_display }} </b></h3>
 
 
                         {% include 'paginator.html' with page_obj=fuel_emissions %}
