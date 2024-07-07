@@ -1,0 +1,167 @@
+<style>
+    @page {
+        size: landscape;
+        margin: 10px; /* Add margin to the page */
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        margin-left: 10px;
+        color: #205067;
+    }
+
+    small {
+        margin-left: 10px;
+    }
+
+    table {
+        width: 100%; /* Use 100% width for the table */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .form-row label {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .form-row input, .form-row select {
+        margin-bottom: 2px;
+    }
+</style>
+
+<h2 style="color: #205067;"><b>Employee Type of Contract Data </b></h2>
+
+<h2 style="margin-left: 10px">Valid records as of : {% now "d.m.Y" %}</h2>
+<br>
+
+
+<h2 align="left" style="color: blue">A.Employees full time contracts</h2>
+<br>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Company</th>
+        <th scope="col">Year</th>
+        <th scope="col">County</th>
+        <th scope="col">Women</th>
+        <th scope="col">Men</th>
+        <th scope="col">Total</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for contract in total_company_contracts %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+                {{ contract.company }}
+            </td>
+            <td>{{ contract.year }}</td>
+            <td>{{ contract.county }}</td>
+            <td>{{ contract.full_time_women }}</td>
+            <td>{{ contract.full_time_men }}</td>
+            <td>{{ contract.get_total_full_time_contracts }}</td>
+
+
+        </tr>
+    {% endfor %}
+    <tr>
+        <th scope="row" colspan="6" class="text-right">Total full-time contracts:</th>
+        <td>{{ total_full_time }} </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<h2 align="left" style="color: darkgreen">B.Employees fixed time contracts</h2>
+<br>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Company</th>
+        <th scope="col">Year</th>
+        <th scope="col">County</th>
+        <th scope="col">Women</th>
+        <th scope="col">Men</th>
+        <th scope="col">Total</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for contract in total_company_contracts %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+                {{ contract.company }}
+            </td>
+            <td>{{ contract.year }}</td>
+            <td>{{ contract.county }}</td>
+            <td>{{ contract.fixed_term_contract_women }}</td>
+            <td>{{ contract.fixed_term_contract_men }}</td>
+            <td>{{ contract.get_total_fixed_term_contracts }}</td>
+
+
+        </tr>
+    {% endfor %}
+    <tr>
+        <th scope="row" colspan="6" class="text-right">Total fixed-term contracts:</th>
+        <td>{{ total_fixed_term }} </td>
+    </tr>
+    </tbody>
+</table>
+<h2 align="left" style="color: darkred">C.Employees part-time contracts</h2>
+<br>
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Company</th>
+        <th scope="col">Year</th>
+        <th scope="col">County</th>
+        <th scope="col">Women</th>
+        <th scope="col">Men</th>
+        <th scope="col">Total</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for contract in total_company_contracts %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>
+                {{ contract.company }}
+            </td>
+            <td>{{ contract.year }}</td>
+            <td>{{ contract.county }}</td>
+            <td>{{ contract.part_time_women }}</td>
+            <td>{{ contract.part_time_men }}</td>
+            <td>{{ contract.get_total_part_time_contracts }}</td>
+
+        </tr>
+    {% endfor %}
+    <tr>
+        <th scope="row" colspan="6" class="text-right">Total part-time contracts:</th>
+        <td>{{ total_part_time }} </td>
+    </tr>
+    </tbody>
+    <tr>
+        <th scope="row" colspan="6" class="text-right">Total contracts:</th>
+        <td>{{ total_contracts }} </td>
+    </tr>
+
+</table>
