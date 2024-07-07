@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from envdata.mixins import CompanyContextMixin, UpdateModeMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from .filters import EmployeeContractsFilter
+from .filters import EmployeeContractsFilter, NewEmployeeByAgeFilter
 from django_filters.views import FilterView
 from django.db.models import Sum, F
 
@@ -94,8 +94,9 @@ class EmployeeByContractsDeleteView(LoginRequiredMixin, CompanyContextMixin, Del
     success_url = reverse_lazy('contracts')
 
 
-class NewEmployeeByAgeListView(LoginRequiredMixin, CompanyContextMixin, ListView):
+class NewEmployeeByAgeListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     model = NewEmployeeByAge
+    filterset_class = NewEmployeeByAgeFilter
     template_name = 'socialdata/employees/age/employees-ages.html'
     context_object_name = 'employees'
 
@@ -103,6 +104,25 @@ class NewEmployeeByAgeListView(LoginRequiredMixin, CompanyContextMixin, ListView
         if self.request.user.is_staff:
             return super().get_queryset()
         return NewEmployeeByAge.objects.filter(profile__user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        filtered_under_30 = \
+            self.filterset.qs.annotate(total_under_30=F('men_under_30') + F('women_under_30')).aggregate(
+                total_emp_under_30=Sum('total_under_30'))['total_emp_under_30'] or 0
+
+        filtered_between_30_and_50 = self.filterset.qs.annotate(
+            total_between_30_and_50=F('men_between_30_and_50') + F('women_between_30_and_50')).aggregate(
+            total_30_and_50=Sum('total_between_30_and_50'))['total_30_and_50'] or 0
+
+        filtered_over_50 = self.filterset.qs.annotate(total_over_50=F('men_over_50') + F('women_over_50')).aggregate(
+            total_over=Sum('total_over_50'))['total_over'] or 0
+
+        context['total_under_30_display'] = filtered_under_30
+        context['total_between_30_and_50_display'] = filtered_between_30_and_50
+        context['total_over_50'] = filtered_over_50
+
+        return context
 
 
 class NewEmployeeByAgeDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
