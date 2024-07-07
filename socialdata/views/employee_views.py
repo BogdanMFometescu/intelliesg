@@ -5,10 +5,14 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from envdata.mixins import CompanyContextMixin, UpdateModeMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from .filters import EmployeeContractsFilter
+from django_filters.views import FilterView
+from django.db.models import Sum, F
 
 
-class EmployeeByContractsListView(LoginRequiredMixin, CompanyContextMixin, ListView):
+class EmployeeByContractsListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     model = EmployeeByContracts
+    filterset_class = EmployeeContractsFilter
     template_name = 'socialdata/employees/contracts/contracts.html'
     context_object_name = 'contracts'
 
@@ -16,6 +20,25 @@ class EmployeeByContractsListView(LoginRequiredMixin, CompanyContextMixin, ListV
         if self.request.user.is_staff:
             return super().get_queryset()
         return EmployeeByContracts.objects.filter(profile__user=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        filtered_full_time_contracts = \
+            self.filterset.qs.annotate(total_contracts=F('full_time_women') + F('full_time_men')).aggregate(
+                total_contract_full=Sum('total_contracts'))['total_contract_full'] or 0
+
+        filtered_fixed_term_contracts = self.filterset.qs.annotate(
+            total_contracts_ft=F('fixed_term_contract_women') + F('fixed_term_contract_men')).aggregate(
+            total_contract_fixed=Sum('total_contracts_ft'))['total_contract_fixed'] or 0
+
+        filtered_part_time_contracts = self.filterset.qs.annotate(
+            total_contracts_pt=F('part_time_women') + F('part_time_men')).aggregate(
+            total_contract_part=Sum('total_contracts_pt'))['total_contract_part'] or 0
+
+        context['full_time_contracts_display'] = filtered_full_time_contracts
+        context['fixed_term_contracts_display'] = filtered_fixed_term_contracts
+        context['part_time_contracts_display'] = filtered_part_time_contracts
+        return context
 
 
 class EmployeeByContractsDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
