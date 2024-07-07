@@ -31,10 +31,16 @@ class EmployeeAgeBaseClass(models.Model):
     women_over_50 = models.IntegerField(blank=False, null=False)
 
     @property
-    def get_total_employee_by_age(self):
-        return (self.men_under_30 + self.women_under_30 +
-                self.men_between_30_and_50 + self.women_between_30_and_50 +
-                self.men_over_50 + self.women_over_50)
+    def get_employee_under_30(self):
+        return self.men_under_30 + self.women_under_30
+
+    @property
+    def get_employee_between_30_and_50(self):
+        return self.men_between_30_and_50 + self.women_between_30_and_50
+
+    @property
+    def get_employee_over_50(self):
+        return self.men_over_50 + self.women_over_50
 
     class Meta:
         abstract = True
