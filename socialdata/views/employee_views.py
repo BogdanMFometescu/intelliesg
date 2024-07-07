@@ -35,9 +35,15 @@ class EmployeeByContractsListView(LoginRequiredMixin, CompanyContextMixin, Filte
             total_contracts_pt=F('part_time_women') + F('part_time_men')).aggregate(
             total_contract_part=Sum('total_contracts_pt'))['total_contract_part'] or 0
 
+        filtered_total_contracts = self.filterset.qs.annotate(
+            total_company_contracts=F('part_time_women') + F('part_time_men') + F('full_time_women') + F(
+                'full_time_men') + F('fixed_term_contract_women') + F('fixed_term_contract_men')).aggregate(
+            total=Sum('total_company_contracts'))['total'] or 0
+
         context['full_time_contracts_display'] = filtered_full_time_contracts
         context['fixed_term_contracts_display'] = filtered_fixed_term_contracts
         context['part_time_contracts_display'] = filtered_part_time_contracts
+        context['total_contracts_display'] = filtered_total_contracts
         return context
 
 
