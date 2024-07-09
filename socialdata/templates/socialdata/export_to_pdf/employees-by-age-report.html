@@ -1,0 +1,191 @@
+<style>
+    @page {
+        size: landscape;
+        margin: 10px; /* Add margin to the page */
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h2 {
+        margin-left: 10px;
+        color: #205067;
+    }
+
+    small {
+        margin-left: 10px;
+    }
+
+    table {
+        width: 100%; /* Use 100% width for the table */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .form-row label {
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .form-row input, .form-row select {
+        margin-bottom: 2px;
+    }
+</style>
+
+<h2 style="color: #205067;"><b>Employee Repartition by Age </b></h2>
+
+<h2 style="margin-left: 10px">Valid records as of : {% now "d.m.Y" %}</h2>
+<br>
+
+
+ <h2 align="left" style="color: blue">A.Employees under 30 years old</h2>
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Company</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">County</th>
+                                <th scope="col">Women</th>
+                                <th scope="col">Men</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for employee in total_age_filtered %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>
+                                        {{ employee.company }}
+                                    </td>
+                                    <td>{{ employee.year }}</td>
+                                    <td>{{ employee.county }}</td>
+                                    <td>{{ employee.men_under_30 }}</td>
+                                    <td>{{ employee.women_under_30 }}</td>
+                                    <td>{{ employee.get_employee_under_30 }}</td>
+                                    {% if user.is_staff %}
+                                        <td>{{ employee.profile.user }}</td>
+
+                                    {% endif %}
+
+
+                                </tr>
+                            {% endfor %}
+                            <tr class="table-primary">
+                                    <th scope="row" colspan="6" class="text-right">Total employees under 30:</th>
+                                <td>{{ total_under_30 }} </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br>
+                        <h2 align="left" style="color: darkgreen">B.Employees between 30 and 50 years old</h2>
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Company</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">County</th>
+                                <th scope="col">Women</th>
+                                <th scope="col">Men</th>
+                                <th scope="col">Total</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for employee in total_age_filtered %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>
+                                        {{ employee.company }}
+                                    </td>
+                                    <td>{{ employee.year }}</td>
+                                    <td>{{ employee.county }}</td>
+                                    <td>{{ employee.men_between_30_and_50 }}</td>
+                                    <td>{{ employee.women_between_30_and_50 }}</td>
+                                    <td>{{ employee.get_employee_between_30_and_50 }}</td>
+                                    {% if user.is_staff %}
+                                        <td>{{ employee.profile.user }}</td>
+
+                                    {% endif %}
+
+
+                                </tr>
+                            {% endfor %}
+                            <tr class="table-primary">
+                                    <th scope="row" colspan="6" class="text-right">Total employees between 30 and 50 years old:</th>
+                                <td>{{ total_between_30_and_50 }} </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <h2 align="left" style="color: darkred">C.Employees over 50 years old</h2>
+                        <br>
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Company</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">County</th>
+                                <th scope="col">Women</th>
+                                <th scope="col">Men</th>
+                                <th scope="col">Total</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for employee in total_age_filtered %}
+                                <tr>
+                                    <th scope="row">{{ forloop.counter }}</th>
+                                    <td>
+                                        {{ employee.company }}
+                                    </td>
+                                    <td>{{ employee.year }}</td>
+                                    <td>{{ employee.county }}</td>
+                                    <td>{{ employee.women_over_50 }}</td>
+                                    <td>{{ employee.men_over_50 }}</td>
+                                    <td>{{ employee.get_employee_over_50 }}</td>
+                                    {% if user.is_staff %}
+                                        <td>{{ employee.profile.user }}</td>
+
+                                    {% endif %}
+
+
+                                </tr>
+                            {% endfor %}
+                            <tr class="table-primary">
+                                    <th scope="row" colspan="6" class="text-right">Total part-time contracts:</th>
+                                <td>{{ total_over_50}} </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <h3 align="left" style="color: black">Total employees :
+                            <b>{{ total_age_sum }} </b></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

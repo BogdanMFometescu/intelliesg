@@ -11,6 +11,7 @@ urlpatterns = [path('hss/', views.HealthAndSafetyListView.as_view(), name='hss')
 
                path('soc-export-to-pdf/', views.HealthAndSafetyPdfView.as_view(), name='soc_export_pdf'),
                path('soc-contracts-to-pdf/', views.EmployeeContractsPdfView.as_view(), name='soc_contracts_pdf'),
+               path('soc-age-to-pdf/', views.EmployeeAgePdfView.as_view(), name='soc_age_pdf'),
 
                path('contracts/', views.EmployeeByContractsListView.as_view(), name='contracts'),
                path('contract/<uuid:pk>/', views.EmployeeByContractsDetailView.as_view(), name='contract'),
