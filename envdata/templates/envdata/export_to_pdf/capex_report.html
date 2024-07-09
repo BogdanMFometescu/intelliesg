@@ -43,7 +43,7 @@
     }
 </style>
 
-<h2 style="color: #205067;"><b>REPORT ON TRAVEL EMISSIONS </b></h2>
+<h2 style="color: #205067;"><b>REPORT ON TAXONOMY CAPEX </b></h2>
 
 <h2 style="margin-left: 10px">Valid records as of : {% now "d.m.Y" %}</h2>
 <br>
@@ -70,8 +70,8 @@
         <tr>
             <th style="width: 80px">{{ forloop.counter }}</th>
             <td>{{ capex.company }}</td>
-            <td>{{ capex.opex_activity }}</td>
-            <td>{{ capex.opex_aligned }}</td>
+            <td>{{ capex.capex_activity }}</td>
+            <td>{{ capex.capex_aligned }}</td>
             <td>{{ capex.currency }}</td>
             <td>{{ capex.get_aligned_percent }} %</td>
             <td>{{ capex.climate_change_dnsh }} </td>
@@ -103,8 +103,8 @@
         <tr>
             <th style="width: 80px">{{ forloop.counter }}</th>
             <td>{{ capex.company }}</td>
-            <td>{{ capex.opex_activity }}</td>
-            <td>{{ capex.opex_eligible }}</td>
+            <td>{{ capex.capex_activity }}</td>
+            <td>{{ capex.capex_eligible }}</td>
             <td>{{ capex.currency }}</td>
             <td>{{ capex.get_eligible_percent }} %</td>
 
@@ -112,7 +112,7 @@
 
     {% endfor %}
     <tr class="table-primary">
-        <th scope="row" colspan="14" class="text-right">Total eligible CapEx:
+        <th scope="row" colspan="5" class="text-right">Total eligible CapEx:
         </th>
         <td>{{ total_capex}} </td>
     </tr>
@@ -137,8 +137,8 @@
         <tr>
             <th style="width: 80px">{{ forloop.counter }}</th>
             <td>{{ capex.company }}</td>
-            <td>{{ capex.opex_activity }}</td>
-            <td>{{ capex.opex_non_eligible }}</td>
+            <td>{{ capex.capex_activity }}</td>
+            <td>{{ capex.capex_non_eligible }}</td>
             <td>{{ capex.currency }}</td>
             <td>{{ capex.get_non_eligible_percent }} %</td>
 
@@ -147,7 +147,7 @@
 
     {% endfor %}
     <tr class="table-primary">
-        <th scope="row" colspan="14" class="text-right">Total non-eligible CapEx:
+        <th scope="row" colspan="5" class="text-right">Total non-eligible CapEx:
         </th>
         <td>{{ total_capex }} </td>
     </tr>

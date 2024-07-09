@@ -5,6 +5,7 @@ import uuid
 from esgmanager.constants import *
 from users.models import Profile
 
+
 class ESGStrategy(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     introduction = models.TextField(blank=False, null=False, max_length=1000)
@@ -137,7 +138,7 @@ class EnvironmentalRisk(models.Model):
     def get_risk_impact(self):
         low = 1
         medium = 2
-        impact = ((self.probability * 25) / 100 + (self.severity * 75) / 100) / 2
+        impact = (self.probability + self.severity) / 2
         if impact <= low:
             return 'Low'
         elif low < impact <= medium:
@@ -178,7 +179,7 @@ class ClimateChangeRisk(models.Model):
     def get_risk_impact(self):
         low = 1
         medium = 2
-        impact = ((self.cc_probability * 0.25) / 100 + (self.cc_severity * 0.75) / 100) / 2
+        impact = (self.cc_probability + self.cc_severity) / 2
         if impact <= low:
             return 'Low'
         elif low < impact <= medium:
@@ -217,7 +218,7 @@ class SocialRisk(models.Model):
     def get_risk_impact(self):
         low = 1
         medium = 2
-        impact = ((self.soc_probability * 0.25) / 100 + (self.soc_severity * 0.75) / 100) / 2
+        impact = (self.soc_probability + self.soc_severity) / 2
         if impact <= low:
             return 'Low'
         elif low < impact <= medium:
