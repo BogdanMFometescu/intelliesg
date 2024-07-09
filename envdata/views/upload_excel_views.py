@@ -112,6 +112,7 @@ class ExcelUploadViewForEnergy(ExcelUploadBaseView):
         self.model_class.objects.create(
             company=company,
             profile_id=profile_id,
+            month = row[1],
             year=row[2],
             emission_type=row[3],
             emission_scope=row[4],
