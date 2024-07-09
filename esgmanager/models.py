@@ -257,7 +257,7 @@ class GovernanceRisks(models.Model):
     def get_risk_impact(self):
         low = 1
         medium = 2
-        impact = ((self.gov_probability * 0.25) / 100 + (self.gov_severity * 0.75) / 100) / 2
+        impact = (self.gov_probability + self.gov_severity ) / 2
         if impact <= low:
             return 'Low'
         elif low < impact <= medium:

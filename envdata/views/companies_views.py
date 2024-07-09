@@ -48,8 +48,11 @@ class CompanyDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
                     if year not in emissions_data_by_year:
                         emissions_data_by_year[year] = {'total': 0}
 
-                    emissions_data_by_year[year][model_name] = total_co2
+                    # Add model-specific data
+                    emissions_data_by_year[year][model_name] = emissions_data_by_year[year].get(model_name,
+                                                                                                0) + total_co2
                     emissions_data_by_year[year]['total'] += total_co2
+
         except Exception as e:
             print(f"Error collecting emissions data: {e}")
 
@@ -62,6 +65,13 @@ class CompanyDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
         except Exception as e:
             print(f"Error merging target data: {e}")
 
+        # Ensure each year entry has all keys
+        for year, data in emissions_data_by_year.items():
+            for key in ['fuel', 'naturalgas', 'refrigerant', 'sf6', 'travel', 'energy', 'waste']:
+                if key not in data:
+                    data[key] = 0  # or a suitable default value
+
+        # Convert dictionary to a sorted list
         emissions_data = [dict(year=year, **data) for year, data in emissions_data_by_year.items()]
         emissions_data.sort(key=lambda x: x['year'])
 
