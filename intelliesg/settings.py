@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == '1'
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ["0.0.0.0",'127.0.0.1']
 
 # Application definition
 
@@ -75,16 +76,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'intelliesg.wsgi.application'
 
 # Database
+# Localhost setup
 
-
-DB_NAME = os.environ.get('POSTGRES_DB_NAME')
-DB_USER = os.environ.get('POSTGRES_DB_USER')
-DB_PASSWORD = os.environ.get('POSTGRES_DB_PASSWORD')
-DB_HOST = os.environ.get('POSTGRES_DB_HOST')
-DB_PORT = os.environ.get('POSTGRES_DB_PORT')
+DB_NAME = os.environ.get('DB_NAME')
+DB_USER = os.environ.get('DB_USERNAME')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+DB_HOST = os.environ.get('DB_HOST')
+DB_PORT = os.environ.get('DB_PORT')
 DB_AVAILABLE = all([DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_PORT])
 
-POSTGRES_READY = str(os.environ.get('POSTGRES_DB_AVAILABLE')) == '1'
+POSTGRES_READY = str(os.environ.get('DB_AVAILABLE')) == '1'
 
 if POSTGRES_READY and DB_AVAILABLE:
     DATABASES = {
@@ -97,6 +98,13 @@ if POSTGRES_READY and DB_AVAILABLE:
             'PORT': DB_PORT
         }
     }
+
+# Docker image setup with Postgresql database
+# DATABASES = {
+#     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+# }
+
+
 
 # Password validation
 

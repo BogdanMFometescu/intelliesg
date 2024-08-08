@@ -2,6 +2,14 @@
 
 - Changelog for the intelliesg app
 
+[08.08.2024]
+
+Version 0.9.3
+-
+- created Dockerfile and docker-compose files 
+
+
+
 [05.06.2024]
 
 Version 0.9.2
