@@ -28,21 +28,21 @@ The platform includes forms and charts for each ESG topic, along with detailed g
     venv\Scripts\activate
   ```
 
-3.Install dependencies using Poetry:
+3. Install dependencies using Poetry:
 
   ```bash
     poetry install
   ```
 
-4.Set up your environment variables in the .env file ,
+4. Set up your environment variables in the .env file ,
 including the PostgreSQL database settings.
 
-- POSTGRES_DB_AVAILABLE
-- POSTGRES_DB_NAME
-- POSTGRES_DB_USER
-- POSTGRES_DB_PASSWORD
-- POSTGRES_DB_HOST
-- POSTGRES_DB_PORT (this should be set to 5432)
+- DB_AVAILABLE
+- DB_NAME
+- DB_USER
+- DB_PASSWORD
+- DB_HOST
+- DB_PORT (this should be set to 5432)
 - SECRET_KEY
 
 
@@ -55,22 +55,34 @@ print(get_random_secret_key())
 ```
 
 
-5.Run database migrations:
+5. Run database migrations:
 
   ```bash
    python manage.py migrate
    ```
 
-6.Create a superuser for Django admin:
+6. Create a superuser for Django admin:
 
   ```bash
   python manage.py createsuperuser
   ```  
-7.Start the server:
+7. Start the server:
 ```bash
 python manage.py runserver
 
 ```
+
+
+### Quick Start with Docker image
+
+```bash
+
+docker-compose up -d --build
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py createsuperuser
+
+```
+
 
 ### Usage
 
@@ -87,23 +99,10 @@ can be used for advanced management.
 - Social Features: Health and safety management tools.
 - Governance Features: Manage organizational policies and governance activities.
 - Detailed Graphs and Charts: Visualize data for better insights.
+- Export PDF reports 
+- Upload data from Excel files 
 
 
-### Quick Start
-
-```bash
-
-git clone <repository_url>
-cd intelliesg
-python -m venv venv
-source venv/bin/activate
-poetry install
-cp .env.example .env  # Update .env with your settings
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
-
-```
 
 ### Technologies 
 
