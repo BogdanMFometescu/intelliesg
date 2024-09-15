@@ -468,6 +468,9 @@ class Target(models.Model):
         return f'{self.co2e_base_year}'
 
 
+#EU TAXONOMY
+
+
 class TaxonomySector(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
