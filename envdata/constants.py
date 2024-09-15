@@ -5,8 +5,21 @@ EMISSION_TYPE = [('Car fuels', 'Car fuels',),
                  ('Refrigerants', 'Refrigerants',),
                  ('Natural gas', 'Natural gas',),
                  ('Energy Acquisition', 'Energy Acquisition'),
-                 ('Travel', 'Travel'),
-                 ('Waste', 'Waste')]
+                 ('Business Travel', 'Business Travel'),
+                 ('Waste Generated in Operations', 'Waste Generated in Operations'),
+                 ('Purchased Goods and Services','Purchased Goods and Services'),
+                 ('Capital Goods','Capital Goods'),
+                 ('Fuel and Energy Related Activities','Fuel and Energy Related Activities'),
+                 ('Upstream Transportation and Distribution','Upstream Transportation and Distribution'),
+                 ('Employee Commuting','Employee Commuting'),
+                 ('Upstream Leased Assets','Upstream Leased Assets'),
+                 ('Downstream Transportation and Distribution','Downstream Transportation and Distribution'),
+                 ('Processing of Sold Products','Processing of Sold Products'),
+                 ('Use of Sold Products','Use of Sold Products'),
+                 ('End of Life Treatment of Sold Products','End of Life Treatment of Sold Products'),
+                 ('Downstream Leased Assets','Downstream Leased Assets'),
+                 ('Franchises','Franchises'),
+                 ('Investments','Investments')]
 
 EMISSION_SCOPE = [('Scope 1', 'Scope 1'),
                   ('Scope 2', 'Scope 2'),
@@ -66,6 +79,14 @@ NATURAL_GAS_LOCATIONS = [('Location 1', 'Location 1'),
 
 CALCULATION_METHOD = [('Location Based', 'Location Based'),
                       ('Market Based', 'Market Based')]
+
+
+CALCULATION_METHOD_FOR_SCOPE_3= [('Supplier specific method','Supplier specific method'),
+                                 ('Hybrid method','Hybrid method'),
+                                 ('Average data method','Average data method'),
+                                 ('Spend  based method','Spend  based method'),
+                                 ]
+
 
 MONTH = [('January', 'January'),
          ('February', 'February'),
