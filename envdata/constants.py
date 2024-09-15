@@ -84,7 +84,8 @@ CALCULATION_METHOD = [('Location Based', 'Location Based'),
 CALCULATION_METHOD_FOR_SCOPE_3= [('Supplier specific method','Supplier specific method'),
                                  ('Hybrid method','Hybrid method'),
                                  ('Average data method','Average data method'),
-                                 ('Spend  based method','Spend  based method'),
+                                 ('Spend  based method','Spend based method'),
+                                 ('Waste type specific method','Waste type specific method'),
                                  ]
 
 

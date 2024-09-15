@@ -352,6 +352,61 @@ class Energy(models.Model):
 # SCOPE 3 emissions
 
 
+class Scope3BaseClass(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
+    year = models.CharField(blank=False, null=False, max_length=4)
+    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
+    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
+    calculation_method = models.CharField(max_length=255,blank=False,null=False,choices=CALCULATION_METHOD_FOR_SCOPE_3)
+    quantity = models.FloatField(blank=False, null=False,default=0)
+    price = models.FloatField(blank=False,null=False,default=0)
+    supplier_co2_data = models.FloatField(blank=False,null=False,default=0)
+    hybrid_co2_data = models.FloatField(blank=False,null=False,default=0)
+    average_co2_data = models.FloatField(blank=False,null=False,default=0)
+    emission_factor = models.FloatField(blank=False, null=True, default=0 )
+    
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
+
+
+    #supplier specific method
+    @property
+    def suplier_based_method(self):
+        total_co2 = self.supplier_co2_data*self.emission_factor
+        return total_co2
+
+    #hybrid method
+    @property
+    def hybrid_method(self):
+        supplier_based = self.suplier_based_method()
+        hybrid = self.hybrid_co2_data*self.emission_factor
+        return supplier_based + hybrid
+
+    #average data method
+    @property
+    def  average_method(self):
+        total_co2_average = self.average_co2_data*self.quantity*self.emission_factor
+        return total_co2_average
+
+    #spend based method
+    @property
+    def spend_based_method(self):
+        total_co2 = self.emission_factor *  self.quantity * self.price
+        return total_co2
+
+
+
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+
+    class Meta:
+        abstract = True
+        verbose_name = 'Scope 3 Emission'
+
 class Travel(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
@@ -429,6 +484,63 @@ class Waste(models.Model):
     def __str__(self):
         return f'{self.waste_name}'
 
+
+class PurchasedGoodsAndServices(Scope3BaseClass):
+   pass
+
+
+class CapitalGoods(Scope3BaseClass):
+   pass
+
+
+class FuelEnergyRelatedActivities(Scope3BaseClass):
+    pass
+
+
+class UpstreamTransportationAndDistribution(Scope3BaseClass):
+    pass
+    
+
+
+class EmployeeCommuting(Scope3BaseClass):
+    pass
+
+
+
+class UpstreamLeasedAssets (Scope3BaseClass):
+    pass
+
+
+
+class DownstreamTransportationAndDistribution(Scope3BaseClass):
+    pass
+
+
+class ProcessingOfSoldProducts(Scope3BaseClass):
+    pass
+
+class UseOfSoldProducts(Scope3BaseClass):
+    pass
+
+
+class EndOfLifeTreatmentOfSoldProducts(Scope3BaseClass):
+    pass
+
+
+
+class DownstreamLeasedAssets(Scope3BaseClass):
+    pass
+
+
+class Franchises(Scope3BaseClass):
+    pass
+
+class Investments(Scope3BaseClass):
+    pass
+
+
+
+#CO2 SBTi and NET ZERO Targets 
 
 class Target(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
