@@ -7,7 +7,7 @@ from users.models import Profile
 
 class Company(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    name = models.CharField(unique=True, blank=False, null=False)
+    name = models.CharField(unique=True, blank=False, null=False,max_length=255)
     address = models.CharField(max_length=255, blank=False, null=False)
     city = models.CharField(max_length=255, blank=False, null=False)
     country = models.CharField(max_length=255, blank=False, null=False)
@@ -160,7 +160,7 @@ class Company(models.Model):
 class Fuel(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH)
+    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
     year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
@@ -202,7 +202,7 @@ class Fuel(models.Model):
 class NaturalGas(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH)
+    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
     year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
@@ -239,7 +239,7 @@ class NaturalGas(models.Model):
 class Sf6(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH)
+    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
     year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
@@ -273,7 +273,7 @@ class Sf6(models.Model):
 class Refrigerant(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH)
+    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
     year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
@@ -312,7 +312,7 @@ class Refrigerant(models.Model):
 class Energy(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH)
+    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
     year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
@@ -355,7 +355,7 @@ class Energy(models.Model):
 class Travel(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH)
+    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
     year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
@@ -394,7 +394,7 @@ class Travel(models.Model):
 class Waste(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH)
+    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
     year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
@@ -475,7 +475,7 @@ class TaxonomySector(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     sector = models.CharField(blank=False, null=False, choices=TAXONOMY_SECTOR_CHOICES, max_length=2000)
-    activity = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_CHOICES)
+    activity = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_CHOICES,max_length=255)
     activity_type = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_TYPE_CHOICES, max_length=255, )
     nace_code = models.FloatField(blank=False, null=False, default=0.0)
 
