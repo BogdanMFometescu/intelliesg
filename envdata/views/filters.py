@@ -16,75 +16,43 @@ from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Was
 from envdata.constants import *
 
 
-class FuelTypeFilter(django_filters.FilterSet):
+class BaseTypeFilter(django_filters.FilterSet):
     year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
     month = django_filters.ChoiceFilter(choices=MONTH, field_name='month')
     company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
 
     class Meta:
-        model = Fuel
+        abstract = True
         fields = ['company', 'year', 'month', ]
 
 
-class Sf6TypeFilter(django_filters.FilterSet):
-    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
-    month = django_filters.ChoiceFilter(choices=MONTH, field_name='month')
-    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
+class FuelTypeFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = Fuel
 
-    class Meta:
-        model = Sf6
-        fields = ['company', 'year', 'month', ]
+class Sf6TypeFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = Sf6
 
+class RefrigerantTypeFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = Refrigerant
 
-class RefrigerantTypeFilter(django_filters.FilterSet):
-    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
-    month = django_filters.ChoiceFilter(choices=MONTH, field_name='month')
-    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
+class EnergyTypeFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = Energy
 
-    class Meta:
-        model = Refrigerant
-        fields = ['company', 'year', 'month', ]
+class TravelTypeFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = Travel
 
+class WasteTypeFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = Waste
 
-class EnergyTypeFilter(django_filters.FilterSet):
-    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
-    month = django_filters.ChoiceFilter(choices=MONTH, field_name='month')
-    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
-
-    class Meta:
-        model = Energy
-        fields = ['company', 'year', 'month', ]
-
-
-class TravelTypeFilter(django_filters.FilterSet):
-    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
-    month = django_filters.ChoiceFilter(choices=MONTH, field_name='month')
-    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
-
-    class Meta:
-        model = Travel
-        fields = ['company', 'year', 'month', ]
-
-
-class WasteTypeFilter(django_filters.FilterSet):
-    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
-    month = django_filters.ChoiceFilter(choices=MONTH, field_name='month')
-    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
-
-    class Meta:
-        model = Waste
-        fields = ['company', 'year', 'month', ]
-
-
-class NaturalGasTypeFilter(django_filters.FilterSet):
-    year = django_filters.CharFilter(field_name='year', lookup_expr='exact')
-    month = django_filters.ChoiceFilter(choices=MONTH, field_name='month')
-    company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
-
-    class Meta:
-        model = NaturalGas
-        fields = ['company', 'year', 'month', ]
-
+class NaturalGasTypeFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = NaturalGas
 
 class TaxonomyTurnoverFilter(django_filters.FilterSet):
     company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
@@ -93,7 +61,6 @@ class TaxonomyTurnoverFilter(django_filters.FilterSet):
     class Meta:
         model = TaxonomyTurnover
         fields = ['company', 'turnover_activity']
-
 
 class TaxonomyOpeExFilter(django_filters.FilterSet):
     company = django_filters.ModelChoiceFilter(queryset=Company.objects.all())
@@ -111,3 +78,55 @@ class TaxonomyCapExFilter(django_filters.FilterSet):
     class Meta:
         model = TaxonomyCapEx
         fields = ['company', 'capex_activity']
+
+class PurchasedGoodsFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = PurchasedGoodsAndServices
+
+class CapitalGoodsFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = CapitalGoods
+
+class FuelEnergyFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = FuelEnergyRelatedActivities
+
+class UpstreanTDFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = UpstreamTransportationAndDistribution
+
+class EmployeeCommutingFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = EmployeeCommuting
+
+class UpstreamLAFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = UpstreamLeasedAssets
+
+class DownstreamTDFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = DownstreamTransportationAndDistribution
+
+class ProcessingOfSoldGoodsFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = ProcessingOfSoldProducts
+
+class UseOfSoldProductsFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = UseOfSoldProducts
+
+class EndOfLifeFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = EndOfLifeTreatmentOfSoldProducts
+
+class DownstreamLAFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = DownstreamLeasedAssets
+
+class FranchisesFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = Franchises
+
+class InvestmentsFilter(BaseTypeFilter):
+      class Meta(BaseTypeFilter.Meta):
+          model = Investments
