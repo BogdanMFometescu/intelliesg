@@ -11,7 +11,19 @@ from envdata.models import (Company,
                             TaxonomySector,
                             TaxonomyOpEx,
                             TaxonomyCapEx,
-                            )
+                            PurchasedGoodsAndServices,
+                            CapitalGoods,
+                            FuelEnergyRelatedActivities,
+                            UpstreamTransportationAndDistribution,
+                            EmployeeCommuting,
+                            UpstreamLeasedAssets,
+                            DownstreamTransportationAndDistribution,
+                            ProcessingOfSoldProducts,
+                            UseOfSoldProducts,
+                            EndOfLifeTreatmentOfSoldProducts,
+                            DownstreamLeasedAssets,
+                            Franchises,
+                            Investments)
 
 from django.forms import ModelForm
 from django import forms
@@ -166,3 +178,96 @@ class TaxonomyOpexForm(BaseProfileForm):
                   'biodiversity_dnsh': 'Do your activities comply with the DNSH criteria for biodiversity?'
                   }
         exclude = ['profile']
+
+
+
+
+class PurchasedGoodsAndServicesForm(BaseProfileForm):
+    class Meta:
+        model = PurchasedGoodsAndServices
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class CapitalGoodsForm(BaseProfileForm):
+     class Meta:
+        model = CapitalGoods
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class FuelEnergyRelatedActivitiesForm(BaseProfileForm):
+     class Meta:
+        model = FuelEnergyRelatedActivities
+        fields = '__all__'
+        exclude = ['profile']
+    
+
+class UpstreamTransportationAndDistributionForm(BaseProfileForm):
+     class Meta:
+        model = UpstreamTransportationAndDistribution
+        fields = '__all__'
+        exclude = ['profile']
+
+class EmployeeCommutingForm(BaseProfileForm):
+     class Meta:
+        model = EmployeeCommuting
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class UpstreamLeasedAssetsForm(BaseProfileForm):
+     class Meta:
+        model = UpstreamLeasedAssets
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class DownstreamTransportationAndDistributionForm(BaseProfileForm):
+     class Meta:
+        model = DownstreamTransportationAndDistribution
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class ProcessingOfSoldProductsForm(BaseProfileForm):
+     class Meta:
+        model = ProcessingOfSoldProducts
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class UseOfSoldProductsForm(BaseProfileForm):
+     class Meta:
+        model = UseOfSoldProducts
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class EndOfLifeTreatmentOfSoldProductsForm(BaseProfileForm):
+     class Meta:
+        model = EndOfLifeTreatmentOfSoldProducts
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class DownstreamLeasedAssetsForm(BaseProfileForm):
+     class Meta:
+        model = DownstreamLeasedAssets
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class FranchisesForm(BaseProfileForm):
+     class Meta:
+        model = Franchises
+        fields = '__all__'
+        exclude = ['profile']
+
+
+class InvestmentsForm(BaseProfileForm):
+     class Meta:
+        model = Investments
+        fields = '__all__'
+        exclude = ['profile']
+
