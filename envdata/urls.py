@@ -121,4 +121,9 @@ urlpatterns = [
     path('update-opex/<uuid:pk>/', views.TaxonomyOpexUpdateView.as_view(), name='update_opex'),
     path('delete-opex/<uuid:pk>/', views.TaxonomyOpexDeleteView.as_view(), name='delete_opex'),
 
+
+
+
+    
+
 ]
