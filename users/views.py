@@ -3,10 +3,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from users.models import Profile
+from .models import Profile
 from django.views.generic.edit import FormView
 from django.contrib.auth import login
-from users.forms import ProfileForm, CustomUserCreationForm
+from .forms import ProfileForm, CustomUserCreationForm
 from django.views.generic import TemplateView
 
 

@@ -15,3 +15,4 @@ from .taxonomy_sector_views import *
 from .taxonomy_capex_views import *
 from .taxonomy_opex_views import *
 from .taxonomy_turnover_views import *
+from .purchased_goods_views import *
