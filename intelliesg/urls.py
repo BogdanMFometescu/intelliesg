@@ -11,6 +11,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('esgmanager/', include('esgmanager.urls')),
     path('socialdata/', include('socialdata.urls')),
+    path('companies/',include('companies.urls'))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

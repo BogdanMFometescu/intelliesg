@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from envdata.mixins import UpdateModeMixin, CompanyContextMixin
+from common.mixins import UpdateModeMixin, CompanyContextMixin
 from esgmanager.models import ESGActionPlanObjectives
 from esgmanager.forms import ESGActionPlanObjectivesForm
 

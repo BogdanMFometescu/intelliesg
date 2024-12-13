@@ -3,7 +3,7 @@ from django.db.models.functions import Cast
 import json
 from envdata.models import Fuel, Sf6, Refrigerant, Energy, Waste, Travel, NaturalGas
 from django.views.generic import TemplateView
-from envdata.mixins import CompanyContextMixin
+from common.mixins import CompanyContextMixin
 
 
 class Charts(TemplateView, CompanyContextMixin):
@@ -18,7 +18,7 @@ class FuelEmissionsView(TemplateView):
 
         # Aggregate emissions by year and month
         annotated_qs = Fuel.objects.annotate(
-            total_co2=Cast(F('fuel_quantity') * F('emission_factor'), output_field=FloatField())
+            total_co2=Cast(F('quantity') * F('emission_factor'), output_field=FloatField())
         ).values('year', 'month', 'company__name').annotate(
             total_co2=Sum('total_co2')
         ).order_by('year', 'month')
@@ -51,7 +51,7 @@ class NaturalGasEmissionsView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         annotated_qs = NaturalGas.objects.annotate(
-            total_co2=Cast(F('gas_quantity') * F('emission_factor'), output_field=FloatField())
+            total_co2=Cast(F('quantity') * F('emission_factor'), output_field=FloatField())
         ).values('year', 'month', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year', 'month')
 
         years = sorted({emission['year'] for emission in annotated_qs})
@@ -81,7 +81,7 @@ class Sf6EmissionsView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         annotated_qs = Sf6.objects.annotate(
-            total_co2=Cast(F('sf6_quantity') * F('emission_factor'), output_field=FloatField())
+            total_co2=Cast(F('quantity') * F('emission_factor'), output_field=FloatField())
         ).values('year', 'month', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year', 'month')
 
         years = sorted({emission['year'] for emission in annotated_qs})
@@ -111,7 +111,7 @@ class RefrigerantEmissionsView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         annotated_qs = Refrigerant.objects.annotate(
-            total_co2=Cast(F('refrigerant_quantity') * F('emission_factor'), output_field=FloatField())
+            total_co2=Cast(F('quantity') * F('emission_factor'), output_field=FloatField())
         ).values('year','month', 'company__name').annotate(total_co2=Sum('total_co2')).order_by('year','month')
 
         years = sorted({emission['year'] for emission in annotated_qs})
@@ -141,7 +141,7 @@ class EnergyEmissionsView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         annotated_qs = Energy.objects.annotate(
-            total_co2=Cast(F('energy_quantity') * F('emission_factor'), output_field=FloatField())
+            total_co2=Cast(F('quantity') * F('emission_factor'), output_field=FloatField())
         ).values('year', 'month','company__name').annotate(total_co2=Sum('total_co2')).order_by('year','month')
 
         years = sorted({emission['year'] for emission in annotated_qs})

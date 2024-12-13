@@ -1,5 +1,5 @@
 from django.views.generic import TemplateView
-from envdata.mixins import CompanyContextMixin
+from common.mixins import CompanyContextMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from esgmanager.models import EnvironmentalRisk, GovernanceRisks, SocialRisk, ClimateChangeRisk
 

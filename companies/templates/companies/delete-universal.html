@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="d-flex justify-content-center">
+    <main class="col-lg-7 py-md-3 px-lg-5 bd-content text-center" role="main">
+        <h1 class="bd-title" id="content">Be careful, this is a danger zone!</h1>
+        <h2 id="form-example" style="color: red">Delete Item</h2>
+        <p>Are you sure you want to delete this record?</p>
+        <form method="POST" enctype="multipart/form-data" class="d-inline-block">
+            {% csrf_token %}
+            <button type="submit" class="btn mb-2 mr-2 btn-pill btn-outline-primary" style="color: red">Confirm Delete</button>
+        </form>
+        <a href="{% url 'fuel_emissions' %}" class="d-inline-block">
+            <button class="btn mb-2 mr-2 btn-pill btn-outline-primary">Cancel</button>
+        </a>
+    </main>
+</div>
+
+{% endblock content %}

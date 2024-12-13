@@ -105,8 +105,8 @@
                                     <td>{{ refrigerant.month }}</td>
                                     <td>{{ refrigerant.emission_type }}</td>
                                     <td>{{ refrigerant.refrigerant_type }}</td>
-                                    <td>{{ refrigerant.refrigerant_quantity }}</td>
-                                    <td>{{ refrigerant.co2e_for_refrigerant }}</td>
+                                    <td>{{ refrigerant.quantity }}</td>
+                                    <td>{{ refrigerant.calculate_emissions  }}</td>
                                     {% if user.is_staff %}
                                         <td>{{ refrigerant.profile.user }}</td>
                                     {% endif %}

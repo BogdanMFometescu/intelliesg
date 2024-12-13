@@ -3,7 +3,7 @@ from esgmanager.models import ESGStrategy
 from esgmanager.forms import StrategyForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from envdata.mixins import UpdateModeMixin, CompanyContextMixin
+from common.mixins import UpdateModeMixin, CompanyContextMixin
 
 
 class ListViewStrategy(LoginRequiredMixin, CompanyContextMixin,ListView ):

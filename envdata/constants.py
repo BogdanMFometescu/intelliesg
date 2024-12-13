@@ -102,6 +102,13 @@ MONTH = [('January', 'January'),
          ('November', 'November'),
          ('December', 'December')]
 
+MEASURE_UNITS = [('L','L'),
+                 ('kwh','kwh')]
+
+
+
+
+
 TAXONOMY_SECTOR_CHOICES = [('Construction and real estate activities', 'Construction and real estate activities'),
                            ('Energy', 'Energy'),
                            ('Environmental protection and restoration activities',

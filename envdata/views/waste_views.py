@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import (DetailView, CreateView, UpdateView, DeleteView)
-from envdata.mixins import UpdateModeMixin, CompanyContextMixin
+from common.mixins import UpdateModeMixin, CompanyContextMixin
 from envdata.models import Waste
 from envdata.forms import WasteForm
 from .filters import WasteTypeFilter

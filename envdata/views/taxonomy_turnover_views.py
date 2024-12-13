@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from envdata.models import TaxonomyTurnover
 from envdata.forms import TaxonomyTurnoverForm
-from envdata.mixins import CompanyContextMixin, UpdateModeMixin
+from common.mixins import CompanyContextMixin, UpdateModeMixin
 from .filters import TaxonomyTurnoverFilter
 from django_filters.views import FilterView
 from django.db.models import Sum, F

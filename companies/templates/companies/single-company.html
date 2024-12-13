@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <br>
+    <br>
+    <br>
+
+    <section class="section-header bg-secondary text-white">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-12 col-md-7 col-lg-6 text-center text-md-left">
+                    <h1 class="display-2 mb-4"> {{ single_company.name }} Emissions</h1>
+                    <p class="lead mb-4 text-muted">
+                        In the landscape of environmental responsibility
+                    </p>
+                    <a href="{% url 'charts' %}" class="btn btn-tertiary me-3 animate-up-2">Detailed Charts <span
+                            class="ms-2"><span class="fas fa-arrow-right"></span></span></a>
+
+                </div>
+                <div class="col-12 col-md-5 d-none d-md-block text-center"><img
+                        src="../../assets/img/illustrations/about-illustration.svg" alt=""></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-header">
+        <div class="container">
+            <div class="row justify-content-center">
+                <h2 align="left">Total GHG emissions by Year and Target</h2>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Year</th>
+                        <th scope="col">Fuel </th>
+                        <th scope="col">Natural Gas </th>
+                        <th scope="col">Refrigerant </th>
+                        <th scope="col">SF6 </th>
+                        <th scope="col">Travel </th>
+                        <th scope="col">Energy </th>
+                        <th scope="col">Waste </th>
+                        <th scope="col">Total </th>
+                        <th scope="col">Target </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in emissions_data %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ item.year }}</td>
+                            <td>{{ item.fuel|default:"0" }}</td>
+                            <td>{{ item.naturalgas|default:"0" }}</td>
+                            <td>{{ item.refrigerant|default:"0" }}</td>
+                            <td>{{ item.sf6|default:"0" }}</td>
+                            <td>{{ item.travel|default:"0" }}</td>
+                            <td>{{ item.energy|default:"0" }}</td>
+                            <td>{{ item.waste|default:"0" }}</td>
+                            {% if item.total > item.target %}
+                            <td style="color: red">{{ item.total|default:"0" }}</td>
+                            {% else %}
+                              <td style="color: darkgreen">{{ item.total|default:"0" }}</td>
+                            {% endif %}
+                            <td>{{ item.target }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <p>*Emissions quantities are in kgCO2e</p>
+            </div>
+        <a href="{% url 'companies_list' %}" class="btn btn-tertiary me-3 animate-up-2"> <span class="ms-2">
+                            <span class="fas fa-arrow-left"></span></span></a>
+        </div>
+
+    </section>
+
+
+
+
+{% endblock content %}

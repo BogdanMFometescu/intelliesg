@@ -109,11 +109,11 @@
                                     <td>{{ acquisition.emission_type }}</td>
                                     <td>{{ acquisition.location }}</td>
                                     <td>{{ acquisition.supplier_name }}</td>
-                                    <td>{{ acquisition.energy_quantity }}</td>
+                                    <td>{{ acquisition.quantity }}</td>
                                     <td>{{ acquisition.measure_unit }}</td>
                                     <td>{{ acquisition.emission_factor }}</td>
                                     <td>{{ acquisition.calculation_method }}</td>
-                                    <td>{{ acquisition.co2e_for_energy_emission }}</td>
+                                    <td>{{ acquisition.calculate_emissions  }}</td>
                                      {% if user.is_staff %}
                                         <td>{{ acquisition.profile.user }}</td>
                                     {% endif %}

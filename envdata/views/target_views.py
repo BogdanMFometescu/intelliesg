@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from envdata.models import Target
-from envdata.mixins import UpdateModeMixin, CompanyContextMixin
+from common.mixins import UpdateModeMixin, CompanyContextMixin
 from envdata.forms import TargetForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin

@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from envdata.models import TaxonomySector
 from envdata.forms import TaxonomySectorForm
-from envdata.mixins import CompanyContextMixin, UpdateModeMixin
+from common.mixins import CompanyContextMixin, UpdateModeMixin
 
 
 class TaxonomySectorListView(LoginRequiredMixin, CompanyContextMixin, ListView):

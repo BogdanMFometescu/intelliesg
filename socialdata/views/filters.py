@@ -1,7 +1,7 @@
 import django_filters
 from socialdata.models import (HealthAndSafety, EmployeeByContracts, NewEmployeeByAge,
                                RotationRateOfEmployeeByAge, RetirementRate)
-from envdata.models import Company
+from companies.models import Company
 from envdata.constants import *
 
 

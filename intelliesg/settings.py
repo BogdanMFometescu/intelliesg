@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'users',
     'esgmanager',
     'django_filters',
+    'companies',
+    'common',
 ]
 
 MIDDLEWARE = [

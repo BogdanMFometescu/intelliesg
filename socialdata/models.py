@@ -1,7 +1,7 @@
 import uuid
 
 from django.db import models
-from envdata.models import Company
+from companies.models import Company
 from envdata.constants import *
 from users.models import Profile
 
