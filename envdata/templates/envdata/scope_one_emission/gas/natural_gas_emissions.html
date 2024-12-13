@@ -106,10 +106,10 @@
                                     <td>{{ gas.month }}</td>
                                     <td>{{ gas.emission_type }}</td>
                                     <td>{{ gas.location }}</td>
-                                    <td>{{ gas.gas_quantity }}</td>
+                                    <td>{{ gas.quantity }}</td>
                                     <td>{{ gas.measure_unit }}</td>
                                     <td>{{ gas.emission_factor }}</td>
-                                    <td>{{ gas.co2_for_natural_gas_emission }}</td>
+                                    <td>{{ gas.calculate_emissions }}</td>
                                     {% if user.is_staff %}
                                         <td>{{ gas.profile.user }}</td>
                                     {% endif %}

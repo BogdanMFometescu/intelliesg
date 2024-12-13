@@ -1,6 +1,6 @@
 from django.db import transaction
-
-from envdata.models import Company, Fuel, NaturalGas, Energy, Sf6, Refrigerant, Travel, Waste
+from companies.models import Company
+from envdata.models import Fuel, NaturalGas, Energy, Sf6, Refrigerant, Travel, Waste
 from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from openpyxl import load_workbook

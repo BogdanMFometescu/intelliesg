@@ -79,7 +79,7 @@
                                 <th scope="col">Month</th>
                                 <th scope="col">Emission</th>
                                 <th scope="col">Waste</th>
-                                <th scope="col">Recycled</th>
+                                <th scope="col">Generated</th>
                                 <th scope="col">Disposed</th>
                                 <th scope="col">Landfill</th>
                                 <th scope="col">CO2e</th>
@@ -105,10 +105,10 @@
                                     <td>{{ waste.month }}</td>
                                     <td>{{ waste.emission_type }}</td>
                                     <td>{{ waste.waste_name }}</td>
-                                    <td>{{ waste.quantity_recycled }}</td>
+                                    <td>{{ waste.quantity}}</td>
                                     <td>{{ waste.quantity_disposed }}</td>
                                     <td>{{ waste.quantity_land_filled }}</td>
-                                    <td>{{ waste.total_waste_quantity }}</td>
+                                    <td>{{ waste.calculate_emissions }}</td>
                                     {% if user.is_staff %}
                                         <td>{{ waste.profile.user }}</td>
                                     {% endif %}

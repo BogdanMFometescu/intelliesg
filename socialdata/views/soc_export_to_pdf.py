@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from envdata.mixins import CompanyContextMixin
+from common.mixins import CompanyContextMixin
 from xhtml2pdf import pisa
 from django.http import HttpResponse
 from django.db.models import Sum, F

@@ -109,14 +109,14 @@
                                     <td>{{ fuel.emission_type }}</td>
                                     <td>{{ fuel.fuel_type }}</td>
                                     <td>{{ fuel.fuel_source }}</td>
-                                    <td>{{ fuel.fuel_quantity }}</td>
+                                    <td>{{ fuel.quantity }}</td>
                                     <td>{{ fuel.pollution_norm }}</td>
                                     <td>{{ fuel.activity_type }}</td>
                                     <td>{{ fuel.fuel_source }}</td>
                                     <td>{{ fuel.vehicle_type }}</td>
                                     <td>{{ fuel.measure_unit }}</td>
                                     <td>{{ fuel.emission_factor }}</td>
-                                    <td>{{ fuel.co2e_for_fuel_emission }}</td>
+                                    <td>{{ fuel.calculate_emissions}}</td>
                                      {% if user.is_staff %}
                                         <td>{{ fuel.profile.user }}</td>
                                     {% endif %}

@@ -3,539 +3,166 @@ from django.db.models import Sum, F
 import uuid
 from envdata.constants import *
 from users.models import Profile
+from common.models import BaseIdentifierClass
+from companies.models import Company
 
 
-class Company(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    name = models.CharField(unique=True, blank=False, null=False,max_length=255)
-    address = models.CharField(max_length=255, blank=False, null=False)
-    city = models.CharField(max_length=255, blank=False, null=False)
-    country = models.CharField(max_length=255, blank=False, null=False)
-    phone = models.CharField(max_length=255, blank=False, null=False)
-    email = models.EmailField(max_length=255, blank=False, null=False)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    logo = models.ImageField(blank=True, null=True)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
 
-    @property
-    def total_co2_emissions(self):
-        fuel_co2e = Fuel.fuel_co2e_per_company(self.id)
-        refrigerant_co2e = Refrigerant.refrigerant_co2e_per_company(self.id)
-        sf6_co2e = Sf6.sf6_co2e_per_company(self.id)
-        gas_co2e = NaturalGas.gas_co2e_per_company(self.id)
-        travel_co2e = Travel.travel_co2e_per_company(self.id)
-        energy_co2e = Energy.energy_co2e_per_company(self.id)
-        waste_co2e = Waste.waste_co2e_per_company(self.id)
-
-        total_co2e = sum([fuel_co2e, refrigerant_co2e, sf6_co2e, travel_co2e, energy_co2e, waste_co2e, gas_co2e])
-        return total_co2e
-
-    @property
-    def fuel_co2e(self):
-        return Fuel.fuel_co2e_per_company(self.id)
-
-    @property
-    def refrigerant_co2e(self):
-        return Refrigerant.refrigerant_co2e_per_company(self.id)
-
-    @property
-    def sf6_co2e(self):
-        return Sf6.sf6_co2e_per_company(self.id)
-
-    @property
-    def gas_co2e(self):
-        return NaturalGas.gas_co2e_per_company(self.id)
-
-    @property
-    def travel_co2e(self):
-        return Travel.travel_co2e_per_company(self.id)
-
-    @property
-    def energy_co2e(self):
-        return Energy.energy_co2e_per_company(self.id)
-
-    @property
-    def waste_co2e(self):
-        return Waste.waste_co2e_per_company(self.id)
-
-    @property
-    def co2e_net_zero_target(self):
-        return Target.get_co2_net_zero_target(self.id)
-
-    def __str__(self):
-        return self.name
-
-
-# class EnvDataBaseClass(models.Model):
-#     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-#     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-#     month = models.CharField(blank=False, null=False, choices=MONTH)
-#     year = models.CharField(blank=False, null=False, max_length=4)
-#     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-#     created = models.DateField(auto_now_add=True)
-#     updated = models.DateField(auto_now=True)
-#
-#     class Meta:
-#         abstract = True
-#
-#     @classmethod
-#     def co2e_per_company(cls, company_id, quantity_field):
-#         co2e_per_company = cls.objects.filter(company=company_id).aggregate(
-#             total_co2=Sum(F(quantity_field) * F('emission_factor'))
-#         )['total_co2'] or 0
-#         return co2e_per_company
-#
-#     @classmethod
-#     def annual_co2_per_company(cls, company_id, quantity_field):
-#         annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
-#             total_co2=Sum(F(quantity_field) * F('emission_factor'))
-#         ).order_by('year', 'month')
-#         return annual_co2_per_company
-# class EnvDataBaseClass(models.Model):
-#     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-#     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-#     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-#     created = models.DateField(auto_now_add=True)
-#     updated = models.DateField(auto_now=True)
-#
-#     class Meta:
-#         abstract = True
-#
-#
-# class EmissionCalculationMixin:
-#     @classmethod
-#     def co2e_per_company(cls, company_id, quantity_field):
-#         co2e_per_company = cls.objects.filter(company=company_id).aggregate(
-#             total_co2=Sum(F(quantity_field) * F('emission_factor'))
-#         )['total_co2'] or 0
-#         return co2e_per_company
-#
-#     @classmethod
-#     def annual_co2_per_company(cls, company_id, quantity_field):
-#         annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
-#             total_co2=Sum(F(quantity_field) * F('emission_factor'))
-#         ).order_by('year', 'month')
-#         return annual_co2_per_company
-#
-#
-# class EmissionBaseClass(EnvDataBaseClass):
-#     month = models.CharField(blank=False, null=False, choices=MONTH, max_length=10)
-#     year = models.CharField(blank=False, null=False, max_length=4)
-#     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
-#     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
-#     emission_factor = models.FloatField(blank=False, null=False, default=0)
-#
-#     class Meta:
-#         abstract = True
-#
-#
-# class Fuel(EmissionBaseClass, EmissionCalculationMixin):
-#     fuel_type = models.CharField(max_length=255, blank=False, null=False, choices=FUEL_TYPE)
-#     fuel_source = models.CharField(max_length=255, blank=False, null=False)
-#     fuel_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0.00)
-#     pollution_norm = models.CharField(max_length=30, blank=False, null=False, choices=POLLUTION_NORM)
-#     activity_type = models.CharField(max_length=255, blank=False, null=False, choices=ACTIVITY_TYPE)
-#     vehicle_type = models.CharField(max_length=255, blank=False, null=False, choices=VEHICLE_TYPE)
-#     measure_unit = models.CharField(max_length=30, blank=False, null=False, default='L')
-#
-#     @property
-#     def co2e_for_fuel_emission(self):
-#         return self.fuel_quantity * self.emission_factor
-#
-#     @classmethod
-#     def fuel_co2e_per_company(cls, company_id):
-#         return cls.co2e_per_company(company_id, 'fuel_quantity')
-#
-#     @classmethod
-#     def annual_co2_per_company(cls, company_id):
-#         return cls.annual_co2_per_company(company_id, 'fuel_quantity')
-#
-#     def __str__(self):
-#         return f'{self.fuel_type}'
-#
-
-
-# SCOPE 1 emissions
-class Fuel(models.Model):
+class BaseEmissionClass(BaseIdentifierClass):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
     year = models.CharField(blank=False, null=False, max_length=4)
     emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
     emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
-    fuel_type = models.CharField(max_length=255, blank=False, null=False, choices=FUEL_TYPE)
-    fuel_source = models.CharField(max_length=255, blank=False, null=False)
-    fuel_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0.00)
-    pollution_norm = models.CharField(max_length=30, blank=False, null=False, choices=POLLUTION_NORM)
-    activity_type = models.CharField(max_length=255, blank=False, null=False, choices=ACTIVITY_TYPE)
-    vehicle_type = models.CharField(max_length=255, blank=False, null=False, choices=VEHICLE_TYPE)
-    measure_unit = models.CharField(max_length=30, blank=False, null=False, default='L')
-    emission_factor = models.FloatField(blank=False, null=False, default=0, )
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    quantity = models.FloatField(max_length=20,null=False,blank=False,default=0)
+    emission_factor = models.FloatField(blank=False, null=False, default=0,)
+    measure_unit = models.CharField(max_length=25,null=False,blank=False,choices=MEASURE_UNITS)
+
 
     @property
-    def co2e_for_fuel_emission(self):
-        total_co2 = self.fuel_quantity * self.emission_factor
-        return total_co2
+    def calculate_emissions(self):
+        return self.emission_factor*self.quantity
 
     @classmethod
-    def fuel_co2e_per_company(cls, company_id):
-        fuel_co2e_per_company = \
+    def total_emissions(cls, company_id):
+        emissions = \
             cls.objects.filter(company_id=company_id).aggregate(
-                total_co2=Sum(F('fuel_quantity') * F('emission_factor')))[
-                'total_co2'] or 0
-        return fuel_co2e_per_company
+                total_emissions=Sum(F('quantity') * F('emission_factor')))[
+                'total_emissions'] or 0
+        return emissions
 
     @classmethod
-    def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
-            total_co2=Sum(F('fuel_quantity') * F('emission_factor'))).order_by('year', 'month')
-        return annual_co2_per_company
-
-    def __str__(self):
-        return f'{self.fuel_type}'
-
-
-class NaturalGas(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
-    year = models.CharField(blank=False, null=False, max_length=4)
-    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
-    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
-    location = models.CharField(max_length=255, blank=False, null=False, choices=NATURAL_GAS_LOCATIONS)
-    gas_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0)
-    emission_factor = models.FloatField(blank=False, null=False, default=0, )
-    measure_unit = models.CharField(max_length=30, blank=False, null=False, default='kWh')
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-
-    @property
-    def co2_for_natural_gas_emission(self):
-        total_co2 = self.gas_quantity * self.emission_factor
-        return total_co2
-
-    @classmethod
-    def gas_co2e_per_company(cls, company_id):
-        gas_co2e_per_company = \
-            cls.objects.filter(company=company_id).aggregate(total_co2=Sum(F('gas_quantity') * F('emission_factor')))[
-                'total_co2'] or 0
-        return gas_co2e_per_company
-
-    @classmethod
-    def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
-            total_co2=Sum(F('gas_quantity') * F('emission_factor'))).order_by('year', 'month')
-        return annual_co2_per_company
-
-    def __str__(self):
-        return f'{self.location}'
-
-
-class Sf6(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
-    year = models.CharField(blank=False, null=False, max_length=4)
-    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
-    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
-    equipment_type = models.CharField(max_length=255, blank=False, null=False)
-    equipment_producer = models.CharField(max_length=255, blank=False, null=False)
-    sf6_quantity = models.FloatField(max_length=10, blank=False, null=False)
-    emission_factor = models.FloatField(blank=False, null=False, default=0, )
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
-
-    @property
-    def co2e_for_sf6_emission(self):
-        total_co2 = self.sf6_quantity * self.emission_factor
-        return total_co2
-
-    @classmethod
-    def sf6_co2e_per_company(cls, company_id):
-        sf6_co2e_per_company = \
-            cls.objects.filter(company=company_id).aggregate(total_co2=Sum(F('sf6_quantity') * F('emission_factor')))[
-                'total_co2'] or 0
-        return sf6_co2e_per_company
-
-    @classmethod
-    def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
-            total_co2=Sum(F('sf6_quantity') * F('emission_factor'))).order_by('year', 'month')
-        return annual_co2_per_company
-
-
-class Refrigerant(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
-    year = models.CharField(blank=False, null=False, max_length=4)
-    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
-    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
-    refrigerant_type = models.CharField(max_length=255, blank=False, null=False)
-    refrigerant_quantity = models.FloatField(max_length=10, blank=False, null=False, default=0.00)
-    emission_factor = models.FloatField(blank=False, null=False, default=0, )
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
-
-    @property
-    def co2e_for_refrigerant(self):
-        total_co2 = self.refrigerant_quantity * 1
-        return total_co2
-
-    @classmethod
-    def refrigerant_co2e_per_company(cls, company_id):
-        refrigerant_co2e_per_company = \
-            cls.objects.filter(company=company_id).aggregate(total_co2=Sum('refrigerant_quantity'))[
-                'total_co2'] or 0
-        return refrigerant_co2e_per_company
-
-    @classmethod
-    def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
-            total_co2=Sum(F('refrigerant_quantity') * F('emission_factor'))).order_by('year', 'month')
-        return annual_co2_per_company
-
-    def __str__(self):
-        return f'{self.refrigerant_type}'
-
-
-# SCOPE 2 emissions
-
-
-class Energy(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
-    year = models.CharField(blank=False, null=False, max_length=4)
-    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
-    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
-    location = models.CharField(max_length=255, blank=False, choices=ENERGY_LOCATIONS)
-    supplier_name = models.CharField(max_length=255, blank=False, null=False)
-    measure_unit = models.CharField(max_length=20, blank=False, null=False)
-    energy_quantity = models.FloatField(max_length=20, blank=False, null=False, default=0.00)
-    emission_factor = models.FloatField(blank=False, null=True, default=0, )
-    calculation_method = models.CharField(max_length=255, blank=False, choices=CALCULATION_METHOD)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
-
-    @property
-    def co2e_for_energy_emission(self):
-        total_co2 = self.emission_factor * self.energy_quantity
-        return total_co2
-
-    @classmethod
-    def energy_co2e_per_company(cls, company_id):
-        energy_co2e_per_company = \
-            cls.objects.filter(company_id=company_id).aggregate(
-                total_co2=Sum(F('energy_quantity') * F('emission_factor')))[
-                'total_co2'] or 0
-        return energy_co2e_per_company
-
-    @classmethod
-    def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
-            total_co2=Sum(F('energy_quantity') * F('emission_factor'))).order_by('year', 'month')
-        return annual_co2_per_company
-
-    def __str__(self):
-        return f'{self.supplier_name}'
-
-
-# SCOPE 3 emissions
-
-
-class Scope3BaseClass(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
-    year = models.CharField(blank=False, null=False, max_length=4)
-    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
-    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
-    calculation_method = models.CharField(max_length=255,blank=False,null=False,choices=CALCULATION_METHOD_FOR_SCOPE_3)
-    quantity = models.FloatField(blank=False, null=False,default=0)
-    price = models.FloatField(blank=False,null=False,default=0)
-    supplier_co2_data = models.FloatField(blank=False,null=False,default=0)
-    hybrid_co2_data = models.FloatField(blank=False,null=False,default=0)
-    average_co2_data = models.FloatField(blank=False,null=False,default=0)
-    emission_factor = models.FloatField(blank=False, null=True, default=0 )
-    
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
-
-
-    #supplier specific method
-    @property
-    def suplier_based_method(self):
-        total_co2 = self.supplier_co2_data*self.emission_factor
-        return total_co2
-
-    #hybrid method
-    @property
-    def hybrid_method(self):
-        supplier_based = self.suplier_based_method()
-        hybrid = self.hybrid_co2_data*self.emission_factor
-        return supplier_based + hybrid
-
-    #average data method
-    @property
-    def  average_method(self):
-        total_co2_average = self.average_co2_data*self.quantity*self.emission_factor
-        return total_co2_average
-
-    #spend based method
-    @property
-    def spend_based_method(self):
-        total_co2 = self.emission_factor *  self.quantity * self.price
-        return total_co2
-
-
-
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    def annual_emissions(cls, company_id):
+        annual_emissions = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
+            total_co2=Sum(F('quantity') * F('emission_factor'))).order_by('year', 'month')
+        return annual_emissions
 
     class Meta:
         abstract = True
-        verbose_name = 'Scope 3 Emission'
 
-class Travel(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
-    year = models.CharField(blank=False, null=False, max_length=4)
-    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
-    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
+
+# SCOPE 1 emissions
+class Fuel(BaseEmissionClass):
+    fuel_type = models.CharField(max_length=255, blank=False, null=False, choices=FUEL_TYPE)
+    fuel_source = models.CharField(max_length=255, blank=False, null=False)
+    pollution_norm = models.CharField(max_length=30, blank=False, null=False, choices=POLLUTION_NORM)
+    activity_type = models.CharField(max_length=255, blank=False, null=False, choices=ACTIVITY_TYPE)
+    vehicle_type = models.CharField(max_length=255, blank=False, null=False, choices=VEHICLE_TYPE)
+
+    class Meta :
+        verbose_name = "Fuel"
+        verbose_name_plural = "Fuels"
+
+class NaturalGas(BaseEmissionClass):
+    location = models.CharField(max_length=255, blank=False, null=False, choices=NATURAL_GAS_LOCATIONS)
+
+    class Meta:
+        verbose_name = "Natural Gas"
+        verbose_name_plural = "Natural Gases"
+
+
+class Sf6(models.Model):
+    equipment_type = models.CharField(max_length=255, blank=False, null=False)
+    equipment_producer = models.CharField(max_length=255, blank=False, null=False)
+
+    class Meta:
+        verbose_name ="HexaSulfurFluoride"
+        verbose_name_plural = "HexaSulfurFluoride"
+  
+
+class Refrigerant(BaseEmissionClass):
+    refrigerant_type = models.CharField(max_length=255, blank=False, null=False)
+
+    class Meta:
+        verbose_name = "Refrigerant"
+        verbose_name_plural = "Refrigerants"
+   
+
+# SCOPE 2 emissions
+class Energy(BaseEmissionClass):
+    location = models.CharField(max_length=255, blank=False, choices=ENERGY_LOCATIONS)
+    supplier_name = models.CharField(max_length=255, blank=False, null=False)
+    calculation_method = models.CharField(max_length=255, blank=False, choices=CALCULATION_METHOD)
+
+    class Meta:
+        verbose_name = "Energy Aquisition"
+        verbose_name_plural = "Energy Aquisitions"
+   
+
+# SCOPE 3 emissions
+class Travel(BaseEmissionClass):
     origin = models.CharField(max_length=255, blank=False, null=False)
     destination = models.CharField(max_length=255, blank=False, null=False)
-    emission_factor = models.FloatField(blank=False, null=True, default=0, )
     distance = models.FloatField(blank=False, null=False)
     fuel_consumption = models.FloatField(blank=False, null=False, default=7.5)
 
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
 
-    @property
-    def co2_for_distance_calculation(self):
-        total_co2 = ((self.distance * self.fuel_consumption) / 100) * 10.8
-        return total_co2.__round__(2)
-
-    @classmethod
-    def travel_co2e_per_company(cls, company_id):
-        travel_co2_per_company = cls.objects.filter(company_id=company_id).aggregate(
-            total_co2=Sum(F('distance') * F('emission_factor')))[
-                                     'total_co2'] or 0
-        return travel_co2_per_company
-
-    @classmethod
-    def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
-            total_co2=Sum(F('distance') * F('emission_factor'))).order_by('year', 'month')
-        return annual_co2_per_company
-
-    def __str__(self):
-        return f'{self.distance}'
+    class Meta:
+        verbose_name = "Travel"
+        verbose_name_plural = "Travels"
 
 
-class Waste(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    month = models.CharField(blank=False, null=False, choices=MONTH,max_length=255)
-    year = models.CharField(blank=False, null=False, max_length=4)
-    emission_type = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_TYPE)
-    emission_scope = models.CharField(max_length=255, blank=False, null=False, choices=EMISSION_SCOPE)
+class Waste(BaseEmissionClass):
     waste_name = models.CharField(max_length=255, blank=False, null=False)
     quantity_recycled = models.FloatField(blank=False, null=False)
     quantity_disposed = models.FloatField(blank=False, null=False)
     quantity_land_filled = models.FloatField(blank=False, null=False)
     emission_factor = models.FloatField(blank=False, null=True, default=0, )
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-    id = models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, unique=True)
 
-    # TODO fix formulas for waste CO2e
-    @property
-    def total_waste_quantity(self):
-        total_co2 = (self.quantity_disposed + self.quantity_land_filled - self.quantity_recycled) * 1
-        return total_co2
+  
 
-    @classmethod
-    def waste_co2e_per_company(cls, company_id):
-        waste_co2e_per_company = \
-            cls.objects.filter(company_id=company_id).aggregate(total_co2=Sum('quantity_disposed'))[
-                'total_co2'] or 0
-        return waste_co2e_per_company
-
-    @classmethod
-    def annual_co2_per_company(cls, company_id):
-        annual_co2_per_company = cls.objects.filter(company_id=company_id).values('year', 'month').annotate(
-            total_co2=Sum(F('quantity_disposed') * F('emission_factor'))).order_by('year', 'month')
-        return annual_co2_per_company
-
-    def __str__(self):
-        return f'{self.waste_name}'
-
-
-class PurchasedGoodsAndServices(Scope3BaseClass):
+class PurchasedGoodsAndServices(BaseEmissionClass):
    pass
 
 
-class CapitalGoods(Scope3BaseClass):
+class CapitalGoods(BaseEmissionClass):
    pass
 
 
-class FuelEnergyRelatedActivities(Scope3BaseClass):
+class FuelEnergyRelatedActivities(BaseEmissionClass):
     pass
 
 
-class UpstreamTransportationAndDistribution(Scope3BaseClass):
+class UpstreamTransportationAndDistribution(BaseEmissionClass):
     pass
     
 
 
-class EmployeeCommuting(Scope3BaseClass):
+class EmployeeCommuting(BaseEmissionClass):
     pass
 
 
 
-class UpstreamLeasedAssets (Scope3BaseClass):
+class UpstreamLeasedAssets (BaseEmissionClass):
     pass
 
 
 
-class DownstreamTransportationAndDistribution(Scope3BaseClass):
+class DownstreamTransportationAndDistribution(BaseEmissionClass):
     pass
 
 
-class ProcessingOfSoldProducts(Scope3BaseClass):
+class ProcessingOfSoldProducts(BaseEmissionClass):
     pass
 
-class UseOfSoldProducts(Scope3BaseClass):
-    pass
-
-
-class EndOfLifeTreatmentOfSoldProducts(Scope3BaseClass):
+class UseOfSoldProducts(BaseEmissionClass):
     pass
 
 
-
-class DownstreamLeasedAssets(Scope3BaseClass):
+class EndOfLifeTreatmentOfSoldProducts(BaseEmissionClass):
     pass
 
 
-class Franchises(Scope3BaseClass):
+
+class DownstreamLeasedAssets(BaseEmissionClass):
     pass
 
-class Investments(Scope3BaseClass):
+
+class Franchises(BaseEmissionClass):
+    pass
+
+class Investments(BaseEmissionClass):
     pass
 
 
@@ -579,11 +206,8 @@ class Target(models.Model):
     def __str__(self):
         return f'{self.co2e_base_year}'
 
-
 #EU TAXONOMY
-
-
-class TaxonomySector(models.Model):
+class TaxonomySector(BaseIdentifierClass):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     sector = models.CharField(blank=False, null=False, choices=TAXONOMY_SECTOR_CHOICES, max_length=2000)
@@ -591,15 +215,11 @@ class TaxonomySector(models.Model):
     activity_type = models.CharField(blank=False, null=False, choices=TAXONOMY_ACTIVITY_TYPE_CHOICES, max_length=255, )
     nace_code = models.FloatField(blank=False, null=False, default=0.0)
 
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
 
     def __str__(self):
         return f'{self.activity}'
 
-
-class TaxonomyTurnover(models.Model):
+class TaxonomyTurnover(BaseIdentifierClass):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     turnover_activity = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
@@ -631,15 +251,12 @@ class TaxonomyTurnover(models.Model):
     def get_non_eligible_percent(self):
         return ((self.turnover_non_eligible / self.total_turnover) * 100).__round__(2)
 
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
 
     def __str__(self):
         return f'{self.total_turnover}'
 
 
-class TaxonomyCapEx(models.Model):
+class TaxonomyCapEx(BaseIdentifierClass):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     capex_activity = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
@@ -655,10 +272,6 @@ class TaxonomyCapEx(models.Model):
     circular_economy_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
     pollution_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
     biodiversity_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
-
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
 
     @property
     def get_eligible_percent(self):
@@ -676,7 +289,7 @@ class TaxonomyCapEx(models.Model):
         return f'{self.total_capex}'
 
 
-class TaxonomyOpEx(models.Model):
+class TaxonomyOpEx(BaseIdentifierClass):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     opex_activity = models.ForeignKey(TaxonomySector, on_delete=models.CASCADE)
@@ -693,9 +306,7 @@ class TaxonomyOpEx(models.Model):
     pollution_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
     biodiversity_dnsh = models.CharField(blank=False, null=False, max_length=255, choices=DNSH_CHOICES)
 
-    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+
 
     @property
     def get_eligible_percent(self):

@@ -1,9 +1,10 @@
 from django.contrib import admin
-from envdata.models import (Company, Fuel, Sf6, Refrigerant, Energy, Travel, Waste, Target, NaturalGas,
+from envdata.models import (Fuel, Sf6, Refrigerant, Energy, Travel, Waste, Target, NaturalGas,
                             TaxonomySector,TaxonomyTurnover,TaxonomyCapEx,TaxonomyOpEx,)
 
+
 # Register your models here.
-admin.site.register(Company)
+
 admin.site.register(Fuel)
 admin.site.register(Sf6)
 admin.site.register(Refrigerant)

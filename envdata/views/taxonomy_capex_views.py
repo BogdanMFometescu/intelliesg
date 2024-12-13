@@ -1,9 +1,9 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from envdata.models import TaxonomyCapEx
 from envdata.forms import TaxonomyCapexForm
-from envdata.mixins import CompanyContextMixin, UpdateModeMixin
+from common.mixins import CompanyContextMixin, UpdateModeMixin
 from .filters import TaxonomyCapExFilter
 from django_filters.views import FilterView
 from django.db.models import F, Sum

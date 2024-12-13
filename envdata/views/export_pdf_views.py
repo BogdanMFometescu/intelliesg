@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from envdata.mixins import CompanyContextMixin
+from common.mixins import CompanyContextMixin
 from .filters import FuelTypeFilter, Sf6TypeFilter, RefrigerantTypeFilter, NaturalGasTypeFilter, EnergyTypeFilter, \
     WasteTypeFilter, TravelTypeFilter, TaxonomyTurnoverFilter, TaxonomyOpeExFilter, TaxonomyCapExFilter
 from envdata.models import (Fuel, Sf6, Refrigerant, NaturalGas, Energy, Waste, Travel, TaxonomyTurnover, TaxonomyOpEx,
@@ -17,7 +17,7 @@ class FuelExportPdfView(LoginRequiredMixin, View):
         fuel_filtered = filter_set.qs
 
         total_co2 = fuel_filtered.annotate(
-            co2e_for_fuel_emission=F('fuel_quantity') * F('emission_factor')
+            co2e_for_fuel_emission=F('quantity') * F('emission_factor')
         ).aggregate(total_co2e=Sum('co2e_for_fuel_emission'))['total_co2e'] or 0
 
         html_string = render_to_string('envdata/export_to_pdf/fuel_report.html', {'fuels': fuel_filtered,
@@ -38,7 +38,7 @@ class Sf6ExportPdfView(LoginRequiredMixin, CompanyContextMixin, View):
         filter_set = Sf6TypeFilter(request.GET, queryset=Sf6.objects.all().order_by('year'))
         sf6_filtered = filter_set.qs
 
-        total_co2 = sf6_filtered.annotate(co2_for_sf6_emission=F('sf6_quantity') * F('emission_factor')).aggregate(
+        total_co2 = sf6_filtered.annotate(co2_for_sf6_emission=F('quantity') * F('emission_factor')).aggregate(
             total_co2=Sum('co2_for_sf6_emission'))['total_co2'] or 0
 
         html_string = render_to_string('envdata/export_to_pdf/sf6_report.html', {'sf6_filtered': sf6_filtered,
@@ -60,7 +60,7 @@ class RefrigerantPdfView(LoginRequiredMixin, CompanyContextMixin, View):
 
         total_co2 = \
             filtered_refrigerants.annotate(
-                co2_for_refrigerant=F('refrigerant_quantity') * F('emission_factor')).aggregate(
+                co2_for_refrigerant=F('quantity') * F('emission_factor')).aggregate(
                 total_co2=Sum('co2_for_refrigerant'))['total_co2'] or 0
 
         html_string = render_to_string('envdata/export_to_pdf/refrigerant_report.html',
@@ -83,7 +83,7 @@ class NaturalGasPdfView(LoginRequiredMixin, CompanyContextMixin, View):
 
         total_co2 = \
             filtered_gas.annotate(
-                co2_for_gas=F('gas_quantity') * F('emission_factor')).aggregate(
+                co2_for_gas=F('quantity') * F('emission_factor')).aggregate(
                 total_co2=Sum('co2_for_gas'))['total_co2'] or 0
 
         html_string = render_to_string('envdata/export_to_pdf/gas_report.html',
@@ -106,7 +106,7 @@ class EnergyPdfView(LoginRequiredMixin, CompanyContextMixin, View):
 
         total_co2 = \
             filtered_energy.annotate(
-                co2_for_energy=F('energy_quantity') * F('emission_factor')).aggregate(
+                co2_for_energy=F('quantity') * F('emission_factor')).aggregate(
                 total_co2=Sum('co2_for_energy'))['total_co2'] or 0
 
         html_string = render_to_string('envdata/export_to_pdf/energy_report.html',

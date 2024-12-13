@@ -3,7 +3,7 @@ from esgmanager.models import ESGPillars
 from esgmanager.forms import ESGPillarsForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-from envdata.mixins import UpdateModeMixin, CompanyContextMixin
+from common.mixins import UpdateModeMixin, CompanyContextMixin
 
 
 class ListViewPillars(LoginRequiredMixin, ListView, CompanyContextMixin):

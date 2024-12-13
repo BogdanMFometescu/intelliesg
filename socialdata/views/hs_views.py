@@ -1,7 +1,7 @@
 from socialdata.models import HealthAndSafety
 from socialdata.forms import HealthAndSafetyForm
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
-from envdata.mixins import CompanyContextMixin, UpdateModeMixin
+from common.mixins import CompanyContextMixin, UpdateModeMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .filters import HealthAndSafetyFilter

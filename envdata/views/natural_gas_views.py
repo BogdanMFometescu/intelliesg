@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from envdata.models import NaturalGas
 from envdata.forms import NaturalGasForm
 from .filters import NaturalGasTypeFilter
-from envdata.mixins import CompanyContextMixin, UpdateModeMixin
+from common.mixins import CompanyContextMixin, UpdateModeMixin
 from django.db.models import Sum, F
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -25,7 +25,7 @@ class NaturalGasListView(CompanyContextMixin, LoginRequiredMixin, FilterView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         filtered_qs = \
-            self.filterset.qs.annotate(co2_for_gas_emissions=F('gas_quantity') * F('emission_factor')).aggregate(
+            self.filterset.qs.annotate(co2_for_gas_emissions=F('quantity') * F('emission_factor')).aggregate(
                 total_co2=Sum('co2_for_gas_emissions'))['total_co2'] or 0
 
         paginator = Paginator(self.filterset.qs, self.paginate_by)

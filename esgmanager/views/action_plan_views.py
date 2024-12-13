@@ -2,10 +2,10 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Prefetch
-from envdata.mixins import CompanyContextMixin, UpdateModeMixin
+from common.mixins import CompanyContextMixin, UpdateModeMixin
 from esgmanager.models import ESGActionPlan, ESGActionPlanObjectives, ESGPillars
 from esgmanager.forms import ESGActionPlanForm
-from envdata.models import Company
+from companies.models import Company
 
 
 class ListViewActionPlan(LoginRequiredMixin, CompanyContextMixin, ListView):

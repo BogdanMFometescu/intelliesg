@@ -1,7 +1,7 @@
 from esgmanager.models import ClimateChangeRisk
 from esgmanager.forms import ClimateChangeRisksForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from envdata.mixins import CompanyContextMixin, UpdateModeMixin
+from common.mixins import CompanyContextMixin, UpdateModeMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 

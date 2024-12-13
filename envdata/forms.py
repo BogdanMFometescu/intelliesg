@@ -1,4 +1,4 @@
-from envdata.models import (Company,
+from envdata.models import (
                             Fuel,
                             Sf6,
                             Refrigerant,
@@ -25,84 +25,70 @@ from envdata.models import (Company,
                             Franchises,
                             Investments)
 
+from companies.models import Company
 from django.forms import ModelForm
 from django import forms
 from envdata.constants import *
+from common.forms import BaseForm
 
 
-class BaseProfileForm(ModelForm):
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        super(BaseProfileForm, self).__init__(*args, **kwargs)
-        for name, field in self.fields.items():
-            field.widget.attrs.update({'class': 'form-control'})
-
-    def save(self, commit=True):
-        instance = super(BaseProfileForm, self).save(commit=False)
-        if self.user:
-            instance.profile = self.user.profile
-        if commit:
-            instance.save()
-        return instance
-
-
-class CompanyForm(BaseProfileForm):
+class CompanyForm(BaseForm):
     class Meta:
         model = Company
         fields = '__all__'
         exclude = ['profile']
 
 
-class FuelForm(BaseProfileForm):
+class FuelForm(BaseForm):
     class Meta:
         model = Fuel
         fields = '__all__'
         exclude = ['profile']
 
 
-class Sf6Form(BaseProfileForm):
+class Sf6Form(BaseForm):
     class Meta:
         model = Sf6
         fields = '__all__'
         exclude = ['profile']
 
 
-class RefrigerantForm(BaseProfileForm):
+class RefrigerantForm(BaseForm):
     class Meta:
         model = Refrigerant
         fields = '__all__'
         exclude = ['profile']
 
 
-class NaturalGasForm(BaseProfileForm):
+class NaturalGasForm(BaseForm):
     class Meta:
         model = NaturalGas
         fields = '__all__'
         exclude = ['profile']
 
 
-class EnergyForm(BaseProfileForm):
+class EnergyForm(BaseForm):
     class Meta:
         model = Energy
         fields = '__all__'
         exclude = ['profile']
 
 
-class TravelForm(BaseProfileForm):
+class TravelForm(BaseForm):
     class Meta:
         model = Travel
         fields = '__all__'
         exclude = ['profile']
 
 
-class WasteForm(BaseProfileForm):
+class WasteForm(BaseForm):
     class Meta:
         model = Waste
         fields = '__all__'
         exclude = ['profile']
 
 
-class TargetForm(BaseProfileForm):
+class TargetForm(BaseForm):
     class Meta:
         model = Target
         fields = '__all__'
@@ -114,7 +100,7 @@ class ExcelUploadForm(forms.Form):
     excel_file = forms.FileField()
 
 
-class TaxonomySectorForm(BaseProfileForm):
+class TaxonomySectorForm(BaseForm):
     sector = forms.ChoiceField(choices=TAXONOMY_SECTOR_CHOICES)
     activity = forms.ChoiceField(choices=TAXONOMY_ACTIVITY_CHOICES)
 
@@ -124,7 +110,7 @@ class TaxonomySectorForm(BaseProfileForm):
         exclude = ['profile']
 
 
-class TaxonomyTurnoverForm(BaseProfileForm):
+class TaxonomyTurnoverForm(BaseForm):
     class Meta:
         model = TaxonomyTurnover
         fields = '__all__'
@@ -144,7 +130,7 @@ class TaxonomyTurnoverForm(BaseProfileForm):
         exclude = ['profile']
 
 
-class TaxonomyCapexForm(BaseProfileForm):
+class TaxonomyCapexForm(BaseForm):
     class Meta:
         model = TaxonomyCapEx
         fields = '__all__'
@@ -162,7 +148,7 @@ class TaxonomyCapexForm(BaseProfileForm):
         exclude = ['profile']
 
 
-class TaxonomyOpexForm(BaseProfileForm):
+class TaxonomyOpexForm(BaseForm):
     class Meta:
         model = TaxonomyOpEx
         fields = '__all__'
@@ -182,90 +168,90 @@ class TaxonomyOpexForm(BaseProfileForm):
 
 
 
-class PurchasedGoodsAndServicesForm(BaseProfileForm):
+class PurchasedGoodsAndServicesForm(BaseForm):
     class Meta:
         model = PurchasedGoodsAndServices
         fields = '__all__'
         exclude = ['profile']
 
 
-class CapitalGoodsForm(BaseProfileForm):
+class CapitalGoodsForm(BaseForm):
      class Meta:
         model = CapitalGoods
         fields = '__all__'
         exclude = ['profile']
 
 
-class FuelEnergyRelatedActivitiesForm(BaseProfileForm):
+class FuelEnergyRelatedActivitiesForm(BaseForm):
      class Meta:
         model = FuelEnergyRelatedActivities
         fields = '__all__'
         exclude = ['profile']
     
 
-class UpstreamTransportationAndDistributionForm(BaseProfileForm):
+class UpstreamTransportationAndDistributionForm(BaseForm):
      class Meta:
         model = UpstreamTransportationAndDistribution
         fields = '__all__'
         exclude = ['profile']
 
-class EmployeeCommutingForm(BaseProfileForm):
+class EmployeeCommutingForm(BaseForm):
      class Meta:
         model = EmployeeCommuting
         fields = '__all__'
         exclude = ['profile']
 
 
-class UpstreamLeasedAssetsForm(BaseProfileForm):
+class UpstreamLeasedAssetsForm(BaseForm):
      class Meta:
         model = UpstreamLeasedAssets
         fields = '__all__'
         exclude = ['profile']
 
 
-class DownstreamTransportationAndDistributionForm(BaseProfileForm):
+class DownstreamTransportationAndDistributionForm(BaseForm):
      class Meta:
         model = DownstreamTransportationAndDistribution
         fields = '__all__'
         exclude = ['profile']
 
 
-class ProcessingOfSoldProductsForm(BaseProfileForm):
+class ProcessingOfSoldProductsForm(BaseForm):
      class Meta:
         model = ProcessingOfSoldProducts
         fields = '__all__'
         exclude = ['profile']
 
 
-class UseOfSoldProductsForm(BaseProfileForm):
+class UseOfSoldProductsForm(BaseForm):
      class Meta:
         model = UseOfSoldProducts
         fields = '__all__'
         exclude = ['profile']
 
 
-class EndOfLifeTreatmentOfSoldProductsForm(BaseProfileForm):
+class EndOfLifeTreatmentOfSoldProductsForm(BaseForm):
      class Meta:
         model = EndOfLifeTreatmentOfSoldProducts
         fields = '__all__'
         exclude = ['profile']
 
 
-class DownstreamLeasedAssetsForm(BaseProfileForm):
+class DownstreamLeasedAssetsForm(BaseForm):
      class Meta:
         model = DownstreamLeasedAssets
         fields = '__all__'
         exclude = ['profile']
 
 
-class FranchisesForm(BaseProfileForm):
+class FranchisesForm(BaseForm):
      class Meta:
         model = Franchises
         fields = '__all__'
         exclude = ['profile']
 
 
-class InvestmentsForm(BaseProfileForm):
+class InvestmentsForm(BaseForm):
      class Meta:
         model = Investments
         fields = '__all__'

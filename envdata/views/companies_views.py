@@ -1,8 +1,9 @@
 from envdata.forms import CompanyForm
-from envdata.models import Company, Fuel, NaturalGas, Sf6, Refrigerant, Energy, Travel, Waste, Target
+from companies.models import Company
+from envdata.models import Fuel, NaturalGas, Sf6, Refrigerant, Energy, Travel, Waste, Target
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from envdata.mixins import UpdateModeMixin, CompanyContextMixin
+from common.mixins import UpdateModeMixin, CompanyContextMixin
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -40,7 +41,7 @@ class CompanyDetailView(LoginRequiredMixin, CompanyContextMixin, DetailView):
         try:
             for model in [Fuel, NaturalGas, Sf6, Refrigerant, Energy, Travel, Waste]:
                 model_name = model.__name__.lower()
-                model_data = model.annual_co2_per_company(company_id)
+                model_data = model.annual_emissions(company_id)
                 for data in model_data:
                     year = data['year']
                     total_co2 = data['total_co2']

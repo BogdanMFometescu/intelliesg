@@ -1,5 +1,5 @@
 from django.db import models
-from envdata.models import Company
+from companies.models import Company
 from datetime import date
 import uuid
 from esgmanager.constants import *

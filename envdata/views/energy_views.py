@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.views.generic import (DetailView, CreateView, UpdateView, DeleteView)
-from envdata.mixins import UpdateModeMixin, CompanyContextMixin
+from common.mixins import UpdateModeMixin, CompanyContextMixin
 from envdata.models import Energy
 from envdata.forms import EnergyForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,7 +25,7 @@ class EnergyListView(LoginRequiredMixin, CompanyContextMixin, FilterView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         filtered_qs = \
-            self.filterset.qs.annotate(co2_for_energy_emissions=F('energy_quantity') * F('emission_factor')).aggregate(
+            self.filterset.qs.annotate(co2_for_energy_emissions=F('quantity') * F('emission_factor')).aggregate(
                 total_co2=Sum('co2_for_energy_emissions'))['total_co2'] or 0
 
         paginator = Paginator(self.filterset.qs, self.paginate_by)

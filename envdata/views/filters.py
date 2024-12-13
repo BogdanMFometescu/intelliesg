@@ -1,5 +1,5 @@
 import django_filters
-from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Waste, NaturalGas, TaxonomyTurnover,
+from envdata.models import (Fuel, Energy, Sf6,Refrigerant, Travel, Waste, NaturalGas, TaxonomyTurnover,
                             TaxonomySector, TaxonomyOpEx, TaxonomyCapEx,PurchasedGoodsAndServices,
                             CapitalGoods,
                             FuelEnergyRelatedActivities,
@@ -13,6 +13,8 @@ from envdata.models import (Fuel, Energy, Sf6, Company, Refrigerant, Travel, Was
                             DownstreamLeasedAssets,
                             Franchises,
                             Investments)
+
+from companies.models import Company
 from envdata.constants import *
 
 
